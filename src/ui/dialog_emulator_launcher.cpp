@@ -245,7 +245,10 @@ int CDialogEmulatorLauncher::run(CSystem* p_system, CGame* p_game){
 		return Gtk::Dialog::run();
 	}
 	else
+	{
 		this->response(Gtk::RESPONSE_CLOSE);
+		return Gtk::RESPONSE_CLOSE;
+	}
 }
 
 void CDialogEmulatorLauncher::loadConfig(void){

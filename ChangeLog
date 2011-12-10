@@ -1,3 +1,23 @@
+2011-12-10  Juan A. Moreno <gelide.prj@gmail.com>
+	* po/es.po:
+	Added generic Spanish translation.
+
+	* src/ui/dialog_emulator_launcher.cpp
+	Bug #3454858 has been corrected.
+
+2011-12-09  Darkmagister <dm@darkmagister.org>
+	* it.po:
+	Updated italian translation.
+
+2011-08-13  Christian Nickel <christian.nickel@gmx.de>
+	* de.po:
+	Updated German translation.
+
+2011-03-29  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/dialog_about.cpp:
+	Translator credit info updated.
+
+
 ==== Gelide 0.1.5 ====
 2011-03-26  Juan A. Moreno <gelide.prj@gmail.com>
 	* doc/SystemsAndEmulators-HowTo.es_ES.txt:

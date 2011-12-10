@@ -67,14 +67,11 @@ CDialogAbout::CDialogAbout(void){
 		"\tBoston, MA  02110-1301, USA.\n";
 	set_license(l_license);
 
-	//m_artists.push_back("");
-	//set_artists(m_artists);
-
 	m_authors.push_back("Juan Ángel Moreno Fernández\n<jamf@users.sourceforge.net>");
 	set_authors(m_authors);
 
 	// Translators: change this to your name, separate multiple names with \n
-	l_translators = _("Translations credits");
+	l_translators = _("Juan Ángel Moreno Fernández\n<jamf@users.sourceforge.net>");
 	set_translator_credits(l_translators);
 
 	try{
@@ -96,11 +93,10 @@ void CDialogAbout::loadConfig(void){
 	int l_x, l_y;
 
 	// Obtenemos la posición almacenada
-	//m_config->getAboutDialogPos(l_x, l_y);
-	m_config->getKey(GELIDE_CFG_DIALOGS, "about_dialog_x", l_x);
-	m_config->getKey(GELIDE_CFG_DIALOGS, "about_dialog_y", l_y);
-	if((l_x!= -1) && (l_y != -1))
+	if(m_config->getKey(GELIDE_CFG_DIALOGS, "about_dialog_x", l_x){
+		m_config->getKey(GELIDE_CFG_DIALOGS, "about_dialog_y", l_y);
 		this->move(l_x, l_y);
+	}
 }
 
 void CDialogAbout::saveConfig(void){
@@ -108,12 +104,9 @@ void CDialogAbout::saveConfig(void){
 
 	// Guardamos la posición del dialogo
 	this->get_position(l_x, l_y);
-	//m_config->setAboutDialogPos(l_x, l_y);
 	m_config->setKey(GELIDE_CFG_DIALOGS, "about_dialog_x", l_x);
 	m_config->setKey(GELIDE_CFG_DIALOGS, "about_dialog_y", l_y);
-
 }
-
 
 void CDialogAbout::on_response(int p_id){
 	if(p_id == Gtk::RESPONSE_DELETE_EVENT || p_id == Gtk::RESPONSE_CANCEL || p_id == Gtk::RESPONSE_CLOSE){
