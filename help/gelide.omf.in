@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?>
+<omf>
+  <resource>
+    <subject category="GNOME|Applications|Games"/>
+    <type>user's guide</type>
+    <relation seriesid="18321921-d014-4f05-a368-3f2b6aa938a6"/>
+    <rights type="GNU FDL" license.version="1.1" holder="Juan Ángel Moreno Fernández"/>
+  </resource>
+</omf>
+

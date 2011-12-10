@@ -1,0 +1,1067 @@
+==== Gelide 0.1.5 ====
+2011-03-26  Juan A. Moreno <gelide.prj@gmail.com>
+	* doc/SystemsAndEmulators-HowTo.es_ES.txt:
+	Corrected and updated.
+
+	* po/es_ES.po:
+	Updated the Spanish translation.
+
+	* ChangeLog:
+	Updated.
+
+2011-03-25  Juan A. Moreno <gelide.prj@gmail.com>
+	* README, NEWS, po/ChangeLog, po/LINGUAS:
+	Updated.
+	
+2011-03-19  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	The system "Sinclair - ZX Spectrum" has been added to the systems list with
+	the emulators FBZX, Fuse, SpectEmu, Mess and SdlMess preconfigured.
+	
+	* pixmap/fbzx.png, pixmap/fuse.png, pixmap/sinclair-zxspectrum.png,
+	  pixmap/spectemu.png:
+	Added.
+	
+2011-03-15  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/system_manager.cpp:
+	Bug #3212836 has been corrected. Now the systems panel work correctly and
+	let you add any number of systems without problems.
+
+	* src/core/system.cpp:
+	Bug #3212837 has been corrected. Now the emulators panel work correctly and
+	let you add any number of emulators without problems.
+
+	* src/ui/dialog_about.hpp, src/ui/dialog_about.cpp:
+	Bug #3212831 has been corrected. Now the link to Gelide's homepage in the
+	About dialog is working.
+
+	* src/core/default_systems.hpp:
+	Bug #3212793 has been corrected. The param "-l" has been removed from the
+	preconfiguration of ZSNes.
+
+2010-12-20  Juan A. Moreno <gelide.prj@gmail.com>
+	* po/ru.po:
+	Added Russian translation by Oleg Koptev.
+
+2010-12-07  Juan A. Moreno <gelide.prj@gmail.com>
+	* po/pl.po:
+	Added Polish translation by Kamil Ślepowroński.
+
+2010-10-31  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/gelide_ui.cpp:
+	Bug #3099249 has been corrected. Now the tools bar status is remembered
+	correctly.
+	
+	* src/ui/gelide_ui_actions.cpp:
+	Bug #3212822 has been corrected. Fixed a bug that prevented the proper load
+	of the main window configuration when started in fullscreen mode.
+
+
+==== Gelide 0.1.4 "Elendil" ====
+2010-10-28  Juan A. Moreno <gelide.prj@gmail.com>
+	* README, NEWS, ChangeLog:
+	Actualizados.
+
+	* doc/Systems&Emulators-HowTo.es_ES.txt:
+	Se actualiza y reescribe el documento a la versión 0.1.4.	
+
+2010-10-22  Juan A. Moreno <gelide.prj@gmail.com>
+	* po/fr_FR.po:
+	Se actualiza la traducción al Francés gracias a Emeric Grange.
+	
+2010-10-17  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se añade el sistema "Nintendo DS" incluyendo preconfigurado el emulador
+	DeSMuME.
+	Se añade el sistema "SEGA 32X" incluyendo preconfigurados los emuladores
+	Gens/GS, Mess y SdlMess.
+	Se añade el sistema "SNK Neo Geo Pocket" incluyendo preconfigurados los
+	emuladores Mednafen, Xe, Mess y SdlMess.
+	Se añade el sistema "SNK Neo Geo Pocket Color" incluyendo preconfigurados los
+	emuladores Mednafen, Xe, Mess y SdlMess.
+	
+2010-10-16  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se revisan y actualizan todos los sistemas incluidos hasta la versión 0.1.3,
+	con los siguientes cambios:
+	Se incluye la preconfiguración del emulador Mess en multiples sistemas.
+	Se incluye la preconfiguración del emulador z26 en el sistema Atari 2600.
+	Se incluye la preconfiguración del emulador Handy/SDL en el sistema Atari
+	Lynx.
+	Se incluye la preconfiguración del emulador Mame en el sistema Mame.
+	Se incluye la preconfiguración del emulador Nestopia en los sistemas
+	Nintendo FDS y Nintendo NES.
+	Se incluye la preconfiguración del emulador Gngb en los sistemas Nintendo
+	Game Boy y Nintendo Game Boy Color.
+	Se incluye la preconfiguración del emulador Gnuboy en los sistemas Nintendo
+	Game Boy y Nintendo Game Boy Color.
+	Se incluye la preconfiguración del emulador BoyCott Advance-SDL en el
+	Nintendo Game Boy Advance.
+	Se incluye la preconfiguración del emulador SNes9x-gtk en el sistema
+	Nintendo SNES.
+	Se incluye la preconfiguración del emulador BSnes en el sistema Nintendo
+	SNES.
+	Actualizadas preconfiguraciones del emulador SdlMess a su versión 0.136.
+	Actualizada preconfiguración del emulador Stella a su versión 3.2.2.
+	Actualizadas preconfiguraciones del emulador Mednafen a su versión 0.8.D.
+	Actualizadas preconfiguraciones del emulador SdlMame a su versión 0.136.
+	Actualizadas preconfiguraciones del emulador FCEUX a su versión 2.1.4a.
+	Actualizada preconfiguración del emulador Raine a su versión 0.51.7.
+	Actualizadas preconfiguraciones del emulador Osmose a su versión 0.9.2.
+	Actualizada preconfiguración del emulador Gens/GS a su versión 2.16.7
+	(gs-m7).
+	Actualizada preconfiguración del emulador Generator a su versión 2.35.4
+	(cbiere r4).
+	Se eliminan las preconfiguraciones del emulador FCEU.
+	Se elimina la preconfiguración del emulador SNes9x.
+	Se eliminan las preconfiguraciones del emulador XMess de varios sistemas.
+	Se elimina la preconfiguración del emulador Generator NTSC.
+	Se elimina la preconfiguración del emulador Dgen/sdl.
+
+	* pixmap/mame.png, pixmap/raine.png, pixmap/zinc.png, pixmap/fceu.png:
+	Se renombran respectivamente a arcade-mame.png, arcade-raine.png,
+	arcade-zinc.png, fceux.png.
+
+	* pixmap/mess.png, pixmap/z26.png, pixmap/snes9x-gtk.png,
+	  pixmap/nestopia.png, pixmap/bsnes.png, pixmap/handysdl.png,
+	  pixmap/gnuboy.png, pixmap/gngb.png, pixmap/boycottadvance-sdl.png,
+	  pixmap/mame.png:
+	Añadidos.
+	
+	* pixmap/dgen.png, pixmap/snes9x.png:
+	Eliminados.
+	
+2010-10-11  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/dialog_emulator_launcher.hpp, src/ui/dialog_emulator_launcher.cpp:
+	Se corrige un bug en la configuración de la linea de comandos que impedía el
+	correcto uso de paths con espacios en la dirección del binario de los
+	emuladores.
+	
+2010-10-09  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/dialog_emulator_launcher.hpp, src/ui/dialog_emulator_launcher.cpp:
+	Se modifica el comportamiento del diálogo. Ahora cuando en la configuración,
+	la opción "Mostrar salida de los emuladores" está desactivada, el diálogo se
+	cierra automáticamente tras la emulación. Si dicha opción está activada, el
+	diálogo esperará hasta que el usuario lo cierre.
+
+2010-09-29  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/gelide_ui.cpp, src/ui/gelide_ui_actions.cpp:
+	Se corrige un fallo en la ui principal que provocaba la perdida del layout
+	al salir del modo fullscreen.
+	
+	* src/ui/gelide_ui.cpp, src/ui/info_pannel.cpp:
+	Se corrige un fallo en el panel de información que provocaba que el
+	redimensionado de las imágenes fuera incorrecto al entrar/salir del modo
+	fullscreen y también al maximizar/minimizar la ui principal.	
+
+2010-09-23  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/dat_reader_mamexml.hpp, src/core/dat_reader_mamexml.cpp:
+	Añadidos. Implementación de un lector de ficheros dat basados en el formato
+	xml generado por el ejecutable del mame ("mame -listxml").
+
+2010-09-23  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/datfile.hpp, src/core/datfile.cpp,
+	  src/core/cmprodatfile.hpp, src/core/cmprodatfile.cpp:
+	Eliminados. Vieja implementación del lector de ficheros dat con soporte solo
+	para dats en formato ClrMamePro.
+
+	* src/core/dat_reader.hpp, src/core/dat_reader.cpp, 
+	  src/core/dat_reader_factory.hpp, src/core/dat_reader_factory.cpp:
+	Añadidos. Nueva implementación de las clases base para lectores de ficheros
+	dat. La nueva implementación permite añadir soporte para nuevos formatos de
+	ficheros dat de una forma más simple y un estilo similar a un sistema de
+	plugins.
+	
+	* src/core/dat_reader_clrmamepro.hpp, src/core/dat_reader_clrmamepro.cpp:
+	Añadidos. Implementación de un lector de ficheros dat basados en el formato
+	establecido por ClrMamePro (Info: http://www.logiqx.com/DatFAQs/CMPro.php).
+	
+	* src/core/dat_reader_logiqxxml.hpp, src/core/dat_reader_logiqxxml.cpp:
+	Añadidos. Implementación de un lector de ficheros dat basados en el formato
+	xml creado por Logiqx (Info: http://www.logiqx.com/Dats/datafile.dtd).
+
+2010-09-21  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/utils/xml_reader.hpp, src/utils/xml_reader.cpp,
+	  src/utils/tokenizer.hpp, src/utils/tokenizer.cpp
+	Se añade soporte al reader de xml y al tokenizador genérico para carga
+	directa desde un buffer de memoria.  
+
+2010-09-21  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/gelide_ui.hpp, src/ui/gelide_ui.cpp, src/ui/gelide_ui_actions.cpp:
+	Se corrige un fallo por el que no se guardaba correctamente la posición de
+	la interfaz principal del programa en el fichero de configuración.
+
+	* src/ui/treeview_games.cpp:
+	Corregido un fallo en el nuevo sistema de filtrado por título que forzaba
+	el filtrado en el nombre del set en vez del título del set.
+
+2010-07-14  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/gelide_ui.cpp, src/ui/treeview_filters.cpp:
+	Se elimina la carga y almacenamiento del último filtro utilizado en el árbol
+	de filtros ya que se ha comprobado que puede llevar a errores. Con ello, se
+	elimina de la configuración la clave ui->selected_filter
+	
+	* src/ui/dialog_preferences.hpp, src/ui/dialog_preferences.cpp:
+	Se añaden dos nuevas opciones para definir el comportamiento del nuevo
+	generador de listados de juegos:
+		- Preservar datos actuales de los juegos
+		- Añadir juegos desconocidos 
+
+	* src/ui/dialog_gamelist_generator.cpp:
+	Se añade al generador de listados de juegos el soporte necesario para poder
+	activar y desactivar la preservación de los datos actuales en la lista de
+	juegos y también para activar y desactivar el añadido de juegos desconocidos
+	o ajenos al fichero dat.
+ 
+2010-07-14  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/dialog_gamelist_generator.cpp:
+	Nueva implementación del generador de listados de juegos, añadiendo soporte
+	para mantener los datos actuales del usuario.
+
+2010-07-13  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/*:
+	Se cambia Cartridge por Media en todos los lugares donde corresponde. Media
+	es más genérico y cubre más soportes que Cartridge.
+
+2010-07-11  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/*:
+	Se integra el nuevo sistema de configuración basado en ficheros xml y se
+	crea la primera configuración por defecto del sistema. La dependencia con
+	GConf y libgconf ha sido eliminada. 
+	
+	* po/POTFILES.in:
+	Se actualiza la lista de ficheros con cadenas traducibles.
+
+2010-07-10  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/utls/singleton.hpp:
+	Eliminado.
+	
+	* src/core/system_manager.hpp, src/ui/gelide_ui.hpp, src/config.hpp:
+	Se reimplementa el sistema de singletones para hacerlo más simple y sin
+	dependencias de una librería (eliminada en el apartado anterior). 
+
+	* src/config.hpp, src/config.cpp:
+	Implementación de un nuevo sistema de configuración basado en ficheros XML
+	con la intención de eliminar totalmente la dependencia que Gelide tiene con
+	GConfmm.
+	
+	* data/defaultcfg.xml:
+	Se añade un fichero donde se guardará la configuración por defecto que usara
+	Gelide. Por medio de este fichero, movemos la configuración por defecto
+	fuera del código, lo que nos permitirá un mantenimiento y modificación más
+	simple y directo.
+
+	* doc/Gelide-configuration-file-format.txt:
+	Se añade un documento a la instalación con la especificación del formato de
+	los ficheros de configuración en su versión 0.1.	
+	
+2010-07-10  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/utils/xml_tools.hpp, src/utils/xml_tools.cpp:
+	Eliminados y reemplazados por las nuevas librerías xml de la serie 0.2.x.
+	
+	* src/utils/xml_reader.hpp, src/utils/xml_reader.cpp,
+	  src/utils/xml_writer.hpp, src/utils/xml_writer.cpp,
+	  src/utils/xml_parser.hpp, src/utils/xml_parser.cpp:
+	Añadidos. Nueva implementación de librerías para gestión de ficheos xml
+	preparadas para la futura serie 0.2.x.
+
+2010-07-09  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/gelide-i18n.hpp:
+	Renombrado por gelide_i18n.hpp y se actualizan todas sus dependencias.
+	
+	* src/utils:
+	Se crea un nuevo directorio donde se almacenará todo el código de utilidad
+	genérica.
+	
+	* src/tokenizer.hpp, src/tokenizer.cpp, src/gelide_utils.hpp,
+	  src/gelide_utils.cpp:
+	Movidos al directorio src/utils y actualizados desde la rama de la serie
+	0.2.x donde se han realizado mejoras.
+	
+	* src/xml_tools.hpp, src/xml_tools.cpp:
+	Movidos al directorio src/utils. Próximamente sera reemplazado por las
+	nuevas librerías xml de la serie 0.2.x
+	
+	* src/template_singleton.hpp:
+	Movido a src/utils/singleton.hpp. Próximamente se eliminará, ya que no
+	merece la pena, el código necesario es más largo que hacerlo directamente en
+	las clases que necesiten ser singletons.
+
+	* core/process.hpp, core/process.cpp:
+	Movidos al directorio src/utils.
+	
+	* src/utils/crc32.hpp, src/utils/crc32.cpp:
+	Añadidos desde la rama de la serie 0.2.x. Implementación de una clase con
+	métodos estáticos para el cálculo y manipulación de códigos crc usando el
+	mismo polinomio que se utiliza en archivos comprimidos tales como zip.
+
+2010-07-09  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/system_manager.hpp, src/core/system_manager.cpp
+	  src/ui/treeview_systems.hpp, src/ui/treeview_systems.cpp:
+	Se añade soporte para poder mover los sistemas dentro de su panel. Los
+	movimientos posibles son:
+		- Al comienzo del listado
+		- Una posición arriba
+		- Una posición abajo
+		- Al final del listado
+
+	* src/ui/treeview_emulators.hpp, src/ui/treeview_emulators.cpp:
+	Se añade soporte para poder mover los emuladores dentro de su panel. Los
+	movimientos posibles son:
+		- Al comienzo del listado
+		- Una posición arriba
+		- Una posición abajo
+		- Al final del listado
+
+2010-07-08  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/treeview_games.hpp, src/ui/treeview_games.cpp:
+	Se reimplementa el sistema de filtrado por título haciendolo insensible a
+	mayúsculas y minúsculas y añadiendo soporte para dos caracteres comodines:
+		- "?": reemplaza un carácter.
+		- "*": reemplaza uno o más caracteres.
+
+2010-07-08  Juan A. Moreno <gelide.prj@gmail.com>
+	* .anjuta/*, gelide.anjuta:
+	Eliminados los archivos del proyecto para anjuta ya que no se han usado en
+	mucho tiempo. Todo el proyecto se está realizando en Eclipse.
+
+	* data/gelide.schemas.in, data/systems.xml.in:
+	Eliminados ya que no se van a utilizar nunca más.
+
+	* configure.ac, data/Makefile.am, ui/Makefile.am:
+	Se modifican para eliminar las dependencias de gconfmm y libglademm, Gelide
+	ya no dependerá más de estas librerías.
+
+2009-04-26  Juan A. Moreno <gelide.prj@gmail.com>
+	* po/sv_SV.po:
+	Se actualiza y renombra la traducción al Sueco gracias a Daniel Nylander.
+
+
+==== Gelide 0.1.3 ====
+2009-04-25  Juan A. Moreno <gelide.prj@gmail.com>
+	* README, NEWS, ChangeLog:
+	Actualizados
+
+	* doc/Systems&Emulators-HowTo.es_ES.txt:
+	Se revisa y actualiza el documento a la versión 0.1.3.	
+
+	* src/core/default_systems.cpp:
+	Se actualiza la preconfiguracion del emulador Stella a su versión 2.7.6.
+	Se actualizan las preconfiguraciones del emulador Mednafen a su versión
+	0.8.B.
+	Se actualizan las preconfiguraciones del emulador Xe a su versión 2.16.2.
+	Se actualizan las preconfiguraciones del emulador Osmose a su versión
+	0.8.5b (Existe una versión 0.9.0beta, pero el autor de Osmose ha decidido
+	eliminar los parámetros por linea de comandos).
+	Se actualiza la preconfiguracion del emulador Gens a su versión Gens/GS
+	2.15.5-gs-m6.
+
+	* src/core/default_systems.cpp:
+	Se incluye la preconfiguración del emulador FceuX en los sistema "Nintendo
+	Famicom Disk System" y "Nintendo Nes".
+	
+
+2009-04-08  Juan A. Moreno <gelide.prj@gmail.com>
+	* po/fr_FR.po:
+	Se actualiza la traducción al Francés gracias a Emeric Grange.
+
+	* po/sv_SV.po:
+	Se actualiza la traducción al Sueco gracias a Niklas Grahn ("Nixon").
+
+	* po/it_IT.po:
+	Se actualiza la traducción al Italiano gracias a Loris Cuoghi.
+
+	* po/de.po:
+	Se actualiza la traducción al Alemán gracias a Manuel Wächter.
+
+	* po/es_ES.po:
+	Se actualiza la traducción al Español.
+
+2009-04-02  Juan A. Moreno <gelide.prj@gmail.com>
+	* ui/icons/gelide-all.png, ui/icons/gelide-available.png,
+	  ui/icons/gelide-emulator.png, ui/icons/gelide-favorite.png,
+	  ui/icons/gelide-played.png, ui/icons/gelide-system.png,
+	  ui/icons/gelide-unknown.png, ui/icons/gelide-working.png,
+	  ui/icons/gelide-year.png:
+	 Añadidos.
+	  
+	* src/ui/gelide_icons.hpp, src/ui/gelide_icons.hpp:
+	Se corrige un bug en el gestor de iconos que provocaba que Gelide finalizara
+	anormalmente cuando ciertos iconos utilizados por Gelide no existían en el
+	tema de iconos del usuario. Ahora Gelide busca estos iconos y si no existen
+	utiliza otros por defecto incluidos en el paquete. (Gracias a Loris Cuoghi
+	y Manuel Wächter por informarme de este comportamiento).
+	
+2009-04-01  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Magnavox Odyssey2" incluyendo preconfigurados los
+	emuladores SdlMess y XMess.
+	Se incluye el sistema "Mattel Intellivision" incluyendo preconfigurados los
+	emuladores SdlMess, XMess y jzIntv.
+	Se incluye el sistema "RCA Studio II" incluyendo preconfigurados los 
+	emuladores XMess y SdlMess.
+	Se incluye el sistema "SNK Neo Geo" incluyendo preconfigurados los 
+	emuladores SdlMame, GnGeo y XMame.	
+
+2009-03-31  Juan A. Moreno <gelide.prj@gmail.com>
+	* po/de.po:
+	Se añade traducción al Alemán gracias a Manuel Wächter.
+
+	* po/fr_FR.po:
+	Se añade traducción al Francés gracias a Emeric Grange.
+
+	* po/sv_SV.po:
+	Se añade traducción al Sueco gracias a Niklas Grahn ("Nixon").
+
+	* po/it_IT.po:
+	Se actualiza la traducción al Italiano gracias a Loris Cuoghi.
+
+	* src/core/default_systems.cpp:
+	Se corrige un fallo en la preconfiguración del emulador SdlMess para el
+	sistema Coleco ColecoVision.
+	Se actualizan las preconfiguraciones de SdlMess a su versión 0.130.
+	Se actualizan las preconfiguraciones de SdlMame a su versión 0.130u2.
+
+	* pixmaps/jzintv.png:
+	Añadido.
+
+2009-03-30  Juan A. Moreno <gelide.prj@gmail.com>
+	* pixmaps/gngeo.png, pixmaps/snk-neogeo.png:
+	Añadidos.
+
+2009-03-29  Juan A. Moreno <gelide.prj@gmail.com>
+	* pixmaps/magnavox-odysey2.png, pixmaps/mattel-intellivision.png,
+	  pixmaps/rca-studio2.png:
+	Añadidos.
+
+	
+==== Gelide 0.1.2 ====
+2009-02-18  Juan A. Moreno <gelide.prj@gmail.com>	
+	* README, NEWS, ChangeLog:
+	Actualizados
+
+	* doc/Systems&Emulators-HowTo.es_ES.txt:
+	Se revisa y actualiza el documento a la versión 0.1.2.
+
+2009-02-17  Juan A. Moreno <gelide.prj@gmail.com>	
+	* src/core/default_systems.cpp:
+	Se disminuye la prioridad de los emuladores XMame y XMess y se aumenta la de
+	los emuladores SdlMame y SdlMess ya que los primeros no han sido 
+	actualizados desde hace mucho tiempo (versión XMame: 0.106, versión SdlMame:
+	v0.129u3. Versión XMess: 0.106, versión SdlMess: 0.129).
+	
+	* src/core/system.cpp:
+	Se añade el código necesario para renombrar automáticamente la etiqueta
+	"$rp" por "$gp" de forma que el usuario no tenga que realizar el cambio
+	manualmente.
+	
+2009-02-16  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/dialog_gamelist_generator.cpp:
+	Se corrige el bug #2604694. Ahora el generador de listados de juegos realiza
+	su tarea correctamente.
+	Se corrige el bug #2606136. Los juegos del dat son etiquetados correctamente
+	al generar el listado.
+	Se añade el nombre del juego también como descripción a los juegos que no
+	están en el dat. 
+
+2009-02-15  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/dialog_emulator_launcher.cpp, dialog_emulator_launcher.hpp:
+	Se mejora el parseo de parámetros, ahora se permite multiples apariciones
+	de las etiquetas internas.
+	Se mejora el sistema de lanzamiento de los emuladores. Ahora se lanzan
+	haciendo uso del shell del sistema, lo cual amplía las posibilidades para
+	los	parámetros de los emuladores.
+
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Atari 7800" incluyendo preconfigurados los emuladores
+	XMess y SdlMess.
+	Se incluye el sistema "Raine" incluyendo preconfigurados los emuladores
+	Raine, XMame y SdlMame.
+	Se incluye el sistema "ZiNc" incluyendo preconfigurados los emuladores
+	ZiNc, XMame y SdlMame.
+
+	* pixmaps/atari-7800.png, pixmaps/raine-system.png, pixmaps/raine.png
+	  pixmaps/zinc-system.png, pixmaps/zinc.png:
+	Añadidos.
+
+	* po/es_ES.po:
+	Se actualiza la traducción Española.
+
+2009-02-14  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/treeview_games.cpp, src/config.cpp, src/config.hpp:
+	Se corrige el bug #2503738. Ahora Gelide recuerda la columna por la que se
+	ordena el listado de juegos entre cambios de sistemas y también se guarda
+	en la configuración, de forma que se recuerda al arrancar Gelide. 
+
+	* src/core/process.cpp:
+	Se corrige un bug en el método isRunning que provocaba el bloqueo de Gelide
+	cuando se producía una terminación anormal de un emulador lanzado.
+	
+	* src/core/process.cpp:
+	Se corrige el bug #2593498 que provocaba el cierre (controlado) de Gelide
+	cuando la línea de comandos para un emulador era incorrecta.
+	
+	* src/gelide.hpp, 
+	  src/dialog_emulator_launcher.cpp, dialog_emulator_launcher.hpp:
+	Se renombra la etiqueta interna para parámetros "$rp" a "$gp".
+	Se añaden las siguientes etiquetas para mejorar el soporte de emuladores:
+		- "$gn": Sustituida por el nombre del set (columna nombre)
+		- "$gp": Sustituida por el path donde está el juego
+		- "$ef": Sustituida por el path + binario del emulador
+		- "$ep": Sustituida por el path donde está el binario del emulador  
+
+2009-02-13  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/gelide_ui.cpp:
+	Se cambia la combinación de teclas para lanzar un juego. Ahora se pueden
+	lanzar directamente pulsando enter (Feature request #2503741).
+
+2009-01-11  Juan A. Moreno <gelide.prj@gmail.com>
+	* *:
+	Se crea una nueva rama de desarrollo para la serie 0.2.0.
+
+2009-01-10  Juan A. Moreno <gelide.prj@gmail.com>
+	* po/it_IT.po:
+	Se añade traducción al Italiano gracias a Loris Cuoghi	<devon01@gmail.com>.
+
+
+==== Gelide 0.1.1 ====
+2009-01-10  Juan A. Moreno <gelide.prj@gmail.com>
+	* po/es_ES.po:
+	Se actualiza la traducción Española.	
+
+	* README, NEWS, ChangeLog:
+	Actualizados
+
+	* doc/Systems&Emulators-HowTo.es_ES.txt:
+	Se revisa y actualiza el documento a la versión 0.1.1.
+
+	* src/core/process.cpp:
+	Se corrige el bug #2491829. Ahora Gelide permanece bloqueado a la espera de
+	que el emulador lanzado termine su tarea por lo que prácticamente no consume
+	tiempo de CPU. Este comportamiento se revisará en futuras versiones. 
+	
+2009-01-08  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Nintendo 64" incluyendo preconfigurados los
+	emuladores Mupen64Plus y SdlMess.
+
+	* pixmaps/nintendo-n64.png, pixmaps/mupen64plus.png:
+	Añadidos.
+
+2009-01-07  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/config.cpp:
+	Se corrige el bug #2492242. Ahora la configuración de la ventana principal
+	se guarda y carga correctamente. (Gracias a Tom.G.P) 
+
+	* src/core/cmprodatfile.cpp:
+	Se corrige el bug #2492320 que impedía la lectura correcta del campo "Año" 
+	del archivo dat. 
+
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Amstrad GX4000" incluyendo preconfigurado el emulador
+	SdlMess.
+	Se incluye la preconfiguración del emulador Regen en el sistema "Sega Mega
+	Drive".
+	Se incluye la preconfiguración del emulador Gambatte en los sistemas
+	"Nintendo Game Boy" y "Nintendo Game Boy Color".
+	Se actualiza la preconfiguración del emulador "ZSNes", ahora por defecto
+	utiliza el parámetro "-r 5" (32000Hz de frecuencia). (Gracias a Tom.G.P)
+
+	* pixmaps/amstrad-gx4000.png, pixmaps/regen.png, pixmaps/gambatte.png:
+	Añadidos.
+	 
+		
+﻿==== Gelide 0.1.0 ====
+2008-12-27  Juan A. Moreno <gelide.prj@gmail.com>
+	* Release inicial 0.1.0
+
+2008-12-21  Juan A. Moreno <gelide.prj@gmail.com>
+	* README, AUTHORS, NEWS:
+	Redactados
+
+	* doc/emulators_info.txt:
+	Se revisa completamente el documento dandole otro formato y se amplía con
+	nuevo contenido. Se renombra por "Systems & Emulators HowTo.es_ES.txt" con
+	la intención de incorporar nuevas traducciones del documento.
+
+	* doc/cmpro_dat_format.txt, doc/romcenter_dat_format.txt:
+	Se eliminan de la distribución.
+
+2008-12-20  Juan A. Moreno <gelide.prj@gmail.com>
+	* po/es_ES.po:
+	Se añade el archivo de traducción al Español de España.
+
+2008-12-10  Juan A. Moreno <gelide.prj@gmail.com>
+	* *.cpp:
+	Se modifican todas las cadenas traducibles del código pasandolas a inglés y
+	se eliminan de la traducción mensajes de debug, error, etc.
+
+2008-09-30  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/game.cpp:
+	Se modifica el valor inicial de la puntuación en un juego pasando de 5 a 0
+	ya que inicialmente un juego no debería tener puntuación (Gracias Sori).
+	
+	* src/ui/gelide_ui.hpp, src/ui/gelide_ui.cpp:
+	Se desactiva la carga y el guardado de la cadena de filtrado utilizada en la
+	interfaz, ya que al establecerse en el arranque puede llevar al usuario a
+	confusión (Gracias Sori).
+	
+	* src/main.cc:
+	Se captura la señal SIGTERM para evitar la perdida de datos en cierres de
+	sesión o terminaciones inesperadas del servidor X (Gracias Sori).
+
+	* src/ui/treeview_games.hpp, * src/ui/treeview_games.cpp:
+	Se corrige bug en la busqueda interactiva del listado de juegos que hacía
+	que solo funcionara la primera vez (Gracias Sori).
+
+2008-09-02  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se corrige un bug en la preconfiguración del emulador XMame del sistema
+	"Mame".
+
+2008-09-01  Juan A. Moreno <gelide.prj@gmail.com>
+	* docs/emulators_info.txt:
+	Se amplía el documento incluyendo información sobre todos los emuladores
+	añadidos hasta el momento en gelide.
+
+2008-08-31  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Sega Mega Drive" incluyendo preconfigurados los
+	emuladores Gens, Xe, Generator (Pal), Generator (Ntsc), DGen/Sdl, XMess y
+	SdlMess.
+
+	* pixmaps/sega-megadrive.png:
+	Añadido.
+
+2008-08-30  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Fairchild Channel F" incluyendo preconfigurados los
+	emuladores XMess y SdlMess.
+	Se incluye el sistema "GCE Vectrex" incluyendo preconfigurados los
+	emuladores XMess y SdlMess.
+
+	* pixmaps/fairchild-channelf.png, pixmaps/gce-vectrex.png:
+	Añadidos.
+
+2008-08-29  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Emerson Arcadia 2001" incluyendo preconfigurados los
+	emuladores XMess y SdlMess.
+	Se incluye el sistema "Entex Adventure vision" incluyendo preconfigurados
+	los emuladores XMess y SdlMess.
+
+	* pixmaps/emerson-arcadia2001.png, pixmaps/entex-adventurevision.png:
+	Añadidos.
+
+2008-08-25  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Nintendo Famicom Disk System" incluyendo
+	preconfigurados los emuladores Fceu, Mednafen, Xe y SdlMess.
+		
+	* pixmaps/nintendo-famicom.png:
+	Añadido.
+
+2008-08-24  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Mame" incluyendo preconfigurados los emuladores
+	XMame y SdlMame.
+		
+	* pixmaps/mame.png, pixmaps/xmame.png,  pixmaps/sdlmame.png:
+	Añadidos.
+	
+	* pixmaps/, pixmaps/vectorial:
+	Se limpian los directorios eliminando todos los iconos no necesarios y
+	renombrando aquellos que lo necesiten.
+	
+	* data/Makefile.am:
+	Se quita las reglas para la inclusión del fichero systems.xml, hasta
+	próximas versiones donde se utilizará en vez de los sistemas en código.
+
+2008-08-23  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Nec Pc Engine" incluyendo preconfigurados los
+	emuladores Hu-Go!, Mednafen, Xe Emulator, SdlMess y XMess.
+	Se incluye el sistema "Nec Super Grafx" incluyendo preconfigurados los
+	emuladores Mednafen y SdlMess.
+	Se incluye el sistema "Coleco ColecoVision" incluyendo preconfigurados los
+	emuladores XMess y SdlMess.
+		
+	* pixmaps/nec-pcengine.png, pixmaps/nec-supergrafx.png, pixmaps/hu-go.png,
+	  pixmaps/coleco-colecovision:
+	Añadidos.
+
+2008-08-22  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Sega Sg1000" incluyendo preconfigurados los
+	emuladores Mednafen, Xe Emulator y SdlMess..
+	Se incluye el sistema "Sega Master System" incluyendo preconfigurados los
+	emuladores Osmose, Mednafen, Xe Emulator, XMess y SdlMess.
+	Se incluye el sistema "Sega Game Gear" incluyendo preconfigurados los
+	emuladores Osmose, Mednafen, Xe Emulator, SdlMess.
+		
+	* pixmaps/sega-sg1000.png, pixmaps/sega-mastersystem.png,
+	  pixmaps/sega-gamegear.png, pixmaps/osmose.png:
+	Añadidos.
+
+2008-08-21  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Bandai Wonderswan" incluyendo preconfigurados los
+	emuladores Mednafen, Xe Emulator, XMess y SdlMess.
+	Se incluye el sistema "Bandai Wonderswan Color" incluyendo preconfigurados
+	los emuladores Mednafen, Xe Emulator, XMess y SdlMess..
+		
+	* pixmaps/bandai-wonderswan.png, pixmaps/bandai-wonderswancolor.png:
+	Añadidos.
+
+2008-08-20  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Nintendo Game Boy Advance" incluyendo preconfigurados
+	los emuladores VisualBoyAdvance, Mednafen, Xe Emulator.
+		
+	* pixmaps/nintendo-gameboyadvance.png:
+	Añadido.
+
+2008-08-18  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Nintendo Game Boy Color" incluyendo preconfigurados
+	los emuladores VisualBoyAdvance, Mednafen, Xe Emulator, XMess y SdlMess.
+		
+	* pixmaps/nintendo-gameboycolor.png:
+	Añadido.
+	
+2008-08-17  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Nintendo Game Boy" incluyendo preconfigurados los
+	emuladores VisualBoyAdvance, Mednafen, Xe Emulator, XMess y SdlMess.
+		
+	* pixmaps/nintendo-gameboy.png, pixmaps/visualboyadvance.png :
+	Añadidos.
+
+2008-08-16  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se incluye el sistema "Atari Lynx" incluyendo preconfigurados los emuladores
+	Mednafen, XMess y SdlMess.
+	Se incluye el sistema "Atari Jaguar" incluyendo preconfigurados los
+	emuladores VirtualJaguar GCC/SDL y SdlMess.
+	Se incluye el sistema "Nintendo Nes" incluyendo preconfigurados los
+	emuladores Fceu, Mednafen, Xe, Xmess y SdlMess.
+	Se incluye el sistema "Nintendo SNes" incluyendo preconfigurados los
+	emuladores Zsnes, SNes9x, Xe, Xmess y SdlMess.
+		
+	* pixmaps/atari-lynx.png, pixmaps/atari-jaguar.png,
+	  pixmaps/nintendo-nes.png, pixmaps/nintendo-snes.png, pixmaps/mednafen.png,
+	  pixmaps/virtualjaguar.png, pixmaps/fceu.png, pixmaps/xe.png,
+	  pixmaps/zsnes.png, pixmaps/snes9x.png:
+	Añadidos.
+
+	* src/tokenizer.cpp:
+	Corregido el fallo que se producía cuando aparecía \" al principio de las
+	cadenas de texto.
+
+2008-08-15  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/default_systems.cpp:
+	Se añade soporte al sistema "Atari 2600" para el emulador SdlMess.
+	Se incluye el sistema "Atari 5200" incluyendo preconfigurados los emuladores
+	XMess y SdlMess.
+	
+	* pixmaps/atari-5200.png, pixmaps/sdlmess.png:
+	Añadidos.
+
+2008-08-05  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/gelide.hpp, src/gelide-i18n.hpp:
+	Se introducen cambios para solucionar el problema que aparecia con el
+	sistema de instalación (stay xxx) al activar el modo debug y mejorar el
+	sistema de internacionalización.
+	
+2008-08-04  Juan A. Moreno <gelide.prj@gmail.com>
+	* configure.ac, data/systems.xml.in, po/POTFILES.in:
+	Se introducen los cambios necesarios para dar soporte de i18n a systems.xml
+	para poder eliminar los sistemas por defecto del código fuente e importarlos
+	desde xml. (Aunque esta mejora esperará aún un tiempo)
+
+2008-07-29  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/dialog_preferences.hpp, src/ui/dialog_preferences.cpp:
+	Implementación del diálogo de preferencias del programa.
+
+2008-07-20  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/system_manager.hpp, src/core/system_manager.cpp:
+	Se añade el método exportGameList para exportación de todos los juegos de
+	los sistemas dados de alta en el manager. La exportación se realiza en un
+	fichero de texto.
+	
+	* src/ui/gelide_ui_actions.cpp:
+	Se implementa el método onActionFileExportList que actúa como respuesta a la
+	petición de exportación del listado completo de juegos.
+
+2008-07-20  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/config.hpp, src/config.cpp:
+	Se elimina el método isFirstRun innecesario en el nuevo sistema de
+	configuración. Se modifican los métodos get*List para que devuelvan el mismo
+	tipo std::vector. Se modifican los métodos set*List para que tomen el mismo
+	tipo de datos, const std::list.
+	Se elimina el método checkDirs ya que no es competencia del sistema de
+	configuración comprobar los directorios del usuario.
+	
+	* src/main.cc:
+	Se añade la función checkUserDir que comprueba la existencia del directorio
+	~/.gelide y si en caso de no existir, trata de crearlo.
+	Se modifica el main para que compruebe el directorio ~/.gelide antes de
+	lanzar la aplicación. 
+
+	* src/*:
+	Corregidos varios warnings.
+
+	* src/config.hpp, src/config.cpp:
+	Se añaden métodos para gestionar las variables de configuración que activan
+	o desactivan la exportación de iconos y dats en el proceso de exportación
+	de sistemas. 
+
+	* src/core/system_manager.hpp, src/core/system_manager.cpp:
+	Ampliados los métodos exportSystems e importSystems para soportar 
+	exportación e importación de iconos y dats. Ahora al exportar los sistemas,
+	sus iconos, dats y los iconos de sus emuladores se almacenana en los 
+	directorios icons y dats que se crean en el mismo path que el fichero de
+	exportación.
+	
+	* src/core/system.hpp, src/core/system.cpp:
+	Se modifica el método addEmulator mejorando la comprobación de existencia y
+	la generación del identificador del emulador.
+	Se modifica el método load para que no realice la carga de los emuladores
+	directamente, sino que utilice addEmulator de forma que se realicen todas 
+	las comprobaciones pertinentes.
+	
+	* src/gelide.h:
+	Se simplifican las constantes EMULATOR_SEPARATOR, SYSTEM_SEPARATOR y 
+	GAME_SEPARATOR en una sola constante CSV_SEPARATOR que contiene el caracter
+	separador para los archivos de datos csv (sistemas, emuladors y juegos).
+
+2008-07-19  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/system.hpp, src/core/system.cpp:
+	Se modifican los métodos update y addEmulator moviendo la rutina de
+	detección de emuladores con el mismo nombre a addEmulator.
+	
+	* docs/BUGS:
+	Añadido.
+	
+	* docs/todo:
+	Renombrado a TODO. Se mueven fallos por arreglar al archivo docs/BUGS
+
+	* src/ui/dialog_about.hpp, src/core/dialog_about.cpp:
+	Implementado el diálogo Acerca de Gelide.
+
+	* src/interface_configurable.hpp, src/interface_configurable.cpp:
+	Se modifica la interfaz. Ahora es más simple. Se elimina el archivo cpp.
+	
+	* src/config.hpp, src/config.cpp:
+	Se modifica toda la arquitectura de configuración, creandose métodos en el
+	configurador para leer y escribir los valores específicos. Se reimplementa
+	el método getInt para conseguir devolver -1 en caso de no existir una clave.
+	
+	* src/ui/info_pannel.hpp, src/ui/info_pannel.cpp:
+	Se soluciona el fallo que impedía restaurar el panel visible en el arranque.
+	
+	* src/ui/dialog*.hpp, src/ui/dialog*.cpp:
+	Se soluciona el fallo que forzaba la posición 0,0 de los dialogos en la
+	primera ejecución.
+	
+2008-07-18  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/system_manager.hpp, src/core/system_manager.cpp:
+	Añadidos los métodos exportSystems e importSystems, para exportación e 
+	importación del listado de sistemas
+
+2008-07-17  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/system.hpp, src/core/system.cpp:
+	Se elimina el método run, innecesario.
+	Se añade el método update que se encarga de actualizar un sistema con otro
+	dado, añadiendo al primero los emuladores del segundo que no posea. 
+
+	* src/core/system_manager.hpp, src/core/system_manager.cpp:
+	Se modifica el método addSystem para que no permita añadir sistemas con el
+	mismo nombre. En el caso de intentar añadir un sistema cuyo nombre ya
+	existe, se hace un update del sistema que implica hacer una mezcla de los
+	emuladores.
+
+2008-07-15  Juan A. Moreno <gelide.prj@gmail.com>
+	* pixmaps/vectorial/gelide-columns.svg, pixmaps/gelide-columns.png:
+	Añadidos. Iconos para el gestor de columnas.
+
+2008-07-12  Juan A. Moreno <gelide.prj@gmail.com>
+	* pixmaps/vectorial/gelide-export-list.svg, pixmaps/gelide-export-list.png:
+	* pixmaps/vectorial/gelide-export-systems.svg,
+	  pixmaps/gelide-export-systems.png:
+	* pixmaps/vectorial/gelide-import-systems.svg,
+	  pixmaps/gelide-import-systems.png:
+	Añadidos. Iconos para exportar el listado de juegos y para exportar e
+	importar el listado de sistemas.
+
+2008-07-07  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/gelide_ui.hpp, src/ui/gelide_ui.cpp:
+	* src/ui/gelide_icons.hpp, src/ui/gelide_icons.cpp:
+	* src/ui/gelide_ui_actions.cpp:
+	Se añaden dos nuevas entradas en el menú Archivo para exportar e importar
+	sistemas, de momento no están implementadas.
+
+2008-07-05  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/xml_tools.hpp, src/xml_tools.cpp:
+	Añadidos. Implementación de las clases necesarias para leer y escribir
+	ficheros xml basados en libxml2. Se utilizarán ficheros xml para la
+	exportación e importación de sistemas completos (sistema + emuladores).
+	
+2008-07-01  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/dialog_changelog.hpp, src/us/dialog_changelog.cpp:
+	Añadidos. Implementación del dialogo para visualizar el historial de
+	cambios. 
+
+2008-06-30  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/system_manager.hpp, src/core/system_manager.cpp:
+	Se modifica el método updateSystem para que establezca los directorios por
+	defecto del sistema a actualizar, cuando se dejan en blanco. 
+	
+	* src/config.hpp, src/config.cpp:
+	Se eliminan los métodos getEmulatorsDir, getUserEmulatorsDir, getSystemsDir
+	y se añade el método getGelideDir que devuelve el path al directorio local
+	del usuario para el programa (~/.gelide).
+
+	* src/gelide.hpp:
+	* src/core/system.hpp, src/core/system.cpp:
+	* src/core/system_manager.hpp, src/core/system_manager.cpp:
+	Se eliminan constantes innecesarias y se cambia la jerarquía de directorios
+	dentro del directorio home, pasando a ser:
+		.gelide/
+			/systems.gsl
+			/NombreDeSistema
+				/emulators.gel
+				/games.ggl
+				/images
+					/back
+					/cardtridge
+					/front
+					/snap
+					/title
+				/roms
+
+	* src/ui/gelide_ui_actions.cpp:
+	Se añade para simplificar gelide_ui.cpp. Contiene todas las accines de la
+	ventana principal de Gelide.
+	
+	* src/ui/treeview_games.hpp, src/ui/treeview_games.cpp:
+	Se modifica gran parte del código de las acciones, dividiendolo en acciones
+	y métodos para establecer valores (favorito, jugado, funcional, etc) que son
+	públicos.
+	
+	* src/ui/gelide_ui.hpp, src/ui/gelide_ui.cpp, src/ui/gelide_ui_actions.cpp:
+	Se reorganiza todo el código del módulo y se cambian gran parte de las
+	acciones corrigiendo el fallo (ciclo infinito) que producían las acciones
+	del menú Edición.
+	
+	* src/core/default_systems.cpp:
+	Se añade "Atari 2600" como primer sistema completo (Mi primera consola).
+	Incluye los emuladores Stella y XMess preconfigurados.
+	
+	* pixmaps/atari-2600.png, pixmaps/stella.png, pixmaps/xmess.png:
+	Añadidos.
+	
+2008-06-28  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/tokenizer.hpp, src/tokenizer.cpp:
+	Actualización de getString para ignorar caracteres escapados (\x) en vez de
+	detectar solamente comillas internas.
+	
+	* src/core/system.hpp, src/core/system.cpp:
+	* src/core/system_manager.hpp, src/core/system_manager.cpp
+	Se añade soporte para caracteres escapados en el almacenamiento y carga de
+	sistemas, emuladores y juegos. Esto corrige el fallo producido por la
+	inserción de caracteres especiales en los campos de sistemas, emuladores y
+	juegos. 
+	
+	* src/gelide.hpp:
+	* src/ui/dialog_emulator_launcher.hpp, src/ui/dialog_emulator_launcher.cpp 
+	Se añade un nuevo tag para los parámetros de un emulador.
+	- $rp: Indica el path donde se encuentran las roms.
+	
+	* src/core/default_systems.cpp:
+	Añadido. Implementación del método generateDefaultSystems, encargado de la
+	generación de los sistemas por defecto, del gestor de sistemas.
+	
+	* src/ui/treeview_emulators.hpp, src/ui/treeview_emulators.cpp:
+	Añadida entrada en popup menú con "Acerca de" para mostrar información del
+	emulador y su autor. 
+	Implementado doble clic, muestra directamente el "Acerca de" del emulador.
+	Corregido fallo que mostraba la entrada "Añadir" del popup cuando no había
+	ningún sistema seleccionado.
+
+	* src/ui/treeview_systems.hpp, src/ui/treeview_systems.cpp:
+	Implementado doble clic, muestra directamente el dialogo de edición del
+	sistema.
+	
+	* src/ui/gelide_ui.hpp, src/ui/gelide_ui.cpp:
+	Añadido el modo fullscreen con entrada en el menú principal y barra de
+	herramientas y su variable de configuración en gconf.
+	Implementado el método onActionFileQuit.
+	Añadido updateStatusBar para actualización de la barra de estado.
+	Revisados multiples métodos y corregidos algunos fallos
+	
+	* src/ui/treeview_games.hpp, src/ui/treeview_games.cpp:
+	Corregido fallo al cambiar de sistema que colgaba el programa.
+	
+	* src/ui/gelide_ui.hpp, src/ui/gelide_ui.cpp:
+	* src/ui/treeview_games.hpp, src/ui/treeview_games.cpp:
+	* src/ui/treeview_emulators.hpp, src/ui/treeview_emulators.cpp:
+	* src/ui/treeview_systems.hpp, src/ui/treeview_systems.cpp:
+	Añadidas señales onXXXXXChanged a los treeview de los juegos, emuladores y
+	systemas, para mejorar el control de cambios en cada uno de ellos.
+	Internamente en cada uno se capturan las señales de cambio en los items y se
+	encapsulan generando una señal onXXXXChange. En el cuerpo principal
+	(gelide_ui) se capturan las señales y se actua en consecuencia.
+	
+2008-06-27  Juan A. Moreno <gelide.prj@gmail.com>
+	* docs/CMProDatFormat.txt, docs/RomCenterDatFormat.txt:
+	Renombrados a cmpro_dat_format.txt, romcenter_dat_format.txt.
+
+	* docs/GelideEmulatorFormat.txt, docs/GSLFormat.txt, :
+	Renombrados a gelide_ges_format.txt y gelide_gsl_format.
+
+	* TODO, docs/emulators_info.txt:
+	* docs/gelide_gel_format.txt, docs/gelide_ggl_format.txt:
+	Añadidos
+
+	* src/ui/info_pannel.hpp, src/ui/info_pannel.cpp
+	Añadida señale para indicar que se solicita jugar al juego seleccionado
+
+	* src/ui/gelide_ui.hpp, src/ui/gelide_ui.cpp:
+	* src/ui/treeview_games.hpp, src/ui/treeview_games.cpp:
+	* src/ui/treeview_filters.hpp, src/ui/treeview_filters.cpp:
+	* src/ui/info_pannel.hpp, src/ui/info_pannel.cpp:
+	Cambio del sistema de puntuación de 10 niveles a 6 (0..5)
+
+	* src/ui/treeview_games.hpp, src/ui/treeview_games.cpp:
+	Implementación del método "onPlayGame" encargado de la ejecución de los
+	emuladores.
+	
+2008-06-27  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/emulator.hpp, src/core/emulator.cpp:
+	* src/core/system.hpp, src/core/system.cpp:
+	* src/core/system_manager.hpp, src/core/system_manager.cpp:
+	* src/ui/model_columns.hpp, src/ui/model_columns.cpp:
+	Se añade el campo "fichero bios" a los sistemas y se elimina de los
+	emuladores. Ahora el mismo fichero bios se comparte por todos los emuladores
+	de un sistema.
+	
+	* src/ui/dialog_system_edit.hpp, src/ui/dialog_system_edit.cpp:
+	Se añade control para establecer el fichero bios del sistema.
+	
+	* src/gelide.hpp:
+	* src/ui/dialog_emulator_launcher.hpp, src/ui/dialog_emulator_launcher.cpp
+	Se modifica el formato de los tags en los parámetros de emuladores, pasando
+	de "$x" a "$xx". Se renombra el tag para el juego de $g a $gf y se añaden
+	dos nuevos tags para los parámetros de un emulador.
+	- $gf: Indica el fichero del juego.
+	- $bf: Indica el fichero bios del sistema.
+	- $bp: Indica el path del fichero bios del sistema.   
+	
+	* src/tokenizer.hpp, src/tokenizer.cpp:
+	Actualización de getString para soportar comillas internas en cadenas de
+	texto.
+	
+2008-06-26  Juan A. Moreno <gelide.prj@gmail.com>
+	* Primera versión con lanzador de emuladores.
+	* Primera entrada en este archivo.

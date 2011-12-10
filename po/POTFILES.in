@@ -1,0 +1,25 @@
+# List of source files containing translatable strings.
+
+data/gelide.desktop.in
+src/core/dat_reader_mamexml.cpp
+src/core/default_systems.cpp
+src/core/system_manager.cpp
+src/core/system.cpp
+src/ui/dialog_about.cpp
+src/ui/dialog_changelog.cpp
+src/ui/dialog_columns.cpp
+src/ui/dialog_emulator_edit.cpp
+src/ui/dialog_emulator_launcher.cpp
+src/ui/dialog_gamelist_generator.cpp
+src/ui/dialog_preferences.cpp
+src/ui/dialog_system_edit.cpp
+src/ui/gelide_ui_actions.cpp
+src/ui/gelide_ui.cpp
+src/ui/info_pannel.cpp
+src/ui/treeview_emulators.cpp
+src/ui/treeview_filters.cpp
+src/ui/treeview_games.cpp
+src/ui/treeview_systems.cpp
+src/ui/gelide_icons.cpp
+src/gelide.cpp
+

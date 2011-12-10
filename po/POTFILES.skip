@@ -1,0 +1,16 @@
+ui/viejos/dialog_columnas.glade
+ui/viejos/dialog_edit_emulator.glade
+ui/viejos/dialog_edit_system.glade
+ui/viejos/dialog_edit_system2.glade
+ui/viejos/dialog_edit_system3.glade
+ui/viejos/dialog_edit_system4.glade
+ui/viejos/dialog_launcher.glade
+ui/viejos/dialog_preferences.glade
+ui/viejos/dialog_preferences2.glade
+ui/viejos/dialog_progress.glade
+ui/viejos/dialog_progress2.glade
+ui/viejos/dialog_system_info.glade
+ui/viejos/visor_info-2.glade
+ui/viejos/visor_info-3.glade
+ui/viejos/visor_info-4.glade
+ui/viejos/visor_info.glade

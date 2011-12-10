@@ -1,0 +1,23 @@
+Gelide Configuration File Format v0.1 (2010-07-10)
+--------------------------------------------------
+The Gelide configuration file is a plain xml file.
+It is composed by key-value pairs grouped in named groups. All the key-value
+pairs must have a group and in a group every key is unique.
+
+This is the format in version 0.1:
+
+<gelidecfg version="0.1">
+    <group name="mygrup_1">
+        <key name="mykey_1" value="myvalue">
+		...
+        <key name="mykey_n" value="myvalue">
+    </group>
+	...
+    <group name="mygrup_n">
+        <key name="mykey_1" value="myvalue">
+		...
+        <key name="mykey_n" value="myvalue">
+    </group>
+</gelidecfg>
+
+

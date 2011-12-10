@@ -1,0 +1,163 @@
+Gelide
+======
+[2010-10-25] Version 0.1.5:
+	* New and updated:
+	- Added "Sinclair - ZX Spectrum" to the systems list with the emulators
+	 FBZX, Fuse, SpectEmu, Mess and SdlMess preconfigured.	
+	- Added Russian translation by Oleg Koptev.
+	- Added Added Polish translation by Kamil Ślepowroński.
+	- Spanish translation updated by jamf.
+	
+	* Fixes:
+	- Bug #3212822. Fixed a bug that prevented the proper load of the main
+	window configuration when started in fullscreen mode.
+	- Bug #3099249. Now the tools bar status is remembered correctly.
+	- Bug #3212793. The param "-l" has been removed from the preconfiguration
+	of ZSNes.
+	- Bug #3212831. Now the link to Gelide's homepage in the About dialog is
+	working.
+	- Bug #3212837. Now the emulators panel work correctly and let you add any
+	number of emulators without problems.
+	- Bug #3212836. Now the systems panel work correctly and let you add any
+	number of systems without problems.
+	
+	
+[2010-10-28] Version 0.1.4 "Elendil":
+	* New and updated:
+	- A new search system has been developed. Now it is case insensitive and
+	allow you to use the most standar wildcards:
+		- "*" for replacement of zero or more characters.
+		- "?" for replacement of exactly one character.
+	- The pannels of systems and the emulators have been modified.
+	Now you can move your systems or your emulators inside their pannels.
+	- A new DAT file system has been developed with support for three
+	diferent DAT formats:
+		- ClrMamePro.
+		- Mame XML (You can get a dat file with "mame -listxml").
+		- Logiqx XML.
+	- The games list generator has been revised. Now with two options in the
+	configuration dialog, you can decide whether to keep the current data of
+	your games (favorites, rank, etc.) and also you can decide if you want
+	to add games that are not in the DAT file (unknown games). 
+	- The Libglade dependency has been removed.
+	- A new configuration system based on XML files, lets us remove the
+	dependency with Gconf. Now Gelide only rely on libgtkmm and libxml2.
+	- The emulators launcher has been revised. Now with an option in the
+	configuration, you can decide when to keep open the launcher dialog
+	after the emulation.
+	- Added "Nintendo DS" to the systems list with the emulator DeSMuME
+	preconfigured.
+	- Added "SEGA 32X" to the systems list with the emulators Gens/Gs, Mess
+	and SdlMess preconfigured.
+	- Added "SNK Neo Geo Pocket" to the systems list with the emulators
+	Mednafen, Xe, Mess and SdlMess preconfigured.
+	- Added "SNK Neo Geo Pocket Color" to the systems list with the
+	emulators Mednafen, Xe, Mess and SdlMess preconfigured.
+	- The preconfiguration of MESS emulator has been added for virtually all
+	systems.
+	- The preconfiguration of MAME emulator has been added for arcade systems.
+	- Added the preconfiguration of z26 emulator to "Atari 2600" system.
+	- Added the preconfiguration of Handy/SLD emulator to "Atari Lynx" system.
+	- Added the preconfiguration of Nestopia emulator to "Nintendo FDS" and
+	"Nintendo NES".
+	- Added the preconfiguration of Gngb and Gnuboy to "Nintendo Game Boy" and
+	"Nintendo Game Boy Color".
+	- Added the preconfiguration of BoyCott Advance-SDL to "Nintendo Game Boy
+	Advance".
+	- Added the preconfiguration of "Bsnes" and "SNes9x-gtk" to "Nintendo SNES".
+	- Updated the preconfigurations of SdlMess, SdlMame, Stella, Mednafen, Xe,
+	FCEUX, Raine, Gens/GS, Osmose, Generator.
+	- These emulators have been removed: FCEU, Snes9x, Dgen/Sdl.
+	- The document "doc/Systems&Emulators-HowTo.es_ES.txt" has been rewritten,
+	now includes much more information and documentation on the systems and
+	emulators configured in Gelide at the current version (Sorry, only in
+	Spanish at this moment, would you like to translate it? contact me at
+	<gelide.prj@gmail.com>).
+	- French translation updated by Emeric Grange.
+	- Spanish translation updated by jamf.
+	
+	* Fixes:
+	- Bug in the Information Pannel. Now, images are correctly scaled when
+	  entering / leaving fullscreen mode and also when main window is
+	maximized or minimized.
+	- Bug in the command line that prevented the proper use of paths with
+	spaces in the  emulators' executables.
+
+		
+[2009-04-25] Version 0.1.3:
+	* New and updated:
+	- Added "SNK Neo Geo" to the systems list with the emulators SdlMame, XMame
+	and GnGeo preconfigured.
+	- Added "Magnavox Odyssey2" to the systems list with the emulators SdlMess
+	and	XMess preconfigured.
+	- Added "Mattel Intellivision" to the systems list with the emulators
+	SdlMess, XMess and jzIntv preconfigured.
+	- Added "RCA Studio II" to the systems list with the emulatorsSdlMess
+	and	XMess preconfigured.
+	- Added the preconfiguration of Fceux emulator to "Nintendo	Famicom Disk
+	System" and "Nintendo Nes" systems.
+	- Added German translation by Manuel Wächter.
+	- Added French translation by Emeric Grange.
+	- Added Swedish translation by Niklas Grahn
+	- Italian translation updated by Loris Cuoghi.
+	- Spanish translation updated.
+	- Updated the preconfigurations of SdlMame, SdlMess, Stella, Mednafen, Xe
+	Osmose, and Gens/GS.
+	  
+	* Fixes:
+	- Bug in gelide_icons.cpp. Now Gelide don't hang when the user defined
+	theme of icons don't have certain icons used by Gelide.
+	
+	
+[2009-02-18] Version 0.1.2:
+	* New and updated:
+	- Added "Atari 7800" to the systems list with the emulators SdlMess and
+	XMess preconfigured.
+	- Added "Raine" to the systems list with the emulators Raine, SdlMame and
+	XMame preconfigured.
+	- Added "ZiNc" to the systems list with the emulators ZiNc, XMame and
+	SdlMame	preconfigured.
+	- Added Italian translation by Loris Cuoghi.
+	- Spanish translation updated.
+	- Game launch key combination changed to Return (Feature request #2503741)
+	- New tags for emulators params ("$gn", "$ef", "$ep").
+	- Renamed tag for emulator: "$rp" now is "$gp".
+	  *************************************************************************
+	  ATENTION! Gelide renames automatically this tag when is detected on load 
+	  *************************************************************************
+	- Game name now is added also as description when a game list is generated.
+	  
+	* Fixes:
+	- Bug #2503738. The game list sort column now is remembered betwen systems
+	changes and also is saved in configuration.
+	- Bug #2593498. Now Gelide don't closes when there is incorrect params in
+	emulators.
+	- Bug in process.cpp. Now Gelide don't hang with the abnormal termination
+	of emulators.
+	- Bug #2604694. The game list generator now is fixed and work correctly.
+	- Bug #2606136. Dat games now are tagged correctly when a game list is
+	generated. 
+	
+
+[2009-01-11] Version 0.1.1:
+	* New and updated:
+	- Added "Amstrad GX4000" to the systems list with SdlMess emulator
+	preconfigured.
+	- Added "Nintendo 64" to the systems list with Mupen64plus and SdlMess
+	emulators preconfigured.
+	- Added the preconfiguration of Regen emulator to "Sega Megadrive" system.
+	- Added the preconfiguration of Gambatte emulator to "Nintendo Game Boy"
+	and "Nintendo Game Boy Color" systems.	 
+	- Updated the preconfiguration of ZSNes emulator.
+	- Spanish translation updated.
+
+	* Fixes:
+	- Bug #2492242. The configuration of the main window is loaded and saved
+	correctly.
+	- Bug #2492320. The field "Year" now is readed properly from DAT files.
+	- Bug #2491829. Now Gelide waits for the finish of emulators to	continue
+	without wasting time.  
+
+	
+[2008-12-27] Version 0.1.0:
+	* Initial release.

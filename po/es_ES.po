@@ -1,0 +1,1837 @@
+# Spanish/Spain translation of Gelide.
+# Copyright (C) 2008 Juan Ángel Moreno Fernández <gelide.prj@gmail.com>
+# This file is distributed under the same license as the Gelide package.
+# Juan Ángel Moreno Fernández <jamf@users.sourceforge.net>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gelide 0.1.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-26 12:08+0100\n"
+"PO-Revision-Date: 2011-03-26 12:13+0100\n"
+"Last-Translator: Juan Ángel Moreno Fernández <gelide.prj@gmail.com>\n"
+"Language-Team: Spanish/Spain <es@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../data/gelide.desktop.in.h:1
+msgid "Manage and play your roms"
+msgstr "Gestiona y lanza tus roms"
+
+#: ../src/core/dat_reader_mamexml.cpp:123
+msgid "Mame exe based dat file"
+msgstr "Fichero Dat extraído de Mame"
+
+#: ../src/core/dat_reader_mamexml.cpp:124
+msgid "Exe based dat"
+msgstr "Dat extraído de un ejecutable"
+
+#: ../src/core/default_systems.cpp:37
+msgid "Amstrad GX4000"
+msgstr "Amstrad GX4000"
+
+#: ../src/core/default_systems.cpp:38
+msgid ""
+"Console released by Amstrad in 1990 and was based on the still-popular CPC "
+"technology."
+msgstr ""
+"Consola lanzada por Amstrad en 1990 basada en la tecnología del popular CPC"
+
+#: ../src/core/default_systems.cpp:42 ../src/core/default_systems.cpp:95
+#: ../src/core/default_systems.cpp:137 ../src/core/default_systems.cpp:179
+#: ../src/core/default_systems.cpp:232 ../src/core/default_systems.cpp:285
+#: ../src/core/default_systems.cpp:349 ../src/core/default_systems.cpp:413
+#: ../src/core/default_systems.cpp:455 ../src/core/default_systems.cpp:497
+#: ../src/core/default_systems.cpp:539 ../src/core/default_systems.cpp:581
+#: ../src/core/default_systems.cpp:623 ../src/core/default_systems.cpp:665
+#: ../src/core/default_systems.cpp:760 ../src/core/default_systems.cpp:835
+#: ../src/core/default_systems.cpp:888 ../src/core/default_systems.cpp:983
+#: ../src/core/default_systems.cpp:1080 ../src/core/default_systems.cpp:1188
+#: ../src/core/default_systems.cpp:1274 ../src/core/default_systems.cpp:1349
+#: ../src/core/default_systems.cpp:1435 ../src/core/default_systems.cpp:1488
+#: ../src/core/default_systems.cpp:1572 ../src/core/default_systems.cpp:1625
+#: ../src/core/default_systems.cpp:1689 ../src/core/default_systems.cpp:1753
+#: ../src/core/default_systems.cpp:1828 ../src/core/default_systems.cpp:1881
+#: ../src/core/default_systems.cpp:2073 ../src/core/default_systems.cpp:2126
+msgid "Mess"
+msgstr "Mess"
+
+#: ../src/core/default_systems.cpp:43 ../src/core/default_systems.cpp:96
+#: ../src/core/default_systems.cpp:138 ../src/core/default_systems.cpp:180
+#: ../src/core/default_systems.cpp:233 ../src/core/default_systems.cpp:286
+#: ../src/core/default_systems.cpp:350 ../src/core/default_systems.cpp:414
+#: ../src/core/default_systems.cpp:456 ../src/core/default_systems.cpp:498
+#: ../src/core/default_systems.cpp:540 ../src/core/default_systems.cpp:582
+#: ../src/core/default_systems.cpp:624 ../src/core/default_systems.cpp:666
+#: ../src/core/default_systems.cpp:761 ../src/core/default_systems.cpp:836
+#: ../src/core/default_systems.cpp:889 ../src/core/default_systems.cpp:984
+#: ../src/core/default_systems.cpp:1081 ../src/core/default_systems.cpp:1189
+#: ../src/core/default_systems.cpp:1275 ../src/core/default_systems.cpp:1350
+#: ../src/core/default_systems.cpp:1436 ../src/core/default_systems.cpp:1489
+#: ../src/core/default_systems.cpp:1573 ../src/core/default_systems.cpp:1626
+#: ../src/core/default_systems.cpp:1690 ../src/core/default_systems.cpp:1754
+#: ../src/core/default_systems.cpp:1829 ../src/core/default_systems.cpp:1882
+#: ../src/core/default_systems.cpp:1946 ../src/core/default_systems.cpp:1968
+#: ../src/core/default_systems.cpp:2074 ../src/core/default_systems.cpp:2127
+msgid "Multi Emulator Super System, the sister project of MAME"
+msgstr "Super Sistema Multi Emulador, el proyecto hermano de MAME"
+
+#: ../src/core/default_systems.cpp:45 ../src/core/default_systems.cpp:98
+#: ../src/core/default_systems.cpp:140 ../src/core/default_systems.cpp:182
+#: ../src/core/default_systems.cpp:235 ../src/core/default_systems.cpp:288
+#: ../src/core/default_systems.cpp:352 ../src/core/default_systems.cpp:416
+#: ../src/core/default_systems.cpp:458 ../src/core/default_systems.cpp:500
+#: ../src/core/default_systems.cpp:542 ../src/core/default_systems.cpp:584
+#: ../src/core/default_systems.cpp:626 ../src/core/default_systems.cpp:668
+#: ../src/core/default_systems.cpp:763 ../src/core/default_systems.cpp:838
+#: ../src/core/default_systems.cpp:891 ../src/core/default_systems.cpp:986
+#: ../src/core/default_systems.cpp:1083 ../src/core/default_systems.cpp:1191
+#: ../src/core/default_systems.cpp:1277 ../src/core/default_systems.cpp:1352
+#: ../src/core/default_systems.cpp:1438 ../src/core/default_systems.cpp:1491
+#: ../src/core/default_systems.cpp:1575 ../src/core/default_systems.cpp:1628
+#: ../src/core/default_systems.cpp:1692 ../src/core/default_systems.cpp:1756
+#: ../src/core/default_systems.cpp:1831 ../src/core/default_systems.cpp:1884
+#: ../src/core/default_systems.cpp:1948 ../src/core/default_systems.cpp:1970
+#: ../src/core/default_systems.cpp:2076 ../src/core/default_systems.cpp:2129
+msgid "The MESS Team"
+msgstr "El MESS Team"
+
+#: ../src/core/default_systems.cpp:53 ../src/core/default_systems.cpp:106
+#: ../src/core/default_systems.cpp:148 ../src/core/default_systems.cpp:190
+#: ../src/core/default_systems.cpp:243 ../src/core/default_systems.cpp:296
+#: ../src/core/default_systems.cpp:360 ../src/core/default_systems.cpp:424
+#: ../src/core/default_systems.cpp:466 ../src/core/default_systems.cpp:508
+#: ../src/core/default_systems.cpp:550 ../src/core/default_systems.cpp:592
+#: ../src/core/default_systems.cpp:634 ../src/core/default_systems.cpp:676
+#: ../src/core/default_systems.cpp:771 ../src/core/default_systems.cpp:846
+#: ../src/core/default_systems.cpp:899 ../src/core/default_systems.cpp:994
+#: ../src/core/default_systems.cpp:1091 ../src/core/default_systems.cpp:1199
+#: ../src/core/default_systems.cpp:1285 ../src/core/default_systems.cpp:1360
+#: ../src/core/default_systems.cpp:1446 ../src/core/default_systems.cpp:1499
+#: ../src/core/default_systems.cpp:1583 ../src/core/default_systems.cpp:1636
+#: ../src/core/default_systems.cpp:1700 ../src/core/default_systems.cpp:1764
+#: ../src/core/default_systems.cpp:1839 ../src/core/default_systems.cpp:1892
+#: ../src/core/default_systems.cpp:2084 ../src/core/default_systems.cpp:2137
+msgid "SdlMess"
+msgstr "SdlMess"
+
+#: ../src/core/default_systems.cpp:54 ../src/core/default_systems.cpp:107
+#: ../src/core/default_systems.cpp:149 ../src/core/default_systems.cpp:191
+#: ../src/core/default_systems.cpp:244 ../src/core/default_systems.cpp:297
+#: ../src/core/default_systems.cpp:361 ../src/core/default_systems.cpp:425
+#: ../src/core/default_systems.cpp:467 ../src/core/default_systems.cpp:509
+#: ../src/core/default_systems.cpp:551 ../src/core/default_systems.cpp:593
+#: ../src/core/default_systems.cpp:635 ../src/core/default_systems.cpp:677
+#: ../src/core/default_systems.cpp:772 ../src/core/default_systems.cpp:847
+#: ../src/core/default_systems.cpp:900 ../src/core/default_systems.cpp:995
+#: ../src/core/default_systems.cpp:1092 ../src/core/default_systems.cpp:1200
+#: ../src/core/default_systems.cpp:1286 ../src/core/default_systems.cpp:1361
+#: ../src/core/default_systems.cpp:1447 ../src/core/default_systems.cpp:1500
+#: ../src/core/default_systems.cpp:1584 ../src/core/default_systems.cpp:1637
+#: ../src/core/default_systems.cpp:1701 ../src/core/default_systems.cpp:1765
+#: ../src/core/default_systems.cpp:1840 ../src/core/default_systems.cpp:1893
+#: ../src/core/default_systems.cpp:1957 ../src/core/default_systems.cpp:1979
+#: ../src/core/default_systems.cpp:2085 ../src/core/default_systems.cpp:2138
+msgid "Portable Mess version for POSIX-y systems with SDL"
+msgstr "Versión portable de Mess para sistemas POSIX-y con SDL"
+
+#: ../src/core/default_systems.cpp:56 ../src/core/default_systems.cpp:109
+#: ../src/core/default_systems.cpp:151 ../src/core/default_systems.cpp:193
+#: ../src/core/default_systems.cpp:246 ../src/core/default_systems.cpp:299
+#: ../src/core/default_systems.cpp:363 ../src/core/default_systems.cpp:427
+#: ../src/core/default_systems.cpp:469 ../src/core/default_systems.cpp:511
+#: ../src/core/default_systems.cpp:553 ../src/core/default_systems.cpp:595
+#: ../src/core/default_systems.cpp:637 ../src/core/default_systems.cpp:679
+#: ../src/core/default_systems.cpp:774 ../src/core/default_systems.cpp:849
+#: ../src/core/default_systems.cpp:902 ../src/core/default_systems.cpp:997
+#: ../src/core/default_systems.cpp:1094 ../src/core/default_systems.cpp:1202
+#: ../src/core/default_systems.cpp:1288 ../src/core/default_systems.cpp:1363
+#: ../src/core/default_systems.cpp:1449 ../src/core/default_systems.cpp:1502
+#: ../src/core/default_systems.cpp:1586 ../src/core/default_systems.cpp:1639
+#: ../src/core/default_systems.cpp:1703 ../src/core/default_systems.cpp:1767
+#: ../src/core/default_systems.cpp:1842 ../src/core/default_systems.cpp:1895
+#: ../src/core/default_systems.cpp:1959 ../src/core/default_systems.cpp:1981
+#: ../src/core/default_systems.cpp:2087 ../src/core/default_systems.cpp:2140
+msgid "Olivier Galibert and R. Belmont"
+msgstr "Olivier Galibert y R. Belmont"
+
+#: ../src/core/default_systems.cpp:68
+msgid "Atari 2600"
+msgstr "Atari 2600"
+
+#: ../src/core/default_systems.cpp:69
+msgid "Originally known as the Atari VCS, was released in October 1977"
+msgstr "Originalmente conocida como Atari VCS, fue lanzada en Octubre de 1977"
+
+#: ../src/core/default_systems.cpp:73
+msgid "Stella"
+msgstr "Stella"
+
+#: ../src/core/default_systems.cpp:74
+msgid "A multi-platform Atari VCS 2600 emulator"
+msgstr "Un emulador multi-plataforma para Atari VCS 2600"
+
+#: ../src/core/default_systems.cpp:76
+msgid "Bradford W. Mott & The Stella Team."
+msgstr "Bradford W. Mott y el Stella Team."
+
+#: ../src/core/default_systems.cpp:84
+msgid "z26"
+msgstr "z26"
+
+#: ../src/core/default_systems.cpp:85
+msgid "An Atari 2600 Emulator"
+msgstr "Un emulador para Atari 2600"
+
+#: ../src/core/default_systems.cpp:87
+msgid "John Saeger."
+msgstr "John Saeger."
+
+#: ../src/core/default_systems.cpp:117 ../src/core/default_systems.cpp:159
+#: ../src/core/default_systems.cpp:201 ../src/core/default_systems.cpp:307
+#: ../src/core/default_systems.cpp:371 ../src/core/default_systems.cpp:435
+#: ../src/core/default_systems.cpp:477 ../src/core/default_systems.cpp:519
+#: ../src/core/default_systems.cpp:561 ../src/core/default_systems.cpp:603
+#: ../src/core/default_systems.cpp:645 ../src/core/default_systems.cpp:687
+#: ../src/core/default_systems.cpp:782 ../src/core/default_systems.cpp:857
+#: ../src/core/default_systems.cpp:1102 ../src/core/default_systems.cpp:1210
+#: ../src/core/default_systems.cpp:1371 ../src/core/default_systems.cpp:1457
+#: ../src/core/default_systems.cpp:1594
+msgid "XMess"
+msgstr "XMess"
+
+#: ../src/core/default_systems.cpp:118 ../src/core/default_systems.cpp:160
+#: ../src/core/default_systems.cpp:202 ../src/core/default_systems.cpp:308
+#: ../src/core/default_systems.cpp:372 ../src/core/default_systems.cpp:436
+#: ../src/core/default_systems.cpp:478 ../src/core/default_systems.cpp:520
+#: ../src/core/default_systems.cpp:562 ../src/core/default_systems.cpp:604
+#: ../src/core/default_systems.cpp:646 ../src/core/default_systems.cpp:688
+#: ../src/core/default_systems.cpp:783 ../src/core/default_systems.cpp:858
+#: ../src/core/default_systems.cpp:1103 ../src/core/default_systems.cpp:1211
+#: ../src/core/default_systems.cpp:1372 ../src/core/default_systems.cpp:1458
+#: ../src/core/default_systems.cpp:1595
+msgid "Multiple Emulator Super System for UNIX/Linux"
+msgstr "Super Sistema Multi Emulador para UNIX/Linux"
+
+#: ../src/core/default_systems.cpp:120 ../src/core/default_systems.cpp:162
+#: ../src/core/default_systems.cpp:204 ../src/core/default_systems.cpp:310
+#: ../src/core/default_systems.cpp:374 ../src/core/default_systems.cpp:438
+#: ../src/core/default_systems.cpp:480 ../src/core/default_systems.cpp:522
+#: ../src/core/default_systems.cpp:564 ../src/core/default_systems.cpp:606
+#: ../src/core/default_systems.cpp:648 ../src/core/default_systems.cpp:690
+#: ../src/core/default_systems.cpp:785 ../src/core/default_systems.cpp:860
+#: ../src/core/default_systems.cpp:1105 ../src/core/default_systems.cpp:1213
+#: ../src/core/default_systems.cpp:1374 ../src/core/default_systems.cpp:1460
+#: ../src/core/default_systems.cpp:1597
+msgid "The XMame team"
+msgstr "The XMame team"
+
+#: ../src/core/default_systems.cpp:132
+msgid "Atari 5200"
+msgstr "Atari 5200"
+
+#: ../src/core/default_systems.cpp:133
+msgid "Atari 5200 SuperSystem was the replacement for the famous Atari 2600"
+msgstr "Atari 5200 SuperSystem fue la sucesora de la Atari 2600"
+
+#: ../src/core/default_systems.cpp:174
+msgid "Atari 7800"
+msgstr "Atari 7800"
+
+#: ../src/core/default_systems.cpp:175
+msgid "Video game console released by Atari Corp in June 1986"
+msgstr "Consola lanzada por Atari Corp en junio de 1986"
+
+#: ../src/core/default_systems.cpp:216
+msgid "Atari Jaguar"
+msgstr "Atari Jaguar"
+
+#: ../src/core/default_systems.cpp:217
+msgid "The first 64-Bits gaming system released by Atari Corp. in 1993"
+msgstr "Fue la primea consola de 64-Bits. Lanzada por Atari Corp. en 1993"
+
+#: ../src/core/default_systems.cpp:221
+msgid "Virtual Jaguar GCC/SDL"
+msgstr "Virtual Jaguar GCC/SDL"
+
+#: ../src/core/default_systems.cpp:222
+msgid "Portable emulator based in Virtual Jaguar"
+msgstr "Emulador portable basado en Virtual Jaguar"
+
+#: ../src/core/default_systems.cpp:224
+msgid "Niels Wagenaar, Carwin Jones, James L. Hammons and Adam Gree"
+msgstr "Niels Wagenaar, Carwin Jones, James L. Hammons and Adam Gree"
+
+#: ../src/core/default_systems.cpp:258
+msgid "Atari Lynx"
+msgstr "Atari Lynx"
+
+#: ../src/core/default_systems.cpp:259
+msgid "Was a handheld game console released by Atari Corporation in 1989"
+msgstr "Fue una consola de mano lanzada por Atari Corporation en 1989"
+
+#: ../src/core/default_systems.cpp:263 ../src/core/default_systems.cpp:327
+#: ../src/core/default_systems.cpp:391 ../src/core/default_systems.cpp:813
+#: ../src/core/default_systems.cpp:877 ../src/core/default_systems.cpp:961
+#: ../src/core/default_systems.cpp:1058 ../src/core/default_systems.cpp:1166
+#: ../src/core/default_systems.cpp:1252 ../src/core/default_systems.cpp:1327
+#: ../src/core/default_systems.cpp:1667 ../src/core/default_systems.cpp:1731
+#: ../src/core/default_systems.cpp:1859 ../src/core/default_systems.cpp:2051
+#: ../src/core/default_systems.cpp:2104
+msgid "Mednafen"
+msgstr "Mednafen"
+
+#: ../src/core/default_systems.cpp:264 ../src/core/default_systems.cpp:328
+#: ../src/core/default_systems.cpp:392 ../src/core/default_systems.cpp:814
+#: ../src/core/default_systems.cpp:878 ../src/core/default_systems.cpp:962
+#: ../src/core/default_systems.cpp:1059 ../src/core/default_systems.cpp:1167
+#: ../src/core/default_systems.cpp:1253 ../src/core/default_systems.cpp:1328
+#: ../src/core/default_systems.cpp:1668 ../src/core/default_systems.cpp:1732
+#: ../src/core/default_systems.cpp:1860 ../src/core/default_systems.cpp:2052
+#: ../src/core/default_systems.cpp:2105
+msgid "Portable Multi-system emulator under GPL"
+msgstr "Emulador multi-sistema portable bajo GPL"
+
+#: ../src/core/default_systems.cpp:266 ../src/core/default_systems.cpp:330
+#: ../src/core/default_systems.cpp:394 ../src/core/default_systems.cpp:816
+#: ../src/core/default_systems.cpp:880 ../src/core/default_systems.cpp:964
+#: ../src/core/default_systems.cpp:1061 ../src/core/default_systems.cpp:1169
+#: ../src/core/default_systems.cpp:1255 ../src/core/default_systems.cpp:1330
+#: ../src/core/default_systems.cpp:1670 ../src/core/default_systems.cpp:1734
+#: ../src/core/default_systems.cpp:1862 ../src/core/default_systems.cpp:2054
+#: ../src/core/default_systems.cpp:2107
+msgid "The Mednafen team"
+msgstr "The Mednafen team"
+
+#: ../src/core/default_systems.cpp:274
+msgid "Handy/SDL"
+msgstr "Handy/SDL"
+
+#: ../src/core/default_systems.cpp:275
+msgid "SDL based port of the famous Handy Atari Lynx emulator"
+msgstr "Port basado en SDL del famoso emulador de Atari Lynx Handy"
+
+#: ../src/core/default_systems.cpp:277
+msgid "Niels Wagenaar & Caz"
+msgstr "Niels Wagenaar & Caz"
+
+#: ../src/core/default_systems.cpp:322
+msgid "Bandai WonderSwan"
+msgstr "Bandai WonderSwan"
+
+#: ../src/core/default_systems.cpp:323
+msgid "Handheld 16-Bits game console released in Japan by Bandai in 1999"
+msgstr ""
+"Consola portátil de 16 bits que fue lanzada por Bandai en Japón en 1998"
+
+#: ../src/core/default_systems.cpp:338 ../src/core/default_systems.cpp:402
+#: ../src/core/default_systems.cpp:824 ../src/core/default_systems.cpp:972
+#: ../src/core/default_systems.cpp:1069 ../src/core/default_systems.cpp:1177
+#: ../src/core/default_systems.cpp:1263 ../src/core/default_systems.cpp:1338
+#: ../src/core/default_systems.cpp:1424 ../src/core/default_systems.cpp:1678
+#: ../src/core/default_systems.cpp:1742 ../src/core/default_systems.cpp:1817
+#: ../src/core/default_systems.cpp:1870 ../src/core/default_systems.cpp:2062
+#: ../src/core/default_systems.cpp:2115
+msgid "Xe Emulator"
+msgstr "Xe Emulator"
+
+#: ../src/core/default_systems.cpp:339 ../src/core/default_systems.cpp:403
+#: ../src/core/default_systems.cpp:825 ../src/core/default_systems.cpp:973
+#: ../src/core/default_systems.cpp:1070 ../src/core/default_systems.cpp:1178
+#: ../src/core/default_systems.cpp:1264 ../src/core/default_systems.cpp:1339
+#: ../src/core/default_systems.cpp:1425 ../src/core/default_systems.cpp:1679
+#: ../src/core/default_systems.cpp:1743 ../src/core/default_systems.cpp:1818
+#: ../src/core/default_systems.cpp:1871 ../src/core/default_systems.cpp:2063
+#: ../src/core/default_systems.cpp:2116
+msgid "Freeware Multi-system emulator for Linux and Windows"
+msgstr "Emulador multi-sistema Freeware para Linux y Windows"
+
+#: ../src/core/default_systems.cpp:341 ../src/core/default_systems.cpp:405
+#: ../src/core/default_systems.cpp:827 ../src/core/default_systems.cpp:975
+#: ../src/core/default_systems.cpp:1072 ../src/core/default_systems.cpp:1180
+#: ../src/core/default_systems.cpp:1266 ../src/core/default_systems.cpp:1341
+#: ../src/core/default_systems.cpp:1427 ../src/core/default_systems.cpp:1681
+#: ../src/core/default_systems.cpp:1745 ../src/core/default_systems.cpp:1820
+#: ../src/core/default_systems.cpp:1873 ../src/core/default_systems.cpp:2065
+#: ../src/core/default_systems.cpp:2118
+msgid "James Li"
+msgstr "James Li"
+
+#: ../src/core/default_systems.cpp:386
+msgid "Bandai WonderSwan Color"
+msgstr "Bandai WonderSwan Color"
+
+#: ../src/core/default_systems.cpp:387
+msgid "WonderSwan color version released in Japan by Bandai in 2000"
+msgstr "Versión en color de la WonderSwan lanzada en Japón por Bandai en 2000"
+
+#: ../src/core/default_systems.cpp:450
+msgid "Coleco ColecoVision"
+msgstr "Coleco ColecoVision"
+
+#: ../src/core/default_systems.cpp:451
+msgid ""
+"Coleco Industries' second generation video game console released in August "
+"1982"
+msgstr "Consola de segunda generación de Coleco lanzada en Agosto de 1982"
+
+#: ../src/core/default_systems.cpp:492
+msgid "Emerson Arcadia 2001"
+msgstr "Emerson Arcadia 2001"
+
+#: ../src/core/default_systems.cpp:493
+msgid "A 8-Bits Second generation video game console"
+msgstr "Consola de 8-Bits de segunda generación."
+
+#: ../src/core/default_systems.cpp:534
+msgid "Entex Adventure Vision"
+msgstr "Entex Adventure Vision"
+
+#: ../src/core/default_systems.cpp:535
+msgid "Entex's second generation video game console"
+msgstr "Consola de segunda generación de Entex."
+
+#: ../src/core/default_systems.cpp:576
+msgid "Fairchild Channel F"
+msgstr "Fairchild Channel F"
+
+#: ../src/core/default_systems.cpp:577
+msgid ""
+"Game console released by Fairchild in 1976. It was the first programmable "
+"ROM cartridge console."
+msgstr ""
+"Consola lanzada por Fairchild en 1976. Fue la primera consola con cartuchos "
+"programables."
+
+#: ../src/core/default_systems.cpp:618
+msgid "GCE Vectrex"
+msgstr "GCE Vectrex"
+
+#: ../src/core/default_systems.cpp:619
+msgid ""
+"8-Bits console with an integrated vector monitor which displays vector "
+"graphics"
+msgstr "Consola de 8-Bits con un monitor de gráficos vectoriales incluido."
+
+#: ../src/core/default_systems.cpp:660
+msgid "Magnavox Odyssey2"
+msgstr "Magnavox Odyssey2"
+
+#: ../src/core/default_systems.cpp:661
+msgid "Magnavox second generation video game console released in 1978"
+msgstr "Consola de segunda generación de Magnavox lanzada en 1978"
+
+#: ../src/core/default_systems.cpp:702 ../src/core/default_systems.cpp:707
+#: ../src/core/default_systems.cpp:1530 ../src/core/default_systems.cpp:1998
+#: ../src/core/default_systems.cpp:2168
+msgid "Mame"
+msgstr "Mame"
+
+#: ../src/core/default_systems.cpp:703 ../src/core/default_systems.cpp:708
+#: ../src/core/default_systems.cpp:1531 ../src/core/default_systems.cpp:1999
+#: ../src/core/default_systems.cpp:2169
+msgid "Multiple Arcade Machine Emulator"
+msgstr "Multiple Arcade Machine Emulator: emulador de máquinas recreativas"
+
+#: ../src/core/default_systems.cpp:710 ../src/core/default_systems.cpp:1533
+#: ../src/core/default_systems.cpp:2001 ../src/core/default_systems.cpp:2171
+msgid "Nicola Salmoria and the Mame Team"
+msgstr "Nicola Salmoria and the Mame Team"
+
+#: ../src/core/default_systems.cpp:718 ../src/core/default_systems.cpp:1541
+#: ../src/core/default_systems.cpp:2009 ../src/core/default_systems.cpp:2179
+msgid "SdlMame"
+msgstr "SdlMame"
+
+#: ../src/core/default_systems.cpp:719 ../src/core/default_systems.cpp:1542
+#: ../src/core/default_systems.cpp:2010 ../src/core/default_systems.cpp:2180
+msgid "Portable MAME version for POSIX-y systems with SDL"
+msgstr "Versión portable de MAME para sistemas POSIX-y con SDL"
+
+#: ../src/core/default_systems.cpp:721 ../src/core/default_systems.cpp:1544
+#: ../src/core/default_systems.cpp:2012 ../src/core/default_systems.cpp:2182
+msgid "Olivier Galibert, R. Belmont and the MAME Team"
+msgstr "Olivier Galibert, R. Belmont y el MAME Team"
+
+#: ../src/core/default_systems.cpp:729 ../src/core/default_systems.cpp:1552
+#: ../src/core/default_systems.cpp:2031 ../src/core/default_systems.cpp:2190
+msgid "XMame"
+msgstr "XMame"
+
+#: ../src/core/default_systems.cpp:730 ../src/core/default_systems.cpp:1553
+#: ../src/core/default_systems.cpp:2032 ../src/core/default_systems.cpp:2191
+msgid "Multiple Arcade Machine Emulator for UNIX/Linux"
+msgstr "Multiple Arcade Machine Emulator para UNIX/Linux"
+
+#: ../src/core/default_systems.cpp:732 ../src/core/default_systems.cpp:1555
+#: ../src/core/default_systems.cpp:2034 ../src/core/default_systems.cpp:2193
+msgid "The XMame Team"
+msgstr "El XMame Team"
+
+#: ../src/core/default_systems.cpp:744
+msgid "Mattel Intellivision"
+msgstr "Mattel Intellivision"
+
+#: ../src/core/default_systems.cpp:745
+msgid "Video game console released by Mattel Electronics in 1979"
+msgstr "Consola lanzada por Mattel Electronics en 1979"
+
+#: ../src/core/default_systems.cpp:749
+msgid "jzIntv"
+msgstr "jzIntv"
+
+#: ../src/core/default_systems.cpp:750
+msgid "Joe Zbiciak's Intellivision Emulator for Linux"
+msgstr "Emulador para Intellivision de Joe Zbiciak's sobre Linux"
+
+#: ../src/core/default_systems.cpp:752
+msgid "Joe Zbiciak"
+msgstr "Joe Zbiciak"
+
+#: ../src/core/default_systems.cpp:797
+msgid "NEC Pc Engine"
+msgstr "NEC Pc Engine"
+
+#: ../src/core/default_systems.cpp:798
+msgid "8-Bits video game console also known as TurboGrafx "
+msgstr "Consola de 8-Bits conocida también como TurboGrafx"
+
+#: ../src/core/default_systems.cpp:802
+msgid "Hu-Go!"
+msgstr "Hu-Go!"
+
+#: ../src/core/default_systems.cpp:803
+msgid "Multiplatform Pc Engine / TurboGrafx emulator"
+msgstr "Emulador para PC Engine / TurboGrafx multiplataforma"
+
+#: ../src/core/default_systems.cpp:805
+msgid "Zeograd"
+msgstr "Zeograd"
+
+#: ../src/core/default_systems.cpp:872
+msgid "NEC SuperGrafx"
+msgstr "NEC SuperGrafx"
+
+#: ../src/core/default_systems.cpp:873
+msgid "8-Bits video game console successor of the Pc Engine"
+msgstr "Consola de 8-Bits sucesora de la PC Engine"
+
+#: ../src/core/default_systems.cpp:914
+msgid "Nintendo DS"
+msgstr "Nintendo DS"
+
+#: ../src/core/default_systems.cpp:915
+msgid "Dual-screen handheld console released by Nintendo in 2004"
+msgstr "Consola portátil con doble pantalla, lanzada por Nintendo en 2004"
+
+#: ../src/core/default_systems.cpp:919
+msgid "DeSmuME"
+msgstr "DeSmuME"
+
+#: ../src/core/default_systems.cpp:920
+msgid "A Nintendo DS emulator under GNU GPL"
+msgstr "Un emulador de Nintendo DS bajo GNU GPL"
+
+#: ../src/core/default_systems.cpp:922
+msgid "Yopyop and The DeSmuME team"
+msgstr "Yopyop y el DeSmuME Team"
+
+#: ../src/core/default_systems.cpp:934
+msgid "Nintendo Famicom Disk System"
+msgstr "Nintendo Famicom Disk System"
+
+#: ../src/core/default_systems.cpp:935
+msgid ""
+"Was released in 1986 by Nintendo as a peripheral for the Famicom console"
+msgstr "Lanzada por Nintendo en 1986 como un periférico de la Famicom"
+
+#: ../src/core/default_systems.cpp:939 ../src/core/default_systems.cpp:1305
+msgid "FCEUX"
+msgstr "FCEUX"
+
+#: ../src/core/default_systems.cpp:940 ../src/core/default_systems.cpp:1306
+msgid "A Evolution of the original FCE Ultra emulator"
+msgstr "Una evolución del emulador FCE Ultra original"
+
+#: ../src/core/default_systems.cpp:942 ../src/core/default_systems.cpp:1308
+msgid "The FCEUX team"
+msgstr "El FCEUX Team"
+
+#: ../src/core/default_systems.cpp:950 ../src/core/default_systems.cpp:1316
+msgid "Nestopia"
+msgstr "Nestopia"
+
+#: ../src/core/default_systems.cpp:951 ../src/core/default_systems.cpp:1317
+msgid "Open source NES/Famicom emulator focused accuracy"
+msgstr "Emulador OpenSource para NES/Famicom enfocado en la precisión"
+
+#: ../src/core/default_systems.cpp:953 ../src/core/default_systems.cpp:1319
+msgid "Martin Freij & R. Belmont (Linux port)"
+msgstr "Martin Freij & R. Belmont (Port para Linux)"
+
+#: ../src/core/default_systems.cpp:1009
+msgid "Nintendo Game Boy"
+msgstr "Nintendo Game Boy"
+
+#: ../src/core/default_systems.cpp:1010
+msgid "Handheld video game console developed by Nintendo released in 1989"
+msgstr "Consola portatil desarrollada por Nintendo y lanzada 1989"
+
+#: ../src/core/default_systems.cpp:1014 ../src/core/default_systems.cpp:1122
+msgid "Gambatte"
+msgstr "Gambatte"
+
+#: ../src/core/default_systems.cpp:1015 ../src/core/default_systems.cpp:1123
+msgid "Accuracy-focused, cross-platform Game Boy Color emulator"
+msgstr "Emulador de Game Boy de plataforma cruzada, enfocado en la precisión."
+
+#: ../src/core/default_systems.cpp:1017 ../src/core/default_systems.cpp:1125
+msgid "Sindre Aamås"
+msgstr "Sindre Aamås"
+
+#: ../src/core/default_systems.cpp:1025 ../src/core/default_systems.cpp:1133
+msgid "Gngb"
+msgstr "Gngb"
+
+#: ../src/core/default_systems.cpp:1026 ../src/core/default_systems.cpp:1134
+msgid "A Game Boy (Color) emulator for GNU/Linux written in C using SDL"
+msgstr ""
+"Un emulador para Game Boy (Color) para GNU/Linux escrito en C usando SDL"
+
+#: ../src/core/default_systems.cpp:1028 ../src/core/default_systems.cpp:1136
+msgid "Frogus & Pepone"
+msgstr "Frogus & Pepone"
+
+#: ../src/core/default_systems.cpp:1036 ../src/core/default_systems.cpp:1144
+msgid "Gnuboy"
+msgstr "Gnuboy"
+
+#: ../src/core/default_systems.cpp:1037 ../src/core/default_systems.cpp:1145
+msgid "One of the few Game Boy (Color) emulator for GNU/Linux"
+msgstr "Uno de los pocos emuladores para Game Boy (Color) para GNU/Linux"
+
+#: ../src/core/default_systems.cpp:1039 ../src/core/default_systems.cpp:1147
+msgid "Laguna and Gilgamesh"
+msgstr "Laguna y Gilgamesh"
+
+#: ../src/core/default_systems.cpp:1047 ../src/core/default_systems.cpp:1155
+#: ../src/core/default_systems.cpp:1230
+msgid "VisualBoy Advance"
+msgstr "VisualBoy Advance"
+
+#: ../src/core/default_systems.cpp:1048 ../src/core/default_systems.cpp:1156
+#: ../src/core/default_systems.cpp:1231
+msgid "VBA is one of the most known emulators for GBA"
+msgstr "VBA es uno de los emuladores más conocidos para GBA"
+
+#: ../src/core/default_systems.cpp:1050 ../src/core/default_systems.cpp:1158
+#: ../src/core/default_systems.cpp:1233
+msgid "Forgotten and The VBA Team."
+msgstr "Forgotten y el VBA Team."
+
+#: ../src/core/default_systems.cpp:1117
+msgid "Nintendo Game Boy Color"
+msgstr "Nintendo Game Boy Color"
+
+#: ../src/core/default_systems.cpp:1118
+msgid "Successor of the Game Boy released in October 1998"
+msgstr "Sucesora de la Game Boy lanzada en Octubre de 1998"
+
+#: ../src/core/default_systems.cpp:1225
+msgid "Nintendo Game Boy Advance"
+msgstr "Nintendo Game Boy Advance"
+
+#: ../src/core/default_systems.cpp:1226
+msgid ""
+"32-Bit handheld video game console developed by Nintendo released in 2001"
+msgstr ""
+"Consola portátil de 32-Bits desarrollada por Nintendo y lanzada en 2001"
+
+#: ../src/core/default_systems.cpp:1241
+msgid "BoyCott Advance-SDL"
+msgstr "BoyCott Advance-SDL"
+
+#: ../src/core/default_systems.cpp:1242
+msgid "A freeware Nintendo Game Boy Advance emulator."
+msgstr "Un emulador Freeware para Nintendo Game Boy Advance."
+
+#: ../src/core/default_systems.cpp:1244
+msgid "SDLEmu development-team"
+msgstr "SDLEmu Development-Team"
+
+#: ../src/core/default_systems.cpp:1300
+msgid "Nintendo NES"
+msgstr "Nintendo NES"
+
+#: ../src/core/default_systems.cpp:1301
+msgid "8-Bit video game console developed by Nintendo and released in 1983"
+msgstr "Consola de 8-Bits desarrollada por Nintendo y lanzada en 1983"
+
+#: ../src/core/default_systems.cpp:1386
+msgid "Nintendo SNES"
+msgstr "Nintendo SNES"
+
+#: ../src/core/default_systems.cpp:1387
+msgid "16-Bits video game console sucessor of the Nes"
+msgstr "Consola de 16-Bits sucesora de la Nes"
+
+#: ../src/core/default_systems.cpp:1391
+msgid "Snes9x-gtk"
+msgstr "Snes9x-gtk"
+
+#: ../src/core/default_systems.cpp:1392
+msgid "Gtk+ port of Snes9x Free SNes emulator"
+msgstr "Port para Gtk+ del emulador libre Snes9x SNES emulator"
+
+#: ../src/core/default_systems.cpp:1394
+msgid "Brandon Wright (bearoso)"
+msgstr "Brandon Wright (bearoso)"
+
+#: ../src/core/default_systems.cpp:1402
+msgid "Bsnes"
+msgstr "Bsnes"
+
+#: ../src/core/default_systems.cpp:1403
+msgid "An accuracy focused emulator for Nintendo SNES"
+msgstr "Un emulador para Nintendo SNES enfocado en la precisión"
+
+#: ../src/core/default_systems.cpp:1405
+msgid "Byuu"
+msgstr "Byuu"
+
+#: ../src/core/default_systems.cpp:1413
+msgid "Zsnes"
+msgstr "Zsnes"
+
+#: ../src/core/default_systems.cpp:1414
+msgid "Zsnes - A Super Nintendo emulator"
+msgstr "Zsnes - Un emulador de Super Nintendo"
+
+#: ../src/core/default_systems.cpp:1416
+msgid "zsKnight & _Demo_"
+msgstr "zsKnight & _Demo_"
+
+#: ../src/core/default_systems.cpp:1472
+msgid "Nintendo 64"
+msgstr "Nintendo 64"
+
+#: ../src/core/default_systems.cpp:1473
+msgid "64-Bit console released by Nintendo in 1996 in Japan."
+msgstr "Consola de 64-Bits lanzada por Nintendo en 1996 en Japón."
+
+#: ../src/core/default_systems.cpp:1477
+msgid "Mupen64Plus"
+msgstr "Mupen64Plus"
+
+#: ../src/core/default_systems.cpp:1478
+msgid "An open source Nintendo 64 emulator"
+msgstr "Un emulador de Nintendo 64 OpenSource"
+
+#: ../src/core/default_systems.cpp:1480
+msgid "The Mupen64Plus Team"
+msgstr "El Mupen64Plus Team"
+
+#: ../src/core/default_systems.cpp:1514 ../src/core/default_systems.cpp:1519
+msgid "Raine"
+msgstr "Raine"
+
+#: ../src/core/default_systems.cpp:1515
+msgid "M680x0 Arcade Emulation"
+msgstr "M680x0 Arcade Emulation"
+
+#: ../src/core/default_systems.cpp:1520
+msgid "Multi arcade emulator mainly focused on Taito and Jaleco hardware"
+msgstr "Emulador multi arcade enfocado en el hardware de Taito and Jaleco"
+
+#: ../src/core/default_systems.cpp:1522
+msgid "Antiriad And Raine Team"
+msgstr "Antiriad y el Raine Team"
+
+#: ../src/core/default_systems.cpp:1567
+msgid "RCA Studio II"
+msgstr "RCA Studio II"
+
+#: ../src/core/default_systems.cpp:1568
+msgid "Video game console made by RCA that debuted in January 1977"
+msgstr "Consola de videojuegos creada por RCA que debutó en Enero de 1977"
+
+#: ../src/core/default_systems.cpp:1609
+msgid "SEGA 32X"
+msgstr "SEGA 32X"
+
+#: ../src/core/default_systems.cpp:1610
+msgid "Add-on for the Mega Drive/Genesis who adds support for 32bits"
+msgstr "Add-on para la Mega Drive/Genesis que añadía soporte para 32bits"
+
+#: ../src/core/default_systems.cpp:1614 ../src/core/default_systems.cpp:1784
+msgid "Gens/GS"
+msgstr "Gens/GS"
+
+#: ../src/core/default_systems.cpp:1615 ../src/core/default_systems.cpp:1785
+msgid "Free SEGA Mega Drive, 32X and SEGA CD emulator based on Gens"
+msgstr "Emulador libre para SEGA Mega Drive, 32X y SEGA CD basado en Gens"
+
+#: ../src/core/default_systems.cpp:1617 ../src/core/default_systems.cpp:1787
+msgid ""
+"Stephane Dallongeville\n"
+"Stephane Akhoun\n"
+"David Korth (GS)"
+msgstr ""
+"Stephane Dallongeville\n"
+"Stephane Akhoun\n"
+"David Korth (GS)"
+
+#: ../src/core/default_systems.cpp:1651
+msgid "SEGA Game Gear"
+msgstr "SEGA Game Gear"
+
+#: ../src/core/default_systems.cpp:1652
+msgid "Handheld video games system released by SEGA as response to Game Boy"
+msgstr "Consola portátil lanzada por SEGA como respuesta a la Game Boy"
+
+#: ../src/core/default_systems.cpp:1656 ../src/core/default_systems.cpp:1720
+msgid "Osmose"
+msgstr "Osmose"
+
+#: ../src/core/default_systems.cpp:1657 ../src/core/default_systems.cpp:1721
+msgid "Open source SEGA Master System / Gamegear emulator"
+msgstr "Emulador OpenSource de SEGA Master System / Gamegear"
+
+#: ../src/core/default_systems.cpp:1659 ../src/core/default_systems.cpp:1723
+msgid "Bruno Vedder"
+msgstr "Bruno Vedder"
+
+#: ../src/core/default_systems.cpp:1715
+msgid "SEGA Master System"
+msgstr "SEGA Master System"
+
+#: ../src/core/default_systems.cpp:1716
+msgid "8-Bits cartridge based video game console released by SEGA"
+msgstr "Consola de 8-Bits basada en cartuchos lanzada por SEGA"
+
+#: ../src/core/default_systems.cpp:1779
+msgid "SEGA Mega Drive"
+msgstr "SEGA Mega Drive"
+
+#: ../src/core/default_systems.cpp:1780
+msgid "16-Bits video game console developed by SEGA. Also known as Genesis"
+msgstr ""
+"Consola de 16-Bits desarrollada por SEGA. También fue conocida como Genesis"
+
+#: ../src/core/default_systems.cpp:1795
+msgid "Regen"
+msgstr "Regen"
+
+#: ../src/core/default_systems.cpp:1796
+msgid "SEGA Genesis/MegaDrive emulator written for maximum accuracy"
+msgstr "Emulador de SEGA Genesis/MegaDrive escrito para máxima precisión"
+
+#: ../src/core/default_systems.cpp:1798
+msgid "Aamir Maghul"
+msgstr "Aamir Maghul"
+
+#: ../src/core/default_systems.cpp:1806
+msgid "Generator"
+msgstr "Generator"
+
+#: ../src/core/default_systems.cpp:1807
+msgid "Open source SEGA Mega Drive / Genesis emulator"
+msgstr "Emulador OpenSource de SEGA Mega Drive / Genesis"
+
+#: ../src/core/default_systems.cpp:1809
+msgid "James Ponder, Christian Biere (SDL)"
+msgstr "James Ponder, Christian Biere (SDL)"
+
+#: ../src/core/default_systems.cpp:1854
+msgid "SEGA SG1000"
+msgstr "SEGA SG1000"
+
+#: ../src/core/default_systems.cpp:1855
+msgid "Was the first video game console developed by SEGA"
+msgstr "Fue la primera consola de juegos desarrollada por SEGA."
+
+#: ../src/core/default_systems.cpp:1907
+msgid "Sinclair ZX Spectrum"
+msgstr "Sinclair ZX Spectrum"
+
+#: ../src/core/default_systems.cpp:1908
+msgid ""
+"An 8-bit personal home computer released in 1982 by Sinclair Research Ltd"
+msgstr "Ordenador personal de 8 bits lanzado por Sinclair Research Ltd en 1982"
+
+#: ../src/core/default_systems.cpp:1912
+msgid "FBZX"
+msgstr "FBZX"
+
+#: ../src/core/default_systems.cpp:1913
+msgid "A ZX Spectrum emulator for FrameBuffer"
+msgstr "Un emulador de ZX Spectrum para FrameBuffer"
+
+#: ../src/core/default_systems.cpp:1915
+msgid "Raster Software Vigo (Sergio Costas)"
+msgstr "Raster Software Vigo (Sergio Costas)"
+
+#: ../src/core/default_systems.cpp:1923
+msgid "Fuse"
+msgstr "Fuse"
+
+#: ../src/core/default_systems.cpp:1924
+msgid "The Free Unix Spectrum Emulator (Fuse)"
+msgstr "Un emulador libre de Spectrum para sistemas Unix"
+
+#: ../src/core/default_systems.cpp:1926
+msgid "Philip Kendall"
+msgstr "Philip Kendall"
+
+#: ../src/core/default_systems.cpp:1934
+msgid "SpectEmu"
+msgstr "SpectEmu"
+
+#: ../src/core/default_systems.cpp:1935
+msgid "A 48k ZX-Spectrum emulator for Linux and other UNIX"
+msgstr "Un emulador de ZX-Spectrum 48k para Linux y otros UNIX"
+
+#: ../src/core/default_systems.cpp:1937
+msgid "Miklos Szeredi"
+msgstr "Miklos Szeredi"
+
+#: ../src/core/default_systems.cpp:1945
+msgid "Mess (Tapes)"
+msgstr "Mess (Cintas)"
+
+#: ../src/core/default_systems.cpp:1956
+msgid "SdlMess (Tapes)"
+msgstr "SdlMess (Cintas)"
+
+#: ../src/core/default_systems.cpp:1967
+msgid "Mess (Snaps)"
+msgstr "Mess (Snaps)"
+
+#: ../src/core/default_systems.cpp:1978
+msgid "SdlMess (Snaps)"
+msgstr "SdlMess (Snaps)"
+
+#: ../src/core/default_systems.cpp:1993
+msgid "SNK Neo Geo AES"
+msgstr "SNK Neo Geo AES"
+
+#: ../src/core/default_systems.cpp:1994
+msgid "Arcade cartridge-based video game system released in 1990 by SNK"
+msgstr "Consola de cartuchos basados en placas arcade lanzada por SNK en 1990"
+
+#: ../src/core/default_systems.cpp:2020
+msgid "GnGeo"
+msgstr "GnGeo"
+
+#: ../src/core/default_systems.cpp:2021
+msgid "A powerful and fast Neo Geo emulator for GNU/Linux"
+msgstr "Un emulador de Neo Geo potente y rápido para GNU/Linux"
+
+#: ../src/core/default_systems.cpp:2023
+msgid "Mathieu Peponas & others"
+msgstr "Mathieu Peponas y otros"
+
+#: ../src/core/default_systems.cpp:2046
+msgid "SNK Neo Geo Pocket"
+msgstr "SNK Neo Geo Pocket"
+
+#: ../src/core/default_systems.cpp:2047
+msgid "First handheld video games system released by SNK"
+msgstr "Primera consola portátil lanzada por sNK"
+
+#: ../src/core/default_systems.cpp:2099
+msgid "SNK Neo Geo Pocket Color"
+msgstr "SNK Neo Geo Pocket Color"
+
+#: ../src/core/default_systems.cpp:2100
+msgid "16-Bit color handheld video games system released by SNK"
+msgstr "Consola portátil a color de 16 bits lanzada por SNK"
+
+#: ../src/core/default_systems.cpp:2152 ../src/core/default_systems.cpp:2157
+msgid "ZiNc"
+msgstr "ZiNc"
+
+#: ../src/core/default_systems.cpp:2153
+msgid "Zinc - 3d arcade emulator"
+msgstr "Zinc - 3d arcade emulator"
+
+#: ../src/core/default_systems.cpp:2158
+msgid "Emulator for Sony ZN-1 and ZN-2 and Namco System 11 hardware"
+msgstr "Emulador para el hardware Sony ZN-1, ZN-2 y Namco System"
+
+#: ../src/core/default_systems.cpp:2160
+msgid "The_Author and DynaChicken"
+msgstr "The_Author y DynaChicken"
+
+#: ../src/core/system_manager.cpp:365
+msgid "Games list\n"
+msgstr "Lista de juegos\n"
+
+#: ../src/core/system_manager.cpp:376
+msgid "\tFlags: "
+msgstr "\tFlags: "
+
+#: ../src/core/system_manager.cpp:377
+msgid "F "
+msgstr "F "
+
+#: ../src/core/system_manager.cpp:378
+msgid "P "
+msgstr "P "
+
+#: ../src/core/system_manager.cpp:379
+msgid "W "
+msgstr "W "
+
+#: ../src/core/system_manager.cpp:380
+msgid "A "
+msgstr "A "
+
+#: ../src/core/system_manager.cpp:381
+msgid "U "
+msgstr "U "
+
+#: ../src/core/system_manager.cpp:383
+msgid "Rank: "
+msgstr "Puntuación: "
+
+#: ../src/core/system_manager.cpp:384 ../src/core/system_manager.cpp:385
+#: ../src/core/system_manager.cpp:386 ../src/core/system_manager.cpp:387
+#: ../src/core/system_manager.cpp:388
+msgid "* "
+msgstr "* "
+
+#: ../src/ui/dialog_about.cpp:42
+msgid "Gelide Website"
+msgstr "Gelide Website"
+
+#: ../src/ui/dialog_about.cpp:46
+msgid ""
+"\"One to rule them all\"\n"
+"\n"
+"A multi system and multi emulator\n"
+" frontend for GNU/Linux."
+msgstr ""
+"\"Uno para gobernarlos a todos\"\n"
+"\n"
+"Un frontend multi sistema y multi\n"
+"emulador para GNU/Linux."
+
+#. Translators: change this to your name, separate multiple names with \n
+#: ../src/ui/dialog_about.cpp:77
+msgid "Translations credits"
+msgstr "Juan Ángel Moreno Fernández <jamf@users.sourceforge.net>"
+
+#. Configuración visual del dialogo
+#: ../src/ui/dialog_changelog.cpp:39
+msgid "Gelide ChangeLog"
+msgstr "Gelide ChangeLog"
+
+#. Configuración del titulo
+#: ../src/ui/dialog_changelog.cpp:46
+msgid "Gelide changes history"
+msgstr "Historial de cambios de Gelide"
+
+#. Configuración visual del dialogo
+#: ../src/ui/dialog_columns.cpp:38
+msgid "Columns selector"
+msgstr "Selector de columnas"
+
+#. Configuración de la etiqueta superior
+#: ../src/ui/dialog_columns.cpp:80
+msgid "Columns"
+msgstr "Columnas"
+
+#. Empaquetamos etiqueta y alineamiento
+#. m_vbox_body.set_spacing(5);
+#. m_vbox_body.pack_start(m_label_title, false, false);
+#. m_vbox_body.pack_start(m_alignment_body, true, true);
+#. Configuramos la etiqueta de descripción
+#: ../src/ui/dialog_columns.cpp:92
+msgid "Please select games list columns"
+msgstr "Seleccione las columnas para el listado de juegos"
+
+#. Creación de la columna Activo (Editable) y configuración
+#: ../src/ui/dialog_columns.cpp:139
+msgid "Active"
+msgstr "Activo"
+
+#. Creación de la columna nombre
+#. Creación de la columna Nombre
+#: ../src/ui/dialog_columns.cpp:146 ../src/ui/treeview_filters.cpp:54
+#: ../src/ui/treeview_games.cpp:82
+msgid "Name"
+msgstr "Nombre"
+
+#. Configuración visual del dialogo
+#: ../src/ui/dialog_emulator_edit.cpp:40
+msgid "Emulators editor"
+msgstr "Edición de emuladores"
+
+#. Configuramos la etiqueta principal
+#: ../src/ui/dialog_emulator_edit.cpp:49
+msgid "Emulator's general information"
+msgstr "Información general del emulador"
+
+#. Configuración de las etiquetas
+#: ../src/ui/dialog_emulator_edit.cpp:101 ../src/ui/dialog_system_edit.cpp:104
+msgid "Name:"
+msgstr "Nombre:"
+
+#: ../src/ui/dialog_emulator_edit.cpp:103 ../src/ui/dialog_system_edit.cpp:106
+msgid "Description:"
+msgstr "Descripción:"
+
+#: ../src/ui/dialog_emulator_edit.cpp:105
+msgid "Version:"
+msgstr "Versión:"
+
+#: ../src/ui/dialog_emulator_edit.cpp:107
+msgid "Author:"
+msgstr "Autor:"
+
+#: ../src/ui/dialog_emulator_edit.cpp:109
+msgid "Web:"
+msgstr "Web:"
+
+#: ../src/ui/dialog_emulator_edit.cpp:111
+msgid "Binary:"
+msgstr "Ejecutable:"
+
+#: ../src/ui/dialog_emulator_edit.cpp:113
+msgid "Params:"
+msgstr "Parámetros:"
+
+#: ../src/ui/dialog_emulator_edit.cpp:115 ../src/ui/dialog_system_edit.cpp:112
+msgid "Icon:"
+msgstr "Icono:"
+
+#: ../src/ui/dialog_emulator_edit.cpp:180 ../src/ui/dialog_system_edit.cpp:287
+msgid "Non implemented."
+msgstr "No implementado."
+
+#: ../src/ui/dialog_emulator_edit.cpp:183 ../src/ui/dialog_system_edit.cpp:290
+msgid "This action is work in progress."
+msgstr "Esta acción está en proceso de desarrollo."
+
+#: ../src/ui/dialog_emulator_edit.cpp:218 ../src/ui/dialog_system_edit.cpp:344
+msgid "Please select an image"
+msgstr "Por favor seleccione una imagen"
+
+#. Configuración visual del dialogo
+#: ../src/ui/dialog_emulator_launcher.cpp:41
+msgid "Games launcher"
+msgstr "Lanzador de juegos"
+
+#. Configuración del titulo
+#: ../src/ui/dialog_emulator_launcher.cpp:48
+msgid "Starting emulation..."
+msgstr "Comenzando la emulación..."
+
+#: ../src/ui/dialog_emulator_launcher.cpp:109
+msgid "* Checking emulator:\n"
+msgstr "* Comprobando emulador:\n"
+
+#: ../src/ui/dialog_emulator_launcher.cpp:119
+msgid "* Checking game:\n"
+msgstr "* Comprobando juego:\n"
+
+#: ../src/ui/dialog_emulator_launcher.cpp:124
+msgid "* Processing parameters:\n"
+msgstr "* Analizando parámetros:\n"
+
+#: ../src/ui/dialog_emulator_launcher.cpp:199
+msgid "Command: "
+msgstr "Comando: "
+
+#: ../src/ui/dialog_emulator_launcher.cpp:201
+msgid "* Launching emulation:\n"
+msgstr "* Lanzando emulación:\n"
+
+#: ../src/ui/dialog_emulator_launcher.cpp:212
+msgid "\t Finished.\n"
+msgstr "\t Finalizado.\n"
+
+#: ../src/ui/dialog_emulator_launcher.cpp:218
+msgid "* Process output:\n"
+msgstr "* Salida del proceso:\n"
+
+#: ../src/ui/dialog_emulator_launcher.cpp:225
+msgid ""
+"\n"
+"* Process error output:\n"
+msgstr ""
+"\n"
+"* Salida de error del proceso:\n"
+
+#: ../src/ui/dialog_emulator_launcher.cpp:235
+#: ../src/ui/dialog_emulator_launcher.cpp:238
+msgid "\tCan not be located"
+msgstr "\tNo se pudo localizar\""
+
+#: ../src/ui/dialog_emulator_launcher.cpp:241
+msgid "The system has no configured emulator.\n"
+msgstr "El sistema no tiene ningún emulador configurado.\n"
+
+#. Configuración visual del dialogo
+#. Configuración de las etiquetas
+#: ../src/ui/dialog_gamelist_generator.cpp:45
+#: ../src/ui/dialog_gamelist_generator.cpp:52
+msgid "Generating games list"
+msgstr "Generando listado de juegos"
+
+#. "Espere un momento mientras se analiza el fichero dat y el directorio de roms del sistema..."
+#: ../src/ui/dialog_gamelist_generator.cpp:56
+msgid "Please wait while system's dat file and roms directory are processed..."
+msgstr ""
+"Espere un momento mientras se analiza el fichero dat y el directorio de roms "
+"del sistema..."
+
+#: ../src/ui/dialog_gamelist_generator.cpp:59
+msgid "Initializing."
+msgstr "Inicializando."
+
+#: ../src/ui/dialog_gamelist_generator.cpp:103
+msgid "Are you sure you want to create a new list?"
+msgstr "¿Seguro de que desea generar el listado?"
+
+#: ../src/ui/dialog_gamelist_generator.cpp:107
+msgid ""
+"If you continue, a new games list will be created for the current system."
+msgstr ""
+"Si continúa se generará un nuevo listado de juegos para el sistema actual."
+
+#: ../src/ui/dialog_gamelist_generator.cpp:179
+msgid "Loading dat file..."
+msgstr "Cargando fichero dat..."
+
+#: ../src/ui/dialog_gamelist_generator.cpp:207
+msgid "Generating the user's game list..."
+msgstr "Generando listado de juegos del usuario..."
+
+#: ../src/ui/dialog_gamelist_generator.cpp:235
+msgid "Checking files..."
+msgstr "Comprobando ficheros..."
+
+#: ../src/ui/dialog_gamelist_generator.cpp:247
+msgid "Checking: "
+msgstr "Comprobando: "
+
+#: ../src/ui/dialog_gamelist_generator.cpp:292
+msgid "Generating list of games..."
+msgstr "Generando listado de juegos..."
+
+#: ../src/ui/dialog_gamelist_generator.cpp:317
+msgid "End. %1 added games."
+msgstr "Finalizado. %1 juegos añadidos."
+
+#. Configuración visual del dialogo
+#: ../src/ui/dialog_preferences.cpp:34 ../src/ui/gelide_ui.cpp:353
+msgid "Gelide configuration"
+msgstr "Configurar Gelide"
+
+#. Configuración de la etiqueta superior
+#: ../src/ui/dialog_preferences.cpp:113
+msgid "Defaults systems"
+msgstr "Sistemas por defecto"
+
+#. Configuración del checkbutton
+#: ../src/ui/dialog_preferences.cpp:116
+msgid "Load default systems on boot"
+msgstr "Cargar sistemas por defecto en el arranque"
+
+#. Configuración de la etiqueta superior
+#: ../src/ui/dialog_preferences.cpp:129
+msgid "Emulation"
+msgstr "Emulación"
+
+#. Configuración del checkbutton
+#: ../src/ui/dialog_preferences.cpp:132
+msgid "Show emulator's output"
+msgstr "Mostrar salida del emulador"
+
+#. Configuración de la etiqueta superior
+#: ../src/ui/dialog_preferences.cpp:145
+msgid "Games list generator"
+msgstr "Generador de listados de juegos"
+
+#. Configuración del checkbutton
+#: ../src/ui/dialog_preferences.cpp:148
+msgid "Preserving games data"
+msgstr "Preservar datos de juegos"
+
+#: ../src/ui/dialog_preferences.cpp:151
+msgid "Add unknown games"
+msgstr "Añadir juegos desconocidos"
+
+#. Configuración de la etiqueta superior
+#: ../src/ui/dialog_preferences.cpp:166
+msgid "Export"
+msgstr "Exportar"
+
+#. Configuración del checkbutton
+#: ../src/ui/dialog_preferences.cpp:169
+msgid "Export icons"
+msgstr "Exportar iconos"
+
+#: ../src/ui/dialog_preferences.cpp:172
+msgid "Export dat files"
+msgstr "Exportar ficheros dat"
+
+#. Configuración visual del dialogo
+#: ../src/ui/dialog_system_edit.cpp:44
+msgid "Edit systems"
+msgstr "Edición de sistemas"
+
+#. Configuración del Notebook
+#. m_notebook_body.set_border_width(10);
+#: ../src/ui/dialog_system_edit.cpp:55
+msgid "Information"
+msgstr "Información"
+
+#: ../src/ui/dialog_system_edit.cpp:56
+msgid "Directories"
+msgstr "Directorios"
+
+#. Configuración de la etiqueta superior
+#: ../src/ui/dialog_system_edit.cpp:94
+msgid "System's general information"
+msgstr "Información general del sistema"
+
+#: ../src/ui/dialog_system_edit.cpp:108
+msgid "Dat File:"
+msgstr "Fichero Dat:"
+
+#: ../src/ui/dialog_system_edit.cpp:110
+msgid "Bios File:"
+msgstr "Fichero Bios:"
+
+#. Configuración de la etiqueta home
+#: ../src/ui/dialog_system_edit.cpp:171
+msgid "Home directory"
+msgstr "Directorio home"
+
+#. Configuración de la etiqueta superior
+#: ../src/ui/dialog_system_edit.cpp:174
+msgid "Roms directory"
+msgstr "Directorio de rom"
+
+#. Configuración de la etiqueta de directorios
+#: ../src/ui/dialog_system_edit.cpp:193
+msgid "Images directory"
+msgstr "Directorios de imágenes"
+
+#. Configuración de las etiquetas
+#: ../src/ui/dialog_system_edit.cpp:196
+msgid "Snapshots:"
+msgstr "Capturas:"
+
+#: ../src/ui/dialog_system_edit.cpp:198
+msgid "Titles:"
+msgstr "Títulos:"
+
+#: ../src/ui/dialog_system_edit.cpp:200
+msgid "Fronts:"
+msgstr "Frontales:"
+
+#: ../src/ui/dialog_system_edit.cpp:202
+msgid "Backs:"
+msgstr "Traseras:"
+
+#: ../src/ui/dialog_system_edit.cpp:204
+msgid "Media:"
+msgstr "Media:"
+
+#: ../src/ui/dialog_system_edit.cpp:300
+msgid "Name field is not correct"
+msgstr "El campo Nombre no es correcto"
+
+#. "Este campo es esencial para un sistema,\ndebe contener algún valor."
+#: ../src/ui/dialog_system_edit.cpp:306
+msgid "This field can not be empty."
+msgstr "Este campo debe contener algún valor."
+
+#: ../src/ui/dialog_system_edit.cpp:330
+msgid "Please select a directory"
+msgstr "Por favor seleccione un directorio"
+
+#: ../src/ui/gelide_ui_actions.cpp:46
+msgid "Export games list..."
+msgstr "Exportar listado de juegos..."
+
+#. "Ya existe un archivo llamado \"" + Glib::path_get_basename(l_path) + "\".\n¿Quiere reemplazarlo?"
+#. l_dialog.set_message(_("File \"") + Glib::path_get_basename(l_path) + _(" alredy exists\".\nDo you want to replace it?"));
+#: ../src/ui/gelide_ui_actions.cpp:61 ../src/ui/gelide_ui_actions.cpp:85
+msgid ""
+"File \"%1\" alredy exists\".\n"
+"Do you want to replace it?"
+msgstr ""
+"El archivo \"%1\" ya existe\".\n"
+"¿Quiere reemplazarlo?"
+
+#: ../src/ui/gelide_ui_actions.cpp:62 ../src/ui/gelide_ui_actions.cpp:86
+msgid "Contents will be overwritten if you continue."
+msgstr "Si continúa el contenido será sobreescrito."
+
+#: ../src/ui/gelide_ui_actions.cpp:72
+msgid "Export systems..."
+msgstr "Exportar sistemas..."
+
+#: ../src/ui/gelide_ui_actions.cpp:96
+msgid "Import systems..."
+msgstr "Importar sistemas..."
+
+#. Menu file
+#. TODO: Debería añadir aceleradores de teclado "<control>q" - Use <control>, <shift>, <alt> and <release>. Use F1, F2, etc, for function keys.
+#. accel_path 	For instance, "<MainWindow>/File/Open"
+#: ../src/ui/gelide_ui.cpp:275
+msgid "_File"
+msgstr "_Archivo"
+
+#. Creamos las acciones del popup de los juegos
+#: ../src/ui/gelide_ui.cpp:277 ../src/ui/treeview_games.cpp:535
+msgid "_Launch game"
+msgstr "_Ejecutar juego"
+
+#: ../src/ui/gelide_ui.cpp:277
+msgid "Launch selected game"
+msgstr "Lanza el juego seleccionado"
+
+#: ../src/ui/gelide_ui.cpp:283
+msgid "Export l_ist..."
+msgstr "Exportar _lista..."
+
+#: ../src/ui/gelide_ui.cpp:287
+msgid "Export s_ystems..."
+msgstr "Exportar s_istemas..."
+
+#: ../src/ui/gelide_ui.cpp:291
+msgid "Import _systems..."
+msgstr "Importar _sistemas..."
+
+#: ../src/ui/gelide_ui.cpp:295
+msgid "_Properties..."
+msgstr "P_ropiedades..."
+
+#: ../src/ui/gelide_ui.cpp:296
+msgid "Show selected item properties."
+msgstr "Muestra las propiedades del elemento seleccionado"
+
+#. Menu edit
+#: ../src/ui/gelide_ui.cpp:304
+msgid "_Edit"
+msgstr "_Edición"
+
+#. Creamos las acciones modificables
+#: ../src/ui/gelide_ui.cpp:306 ../src/ui/treeview_games.cpp:536
+msgid "_Favorite"
+msgstr "_Favorito"
+
+#: ../src/ui/gelide_ui.cpp:307 ../src/ui/treeview_games.cpp:537
+msgid "_Played"
+msgstr "_Jugado"
+
+#: ../src/ui/gelide_ui.cpp:308 ../src/ui/treeview_games.cpp:538
+msgid "_Working"
+msgstr "F_uncional"
+
+#: ../src/ui/gelide_ui.cpp:309
+msgid "_Rank"
+msgstr "_Puntuación"
+
+#: ../src/ui/gelide_ui.cpp:312 ../src/ui/treeview_games.cpp:543
+msgid "_0"
+msgstr "_0"
+
+#: ../src/ui/gelide_ui.cpp:313 ../src/ui/treeview_games.cpp:544
+msgid "_1"
+msgstr "_1"
+
+#: ../src/ui/gelide_ui.cpp:314 ../src/ui/treeview_games.cpp:545
+msgid "_2"
+msgstr "_2"
+
+#: ../src/ui/gelide_ui.cpp:315 ../src/ui/treeview_games.cpp:546
+msgid "_3"
+msgstr "_3"
+
+#: ../src/ui/gelide_ui.cpp:316 ../src/ui/treeview_games.cpp:547
+msgid "_4"
+msgstr "_4"
+
+#: ../src/ui/gelide_ui.cpp:317 ../src/ui/treeview_games.cpp:548
+msgid "_5"
+msgstr "_5"
+
+#: ../src/ui/gelide_ui.cpp:347
+msgid "_Columns..."
+msgstr "C_olumnas..."
+
+#: ../src/ui/gelide_ui.cpp:348
+msgid "Game list columns configuration"
+msgstr "Configuración de las columnas del listado de juegos"
+
+#: ../src/ui/gelide_ui.cpp:352
+msgid "Pre_ferences..."
+msgstr "_Preferencias..."
+
+#. Menu view
+#: ../src/ui/gelide_ui.cpp:357
+msgid "_View"
+msgstr "_Ver"
+
+#: ../src/ui/gelide_ui.cpp:361
+msgid "_Tool bar"
+msgstr "Barra de _heramientas"
+
+#: ../src/ui/gelide_ui.cpp:365
+msgid "_Status bar"
+msgstr "Barra de _estado"
+
+#: ../src/ui/gelide_ui.cpp:369
+msgid "_Filters"
+msgstr "_Filtros"
+
+#: ../src/ui/gelide_ui.cpp:370
+msgid "Show / hide filters tree"
+msgstr "Mostrar / ocultar árbol de filtros"
+
+#: ../src/ui/gelide_ui.cpp:374
+msgid "_Browser"
+msgstr "_Examinador"
+
+#: ../src/ui/gelide_ui.cpp:375
+msgid "Show / Hide systems browser"
+msgstr "Mostrar / ocultar examinador de sistemas"
+
+#: ../src/ui/gelide_ui.cpp:381
+msgid "_Left browser"
+msgstr "Examinador a la _izquierda"
+
+#: ../src/ui/gelide_ui.cpp:386
+msgid "_Top browser"
+msgstr "Examinador _arriba"
+
+#: ../src/ui/gelide_ui.cpp:391
+msgid "_Information"
+msgstr "_Información"
+
+#: ../src/ui/gelide_ui.cpp:392
+msgid "Show / hide info pannel"
+msgstr "Mostrar / ocultar panel de información"
+
+#. Menu tools de momento no activado
+#: ../src/ui/gelide_ui.cpp:398
+msgid "_Tools"
+msgstr "_Herramientas"
+
+#. Menu help
+#: ../src/ui/gelide_ui.cpp:401
+msgid "_Help"
+msgstr "A_yuda"
+
+#: ../src/ui/gelide_ui.cpp:403
+msgid "_Contents"
+msgstr "_Contenido"
+
+#: ../src/ui/gelide_ui.cpp:406
+msgid "Change_Log"
+msgstr "Change_Log"
+
+#: ../src/ui/gelide_ui.cpp:409
+msgid "_About..."
+msgstr "_Acerca de..."
+
+#: ../src/ui/gelide_ui.cpp:409
+msgid "About Gelide"
+msgstr "Acerca de Gelide"
+
+#. Configuración de la etiqueta de los sistemas
+#: ../src/ui/gelide_ui.cpp:543
+msgid "Games library"
+msgstr "Librería de juegos"
+
+#. Configuración de la etiqueta de búsqueda
+#: ../src/ui/gelide_ui.cpp:547
+msgid "Search:"
+msgstr "Buscar:"
+
+#: ../src/ui/info_pannel.cpp:38 ../src/ui/info_pannel.cpp:143
+msgid "..."
+msgstr "..."
+
+#: ../src/ui/info_pannel.cpp:358
+msgid "Flags:"
+msgstr "Flags:"
+
+#: ../src/ui/info_pannel.cpp:360
+msgid "Rank:"
+msgstr "Puntuación"
+
+#: ../src/ui/info_pannel.cpp:362
+msgid "Manufacturer:"
+msgstr "Fabricante:"
+
+#: ../src/ui/info_pannel.cpp:364
+msgid "Year:"
+msgstr "Año:"
+
+#: ../src/ui/info_pannel.cpp:366
+msgid "CRC:"
+msgstr "CRC:"
+
+#: ../src/ui/info_pannel.cpp:415
+msgid "Snapshot"
+msgstr "Captura"
+
+#: ../src/ui/info_pannel.cpp:416
+msgid "Title"
+msgstr "Título"
+
+#: ../src/ui/info_pannel.cpp:417
+msgid "Front"
+msgstr "Frontal"
+
+#: ../src/ui/info_pannel.cpp:418
+msgid "Back"
+msgstr "Trasera"
+
+#: ../src/ui/info_pannel.cpp:419
+msgid "Media"
+msgstr "Media"
+
+#: ../src/ui/info_pannel.cpp:432
+msgid "System:"
+msgstr "Sistema:"
+
+#: ../src/ui/info_pannel.cpp:456
+msgid "Emulator:"
+msgstr "Emulador:"
+
+#: ../src/ui/info_pannel.cpp:481
+msgid "Launch game"
+msgstr "Lanzar juego"
+
+#. Creación de la columna Icono y configuración
+#. Creación de la columna Icono y Nombre
+#. Creación de la columna Icono y configuración
+#: ../src/ui/treeview_emulators.cpp:49 ../src/ui/treeview_filters.cpp:53
+#: ../src/ui/treeview_systems.cpp:50
+msgid "Icon"
+msgstr "Icono"
+
+#. Creación de la columna Descripción y configuración
+#. Creación de la columna Descripción
+#. Creación de la columna Descripción y configuración
+#: ../src/ui/treeview_emulators.cpp:51 ../src/ui/treeview_games.cpp:187
+#: ../src/ui/treeview_systems.cpp:52
+msgid "Description"
+msgstr "Descripción"
+
+#: ../src/ui/treeview_emulators.cpp:103 ../src/ui/treeview_systems.cpp:112
+msgid "_Move"
+msgstr "_Mover"
+
+#: ../src/ui/treeview_emulators.cpp:104 ../src/ui/treeview_systems.cpp:113
+msgid "_First"
+msgstr "_Primero"
+
+#: ../src/ui/treeview_emulators.cpp:105 ../src/ui/treeview_systems.cpp:114
+msgid "_Up"
+msgstr "_Arriba"
+
+#: ../src/ui/treeview_emulators.cpp:106 ../src/ui/treeview_systems.cpp:115
+msgid "_Down"
+msgstr "A_bajo"
+
+#: ../src/ui/treeview_emulators.cpp:107 ../src/ui/treeview_systems.cpp:116
+msgid "_Last"
+msgstr "_Último"
+
+#: ../src/ui/treeview_emulators.cpp:284 ../src/ui/treeview_games.cpp:714
+#: ../src/ui/treeview_systems.cpp:276 ../src/ui/treeview_systems.cpp:325
+msgid "This operation can not be undone."
+msgstr "Esta operación no se pude deshacer."
+
+#. "Si continua eliminará los datos del emulador."
+#: ../src/ui/treeview_emulators.cpp:287
+msgid "Emulator data will be lost if you continue."
+msgstr "Si continúa los datos del emulador se perderán."
+
+#. Filtro todos
+#: ../src/ui/treeview_filters.cpp:66
+msgid "All"
+msgstr "Todos"
+
+#. Filtro favoritos
+#: ../src/ui/treeview_filters.cpp:68
+msgid "Favorites"
+msgstr "Favoritos"
+
+#. Filtro jugados
+#. l_pixbuf = this->render_icon(Gtk::StockID("gelide-played"), Gtk::ICON_SIZE_LARGE_TOOLBAR);
+#: ../src/ui/treeview_filters.cpp:71
+msgid "Played"
+msgstr "Jugados"
+
+#. Filtro no jugados
+#: ../src/ui/treeview_filters.cpp:73
+msgid "Non played"
+msgstr "No jugados"
+
+#. Filtro funcionales
+#. l_pixbuf = Gtk::IconTheme::get_default()->load_icon("gtk-ok", 48, Gtk::ICON_LOOKUP_USE_BUILTIN);
+#: ../src/ui/treeview_filters.cpp:76
+msgid "Working"
+msgstr "Funcionales"
+
+#. Filtro no funcionales
+#. l_pixbuf = this->render_icon(Gtk::StockID("gelide-working-neg"), Gtk::ICON_SIZE_LARGE_TOOLBAR);
+#: ../src/ui/treeview_filters.cpp:79
+msgid "Non working"
+msgstr "No funcionales"
+
+#. Filtro disponibles
+#. l_pixbuf = Gtk::IconTheme::get_default()->load_icon("gtk-apply", 48, Gtk::ICON_LOOKUP_USE_BUILTIN);
+#: ../src/ui/treeview_filters.cpp:82
+msgid "Availables"
+msgstr "Disponibles"
+
+#. Filtro no disponibles
+#. l_pixbuf = this->render_icon(Gtk::StockID("gelide-available-neg"), Gtk::ICON_SIZE_LARGE_TOOLBAR);
+#: ../src/ui/treeview_filters.cpp:85
+msgid "Non availables"
+msgstr "No disponibles"
+
+#. Filtro desconocidos
+#. l_pixbuf = Gtk::IconTheme::get_default()->load_icon("dialog-warning", 48, Gtk::ICON_LOOKUP_USE_BUILTIN);
+#: ../src/ui/treeview_filters.cpp:88 ../src/ui/treeview_filters.cpp:103
+#: ../src/ui/treeview_games.cpp:475 ../src/ui/treeview_games.cpp:477
+msgid "Unknown"
+msgstr "Desconocido"
+
+#. Filtro no desconocidos
+#. l_pixbuf = this->render_icon(Gtk::StockID("gelide-unknown-neg"), Gtk::ICON_SIZE_LARGE_TOOLBAR);
+#: ../src/ui/treeview_filters.cpp:91
+msgid "Non unknown"
+msgstr "No desconocido"
+
+#. Creación de la columna puntuación
+#. CHECKME: Se podría hacer la puntuación con imagenes de estrellas
+#: ../src/ui/treeview_filters.cpp:94 ../src/ui/treeview_games.cpp:149
+msgid "Rank"
+msgstr "Puntuación"
+
+#. Creación de la columna Año
+#: ../src/ui/treeview_filters.cpp:102 ../src/ui/treeview_games.cpp:165
+msgid "Year"
+msgstr "Año"
+
+#. Creación de la columna Favorito
+#: ../src/ui/treeview_games.cpp:62
+msgid "Favorite"
+msgstr "Favorito"
+
+#. Creación de la columna Flags
+#: ../src/ui/treeview_games.cpp:104
+msgid "Flags"
+msgstr "Flags"
+
+#. Creación de la columna Fabricante
+#: ../src/ui/treeview_games.cpp:205
+msgid "Manufacturer"
+msgstr "Fabicante"
+
+#: ../src/ui/treeview_games.cpp:539
+msgid "Ran_k"
+msgstr "_Puntuación"
+
+#: ../src/ui/treeview_games.cpp:540
+msgid "_Remove"
+msgstr "Elimina_r"
+
+#. "Si continua eliminará el juego del listado actual."
+#: ../src/ui/treeview_games.cpp:719
+msgid "Game data will be deleted if you continue."
+msgstr "Si continúa se eliminarán los datos del juego."
+
+#. "Si continua eliminará los datos del sistema,\naunque no sus archivos."
+#: ../src/ui/treeview_systems.cpp:279
+msgid "System's data will be lost if you continue."
+msgstr "Si continúa los datos del sistema se perderán."
+
+#~ msgid "Free GNU/Linux emulator for Atari 2600 VCS"
+#~ msgstr ""
+#~ "Emulador Atari 2600 VCS libre desarrollado originalmente para GNU/Linux"
+
+#~ msgid "Multiple-system emulator for various platforms"
+#~ msgstr "Emulador multi-sistema para varias plataformas"
+
+#~ msgid "Portable Mame version for POSIX-y systems with SDL"
+#~ msgstr "Versión portable de Mame para sistemas POSIX-y con SDL"
+
+#~ msgid "Fceux"
+#~ msgstr "Fceux"
+
+#~ msgid "Fceu"
+#~ msgstr "Fceu"
+
+#~ msgid "FCE Ultra - A Nintendo (8-Bit) emulator"
+#~ msgstr "FCE Ultra - Un emulador de Nintendo (8-Bits)"
+
+#~ msgid "Joe Nahmias"
+#~ msgstr "Joe Nahmias"
+
+#~ msgid "Jose Carlos Medeiros"
+#~ msgstr "Jose Carlos Medeiros"
+
+#~ msgid "Alain Schroeder"
+#~ msgstr "Alain Schroeder"
+
+#~ msgid "Free Sega Mega Drive / Génesis / Sega CD / 32x emulator"
+#~ msgstr "Emulador de Sega Mega Drive / Génesis / Sega CD / 32x libre"
+
+#~ msgid "James Ponder"
+#~ msgstr "James Ponder"
+
+#~ msgid "Generator (Ntsc)"
+#~ msgstr "Generator (Ntsc)"
+
+#~ msgid "Dgen/Sdl"
+#~ msgstr "Dgen/Sdl"
+
+#~ msgid "Sega Mega Drive / Génesis emulator"
+#~ msgstr "Emulador de Sega Mega Drive / Génesis"
+
+#~ msgid "Ordering initial list..."
+#~ msgstr "Ordenando listado inicial..."
+
+#~ msgid "Saving list..."
+#~ msgstr "Guardando listado..."
+
+#~ msgid "Cartridges:"
+#~ msgstr "Cartuchos:"
+
+#~ msgid "Cartridge"
+#~ msgstr "Cartucho"
+
+#~ msgid ""
+#~ "Universal games cataloguer and launcher for\n"
+#~ " GNU/Linux emulators."
+#~ msgstr ""
+#~ "Catalogador y lanzador universal de juegos para\n"
+#~ "emuladores bajo GNU/Linux."
+
+#~ msgid "Stephane Dallongeville"
+#~ msgstr "Stephane Dallongeville"
+
+#~ msgid "\t Endding.\n"
+#~ msgstr "\t Finalizado.\n"
+
+#~ msgid "End. "
+#~ msgstr "Finalizando. "
+
+#~ msgid "Nicola Salmoria and el Mame Team"
+#~ msgstr "Nicola Salmoria and el Mame Team"

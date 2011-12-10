@@ -1,0 +1,56 @@
+# Lines starting with '#' are considered comments.
+# Ignorar objetos y archivos
+*.o
+*.a
+*.la
+*.lo
+# Ignorar copias de respaldo
+*~
+*.bak
+*swp
+# Ignorar makefiles innecesarios
+Makefile
+Makefile.in
+# Archivos en el raíz
+/mkinstalldirs
+/configure
+/config.*
+/aclocal.m4
+/Debug
+/Release
+/autom4te.cache
+/depcomp
+/install-sh
+/stamp-h1
+/missing
+/intltool*
+/libtool
+/gnome-doc-utils.make
+/*.cache
+/ltmain.sh
+.cvsignore
+/*.tasks
+/gelide-*.tar.gz
+/gelide-*.tar.bz2
+# Archivos no necesarios en data
+data/gelide.desktop
+data/gelide.schemas
+data/systems.xml
+# Archivos no necesarios en help
+/help/gelide-*.omf
+# Archivos no necesarios en m4
+/m4/gnome-doc-utils.m4
+/m4/intltool.m4
+# Archivos no necesarios en po
+*.gmo
+/po/POTFILES
+/po/Makefile.in.in
+/po/.intltool-merge-cache
+/po/gelide.pot
+/po/missing
+/po/notexist
+/po/stamp-it
+# Archivos no necesarios en src
+src/gelide
+.deps
+.libs
