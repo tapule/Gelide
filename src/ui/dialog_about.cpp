@@ -93,7 +93,7 @@ void CDialogAbout::loadConfig(void){
 	int l_x, l_y;
 
 	// Obtenemos la posición almacenada
-	if(m_config->getKey(GELIDE_CFG_DIALOGS, "about_dialog_x", l_x){
+	if(m_config->getKey(GELIDE_CFG_DIALOGS, "about_dialog_x", l_x)){
 		m_config->getKey(GELIDE_CFG_DIALOGS, "about_dialog_y", l_y);
 		this->move(l_x, l_y);
 	}
