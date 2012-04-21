@@ -1,3 +1,7 @@
+2012-04-21  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/gelide.hpp:
+	Corrected a bug who broke the debug mode.
+
 2011-12-10  Juan A. Moreno <gelide.prj@gmail.com>
 	* src/ui/dialog_about.cpp:
 	A bug in the dialog has been corrected.
