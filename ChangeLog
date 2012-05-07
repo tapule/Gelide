@@ -1,3 +1,11 @@
+2012-05-07  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/ui/info_pannel.cpp:
+	Bug #3519711 has been corrected. If "gtk-missing-image" was not located in
+	the IconTheme, Gelide can't be started.
+
+	* ui/icons/gelide-no-image.png:
+	Added as default image for the info pannel.
+
 2012-04-21  Juan A. Moreno <gelide.prj@gmail.com>
 	* src/gelide.hpp:
 	Corrected a bug who broke the debug mode.

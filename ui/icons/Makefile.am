@@ -12,6 +12,7 @@ ui_icons_DATA = \
 	gelide-favorite.png \
 	gelide-horizontal-browser.png \
 	gelide-import-systems.png \
+	gelide-no-image.png \
 	gelide-played.png \
 	gelide-rank.png \
 	gelide-show-browser.png \
