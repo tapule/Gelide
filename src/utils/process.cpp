@@ -23,7 +23,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <glibmm.h>
-
+#include <unistd.h>
 
 CProcess::CProcess(void): m_proc_id(-1){
 }

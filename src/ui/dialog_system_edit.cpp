@@ -257,6 +257,8 @@ int CDialogSystemEdit::run(void){
 	// Establecemos los campos
 	m_entry_name.set_text(m_system->getName());
 	m_description_buf->set_text(m_system->getDescription());
+
+
 	m_button_dat.set_filename(m_system->getDatFile());
 	m_button_bios.set_filename(m_system->getBiosFile());
 	m_image_icon.set(m_system->getIcon());
@@ -311,8 +313,13 @@ void CDialogSystemEdit::onAcceptClicked(void){
 	// Pasamos la configuración al sistema
 	m_system->setName(m_entry_name.get_text());
 	m_system->setDescription(m_description_buf->get_text());
-	m_system->setDatFile(m_button_dat.get_filename());
-	m_system->setBiosFile(m_button_bios.get_filename());
+
+
+	if(!Glib::file_test(m_button_dat.get_filename(), Glib::FILE_TEST_IS_DIR))
+		m_system->setDatFile(m_button_dat.get_filename());
+	if(!Glib::file_test(m_button_bios.get_filename(), Glib::FILE_TEST_IS_DIR))
+		m_system->setBiosFile(m_button_bios.get_filename());
+
 	m_system->setIcon(m_image_icon.get_pixbuf());
 	m_system->setIconFile(m_icon_file);
 	m_system->setHomeDir(m_entry_home.get_text());

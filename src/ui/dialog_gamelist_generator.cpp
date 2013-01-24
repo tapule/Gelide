@@ -179,6 +179,9 @@ bool CDialogGamelistGenerator::generateGameList(void){
 	m_label_status.set_label(_("Loading dat file..."));
 	while (Gtk::Main::events_pending())
 		Gtk::Main::iteration();
+
+	GELIDE_DEBUG("Dat file: " << m_system->getDatFile());
+
 	l_dat_reader = CDatReaderFactory::getDatReader(m_system->getDatFile());
 	if(l_dat_reader){
 		GELIDE_DEBUG("Dat reader: " << l_dat_reader->getType());
@@ -199,7 +202,7 @@ bool CDialogGamelistGenerator::generateGameList(void){
 		delete l_dat_reader;
 	}
 	else
-		GELIDE_DEBUG("Unsupported dat file: " << m_system->getDatFile());
+		GELIDE_DEBUG("Unsupported dat file.");
 
 
 	if(l_preserve){

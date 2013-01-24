@@ -22,7 +22,8 @@
 #include <fstream>
 #include <stdlib.h>
 #include <sstream>
-#include <glib/gstdio.h>
+//#include <glib/gstdio.h>
+#include <glib.h>
 #include <gtkmm/image.h>
 #include <giomm/file.h>
 #include "system_manager.hpp"

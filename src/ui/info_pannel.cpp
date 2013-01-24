@@ -169,8 +169,9 @@ void CInfoPannel::clear(void){
 	m_label_emulator_description.set_label("");
 }
 
+// CHECKME: Esto es una mala solución. El método no localiza bien los ficheros
 void CInfoPannel::updateImages(CSystem* p_system, CGame* p_game){
-	Glib::ustring l_exts[] = {"png", "jpg", "jpeg", "gif",  "xpm", "pnm", "tif", "tiff"};
+	Glib::ustring l_exts[] = {"png", "PNG", "jpg", "JPG", "jpeg", "JPEG", "gif", "GIF", "xpm", "XPM", "pnm", "tif", "tiff"};
 	int l_tab, l_ind;
 	//Gtk::Image* l_image = NULL;
 	Glib::RefPtr<Gdk::Pixbuf>* l_pixbuf = NULL;

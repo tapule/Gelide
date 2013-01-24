@@ -30,8 +30,8 @@ CDatReader* CDatReaderFactory::getDatReader(const Glib::ustring& p_file){
 	int l_fsize;
 	CDatReader* l_reader = NULL;
 
-	// El fichero debe ser válido
-	if(!p_file.size())
+	// El fichero debe ser válido y no puede ser un directorio
+	if(!p_file.size() || Glib::file_test(p_file, Glib::FILE_TEST_IS_DIR))
 		return NULL;
 
 	l_file.open(p_file.data());
@@ -58,6 +58,7 @@ CDatReader* CDatReaderFactory::getDatReader(const Glib::ustring& p_file){
 
 	// Buscamos el lector adecuado
 	// Chequeamos CMPro
+	GELIDE_DEBUG("Checking ClrMamePro dat format...");
 	l_reader = new CDatReaderClrMamePro();
 	if(l_reader->load(l_buffer, l_fsize)){
 		delete[] l_buffer;
@@ -65,6 +66,7 @@ CDatReader* CDatReaderFactory::getDatReader(const Glib::ustring& p_file){
 	}
 	delete l_reader;
 	// Chequeamos Logiqx xml
+	GELIDE_DEBUG("Checking Logiqx xml dat format...");
 	l_reader = new CDatReaderLogiqxXml();
 	if(l_reader->load(l_buffer, l_fsize)){
 		delete[] l_buffer;
@@ -72,6 +74,7 @@ CDatReader* CDatReaderFactory::getDatReader(const Glib::ustring& p_file){
 	}
 	delete l_reader;
 	// Chequeamos Mame xml
+	GELIDE_DEBUG("Checking Mame xml dat format...");
 	l_reader = new CDatReaderMameXml();
 	if(l_reader->load(l_buffer, l_fsize)){
 		delete[] l_buffer;

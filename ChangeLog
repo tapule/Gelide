@@ -1,3 +1,14 @@
+2013-01-24  Juan A. Moreno <gelide.prj@gmail.com>
+	* src/core/system_manager.cpp, src/core/system.cpp, src/utils/utils.cpp:
+	Bug #3600646 has been corrected, thank you Jarred for the patch!!
+
+	* src/ui/dialog_system_edit.cpp
+	Bug fixed. Now DatFile and BiosFile are not updated if the user select a 
+	directory.
+	
+	* src/core/dat_reader_factory.cpp
+	Bug fixed. Now cheks if the path pased is a directory.
+
 2012-05-07  Juan A. Moreno <gelide.prj@gmail.com>
 	* src/ui/info_pannel.cpp:
 	Bug #3519711 has been corrected. If "gtk-missing-image" was not located in
