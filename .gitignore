@@ -54,3 +54,7 @@ data/systems.xml
 src/gelide
 .deps
 .libs
+# Archivos de proyectos eclipse
+.cproject
+.project
+/.settings
