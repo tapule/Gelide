@@ -51,6 +51,10 @@ data/systems.xml
 /po/notexist
 /po/stamp-it
 # Archivos no necesarios en src
-src/gelide
+# src/gelide
 .deps
 .libs
+# Archivos de proyectos eclipse
+.cproject
+.project
+/.settings
