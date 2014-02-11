@@ -1,1 +1,5 @@
-Juan Ángel Moreno Fernandez <jamf.dev@gmail.com>
+Gelide by:
+- Juan Ángel Moreno Fernandez <jamf.dev@gmail.com>
+
+Gelide uses:
+- SQLite data base engine (http://www.sqlite.org/)

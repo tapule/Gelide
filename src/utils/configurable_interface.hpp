@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -19,20 +19,36 @@
  * along with gelide.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef _INTERFACE_CONFIGURABLE_HPP_
-#define _INTERFACE_CONFIGURABLE_HPP_
+#ifndef _CONFIGURABLE_INTERFACE_HPP_
+#define _CONFIGURABLE_INTERFACEHPP_
 
 #include <glibmm/ustring.h>
 #include "config.hpp"
 
-class IConfigurable
+
+class ConfigurableInterface
 {
 public:
-	// Constructor y destructor de la interfaz
-	virtual ~IConfigurable(){};
+	/**
+	 * Constructor
+	 */
+	virtual ~ConfigurableInterface()
+	{
+	};
 
-	virtual void loadConfig(void){};
-	virtual void saveConfig(void){};
+	/**
+	 * Se encarga de cargar la configuración
+	 */
+	virtual void loadConfig(void)
+	{
+	};
+
+	/**
+	 * Se encarga de guardar la configuración
+	 */
+	virtual void saveConfig(void)
+	{
+	};
 };
 
-#endif // _INTERFACE_CONFIGURABLE_HPP_
+#endif // _CONFIGURABLE_INTERFACE_HPP_
