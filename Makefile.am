@@ -7,10 +7,9 @@ SUBDIRS = \
 	data \
 	doc \
 	help \
-	pixmap \
 	po \
-	src \
-	ui 
+	src
+
 
 # Lugar de instalación de la documentación estandar
 gelidedocdir = ${prefix}/doc/gelide

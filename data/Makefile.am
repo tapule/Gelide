@@ -1,23 +1,23 @@
 ## File created by the gnome-build tools
 
-# Reglas para el icono del programa
-gelide_icondir = $(datadir)/icons/hicolor/scalable/apps
-gelide_icon_DATA = gelide.svg
+# Indicamos los subdirectorios a procesar
+SUBDIRS = \
+	icontheme
 
 # Lugar de instalación de la configuración por defecto
 gelide_cfgdir = $(datadir)/gelide
 gelide_cfg_DATA = \
-	defaultcfg.xml
+	gelide.xml
 
-# Reglas para el fichero .desktop
+# Reglas para los ficheros .desktop
 desktopdir = $(datadir)/applications
-desktop_in_files = gelide.desktop.in
+desktop_in_files = \
+	gelide.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
-# Incluimos el icono y los ficheros in en la distribución
+# Incluimos los ficheros de datos por defecto y los .dektop in en la distribución
 EXTRA_DIST = \
-	$(gelide_icon_DATA) \
 	$(gelide_cfg_DATA) \
 	$(desktop_in_files)
 
@@ -29,3 +29,4 @@ CLEANFILES = \
 MAINTAINERCLEANFILES = \
 	Makefile \
 	Makefile.in
+
