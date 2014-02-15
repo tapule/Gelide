@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -19,153 +19,141 @@
  * along with gelide.  If not, see <http://www.gnu.org/licenses/>
  */
 
+#include <glibmm.h>
 #include "config.hpp"
-#include "utils/xml_reader.hpp"
-#include "utils/xml_writer.hpp"
+#include "xml_reader.hpp"
+#include "xml_writer.hpp"
 
-const Glib::ustring CConfig::m_version = "0.1";
 
-CConfig::CConfig(){
-	Glib::ustring l_cfg;
-
-	l_cfg = Glib::build_filename(utils::getGelideDir(), GELIDE_CFG_FILE);
-	// Comprobamos si existe el fichero de configuración personal
-	if(Glib::file_test(l_cfg, Glib::FILE_TEST_EXISTS))
-		load(l_cfg);
-	else
-		load(GELIDE_CFG_DEFAULT);
+Config::Config():
+	m_root(CFG_DEFAULT_ROOT)
+{
 }
 
-CConfig::~CConfig(void){
-	save(Glib::build_filename(utils::getGelideDir(), GELIDE_CFG_FILE));
-	clear();
-};
+Config::~Config(void)
+{
+}
 
-
-/**
- * Limpia el almacen interno de claves
- */
-void CConfig::clear(void){
-/*	group_map_t::iterator l_giter;
-
-	for(l_giter = m_groups.begin(); l_giter != m_groups.end(); ++l_giter)
-		delete l_giter->second;*/
+void Config::clear(void)
+{
 	m_groups.clear();
 }
 
+bool Config::load(const Glib::ustring& file)
+{
+	XmlReader xml;
+	XmlNode root;
+	XmlNode::iterator group_iter, key_iter;
+	KeyMap key_map;
+	Glib::ustring group_name, key_name, key_value;
 
-/*
- * Gelide config file format v0.1
- * ------------------------------
- * <gelidecfg version="0.1">
- * 		<group name="mygrup_1">
- *			<key name="mykey_1" value="myvalue">
- *			...
- *			<key name="mykey_n" value="myvalue">
- *		</group>
- *		...
- * 		<group name="mygrup_n">
- *			<key name="mykey_1" value="myvalue">
- *			...
- *			<key name="mykey_n" value="myvalue">
- *		</group>
- * </gelidecfg>
- */
-bool CConfig::load(const Glib::ustring& p_file){
-	CXmlReader l_xml;
-	CXmlNode l_root;
-	CXmlNode::iterator l_giter, l_kiter;
-	key_map_t l_key;
-	Glib::ustring l_gname, l_kname, l_kvalue;
+	assert(!file.empty());
 
-	assert(p_file.size());
-
-	GELIDE_DEBUG("Loading config file: " << p_file << "...");
-	if(l_xml.open(p_file)){
-		l_root = l_xml.getRootElement();		// <gelidecfg>
-		if(l_root.getName() == "gelidecfg"){
+	LOG_INFO("Config: Loading config file \"" << file << "\"...");
+	if (xml.open(file))
+	{
+		root = xml.getRootElement();		// <rootnode>
+		if (root.getName() == m_root)
+		{
 			// Limpiamos el almacen interno de claves antes de continuar
 			clear();
-			// Guardamos el nuevo nombre del fichero
-			m_file = p_file;
+			m_file = file;
 			// Recorremos los grupos
-			for(l_giter = l_root.begin(); l_giter != l_root.end(); ++l_giter){
+			for (group_iter = root.begin(); group_iter != root.end(); ++group_iter)
+			{
 				// Obtenemos los valores de las claves
-				for(l_kiter = l_giter->begin(); l_kiter != l_giter->end(); ++l_kiter){
-					l_kiter->getAttribute("name", l_kname);
-					l_kiter->getAttribute("value", l_kvalue);
-					l_key[l_kname] = l_kvalue;
+				for (key_iter = group_iter->begin(); key_iter != group_iter->end(); ++key_iter)
+				{
+					key_iter->getAttribute("name", key_name);
+					key_iter->getAttribute("value", key_value);
+					key_map[key_name] = key_value;
 				}
-				// Obtenemos el nombre del grupo
-				l_giter->getAttribute("name", l_gname);
+				group_iter->getAttribute("name", group_name);
 				// Creamos el grupo con una copia del mapa de claves creado
-				m_groups[l_gname] = l_key;
-				l_key.clear();
+				m_groups[group_name] = key_map;
+				key_map.clear();
 			}
 			return true;
 		}
+		LOG_INFO("Config: Root node \"" << m_root<< "\" not found in \""<< file << "\"");
+		return false;
 	}
-	GELIDE_WARNING(p_file << " is not a valid v" << m_version << " config file.");
+	LOG_ERROR("Config: Can't open config file \""<< file << "\" for reading");
 	return false;
 }
 
-bool CConfig::save(const Glib::ustring& p_file){
-	CXmlWriter l_xml;
-	group_map_t::iterator l_giter;
-	key_map_t::iterator l_kiter;
+bool Config::save(const Glib::ustring& file)
+{
+	XmlWriter xml;
+	GroupMap::iterator group_iter;
+	KeyMap::iterator key_iter;
 
-	assert(p_file.size());
+	assert(!file.empty());
 
-	// Abrimos el xml
-	if(!l_xml.open(p_file))
+	LOG_INFO("Config: Saving config file \"" << file << "\"...");
+
+	if (!xml.open(file))
+	{
+		LOG_ERROR("Config: Can't open config file \""<< file << "\" for writing");
 		return false;
-
-	GELIDE_DEBUG("Saving config file: " << p_file << "...");
-	l_xml.startElement("gelidecfg");
-	l_xml.writeAttribute("version", m_version);
-	for(l_giter = m_groups.begin(); l_giter != m_groups.end(); ++l_giter){
-		l_xml.startElement("group");
-		l_xml.writeAttribute("name", l_giter->first);
-		for(l_kiter = l_giter->second.begin(); l_kiter != l_giter->second.end(); ++l_kiter){
-			l_xml.startElement("key");
-			l_xml.writeAttribute("name", l_kiter->first);
-			l_xml.writeAttribute("value", l_kiter->second);
-			l_xml.endElement();
-		}
-		l_xml.endElement();
 	}
-	l_xml.endElement();
-	l_xml.close();
+
+	xml.startElement(m_root);
+	if (!m_version.empty())
+	{
+		xml.writeAttribute("version", m_version);
+	}
+	for (group_iter = m_groups.begin(); group_iter != m_groups.end(); ++group_iter)
+	{
+		xml.startElement("group");
+		xml.writeAttribute("name", group_iter->first);
+		for (key_iter = group_iter->second.begin(); key_iter != group_iter->second.end(); ++key_iter)
+		{
+			xml.startElement("key");
+			xml.writeAttribute("name", key_iter->first);
+			xml.writeAttribute("value", key_iter->second);
+			xml.endElement();
+		}
+		xml.endElement();
+	}
+	xml.endElement();
+	xml.close();
 	return true;
 }
 
-bool CConfig::hasGroup(const Glib::ustring& p_group){
-	group_map_t::iterator l_giter;
+bool Config::hasGroup(const Glib::ustring& group)
+{
+	GroupMap::iterator group_iter;
 
-	assert(p_group.size());
+	assert(!group.empty());
 
 	// Buscamos el grupo
-	l_giter = m_groups.find(p_group);
-	if(l_giter != m_groups.end())
+	group_iter = m_groups.find(group);
+	if (group_iter != m_groups.end())
+	{
 		return true;
-	return false;
-}
-
-bool CConfig::hasKey(const Glib::ustring& p_group, const Glib::ustring& p_key){
-	group_map_t::iterator l_giter;
-	key_map_t::iterator l_kiter;
-
-	assert(p_group.size());
-	assert(p_key.size());
-
-	// Buscamos el grupo
-	l_giter = m_groups.find(p_group);
-	if(l_giter != m_groups.end()){
-		// Buscamos la clave dentro del grupo
-		l_kiter = l_giter->second.find(p_key);
-		if(l_kiter != l_giter->second.end())
-			return true;
 	}
 	return false;
 }
 
+bool Config::hasKey(const Glib::ustring& group, const Glib::ustring& key)
+{
+	GroupMap::iterator group_iter;
+	KeyMap::iterator key_iter;
+
+	assert(!group.empty());
+	assert(!key.empty());
+
+	// Buscamos el grupo
+	group_iter = m_groups.find(group);
+	if (group_iter != m_groups.end())
+	{
+		// Buscamos la clave dentro del grupo
+		key_iter = group_iter->second.find(key);
+		if (key_iter != group_iter->second.end())
+		{
+			return true;
+		}
+	}
+	return false;
+}
