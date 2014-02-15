@@ -19,37 +19,30 @@
  * along with gelide.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef _I18N_HPP_
-#define _I18N_HPP
+#ifndef _OS_DETECT_HPP_
+#define _OS_DETECT_HPP_
 
 /*
-	Definiciones de macros para internacionalización
+	Definiciones de macros para detectar el sistema
 */
-#ifdef HAVE_CONFIG_H
-	#include "config.h"
-#endif /* HAVE_CONFIG_H */
-
-#include <libintl.h>
-
-
-#ifdef _
-#undef _
-#endif
-
-#ifdef N_
-#undef N_
-#endif
-
-#ifdef ENABLE_NLS
-	#define _(str) gettext(str)
-	#ifdef gettext_noop
-		#define N_(str) gettext_noop(str)
-	#else
-		#define N_(str) (str)
-	#endif
+#if defined(__linux__)
+	#define OS_LINUX
+#elif defined(__APPLE__)
+	#define OS_MACOSX
+#elif defined(__FreeBSD__)
+	#define OS_FREEBSD
+#elif defined(__OpenBSD__)
+	#define OS_OPENBSD
+#elif defined(__sun)
+	#define OS_SOLARIS
+#elif defined(_WIN32)
+	#define OS_WIN
 #else
-	#define _(str) (str)
-	#define N_(str) (str)
+	#error Platform not supported
 #endif
 
-#endif // _I18N_HPP_
+#if defined(OS_LINUX) || defined(OS_MACOSX) ||  defined(OS_FREEBSD) || defined(OS_OPENBSD) || defined(OS_SOLARIS)
+	#define OS_POSIX
+#endif
+
+#endif // _OS_DETECT_HPP_
