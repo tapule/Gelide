@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -22,41 +22,50 @@
 #ifndef _XML_READER_HPP_
 #define _XML_READER_HPP_
 
-#include "../gelide.hpp"
-#include "utils.hpp"
+#ifdef HAVE_CONFIG_H
+	#include "config.h"
+#endif /* HAVE_CONFIG_H */
+
+// Si no está definido el modo debug, desactivamos los asserts
+#ifndef ENABLE_DEBUG_MODE
+	#define NDEBUG
+#endif
+
+#include <cassert>
 #include <glibmm/ustring.h>
 #include <libxml2/libxml/tree.h>
+#include "utils.hpp"
 
 
 // Declaración fordward del XmlReader
-class CXmlReader;
+class XmlReader;
 
 /**
  * Encapsula de la gestión y funcionamiento de un nodo en un documento xml.
  * Permite obtener sus atributos y su contenido en diferentes tipos. También
  * soporta la iteración sobre sus nodos hijos mediante el uso de iteradores.
  */
-class CXmlNode
+class XmlNode
 {
 	// Necesario para el acceso a setXmlNode
-	friend class CXmlReader;
+	friend class XmlReader;
 public:
 
 	/**
 	 * Constructor básico de la clase
 	 */
-	CXmlNode(void);
+	XmlNode(void);
 
 	/**
 	 * Constructor copia
 	 * @param p_node Nodo del xml con el que se inicializará el nuevo nodo
 	 */
-	CXmlNode(xmlNodePtr p_node);
+	XmlNode(xmlNodePtr node);
 
 	/**
 	 * Destructor de la clase
 	 */
-	~CXmlNode(){};
+	~XmlNode(){};
 
 	/**
 	 * Obtiene el nombre del nodo actual
@@ -66,67 +75,67 @@ public:
 
 	/**
 	 * Obtiene un atributo del nodo en tipo determinado.
-	 * @param p_name Nombre del atributo
-	 * @param p_value Tipo y lugar de retorno para el atributo obtenido
+	 * @param name Nombre del atributo
+	 * @param value Tipo y lugar de retorno para el atributo obtenido
 	 * @return true si se obtuvo el atributo, false en otro caso
 	 * @pre El nodo y el nombre del atributo deben ser válidos
 	 * @note Aunque virtualmente el método puede leer cualquier tipo de
-	 * valor, depende directamente de gelide::utils::toStr y por lo tanto
+	 * valor, depende directamente de utils::toStr y por lo tanto
 	 * está orientado a la lectura de tipos básicos y vectores de tipos
 	 * básicos (char, int, bool, double, string, etc).
 	 */
 	template<class T>
-	bool getAttribute(const Glib::ustring& p_name, T& p_value) const{
-		xmlChar* l_attribute;
-		Glib::ustring l_value_str;
+	bool getAttribute(const Glib::ustring& name, T& value) const
+	{
+		xmlChar* attribute;
+		Glib::ustring value_str;
 
 		assert(m_node);
-		assert(p_name.size());
+		assert(name.size());
 
 		// Obtenemos el atributo
-		l_attribute =xmlGetProp(m_node, BAD_CAST p_name.c_str());
-
-		// Si no se obtuvo el atributo lo indicamos en la salida
-		if(!l_attribute)
+		attribute = xmlGetProp(m_node, BAD_CAST name.c_str());
+		if (!attribute)
+		{
 			return false;
+		}
 		// Pasamos el atributo a string si es válido
-		l_value_str = reinterpret_cast<const char*>(l_attribute);
+		value_str = reinterpret_cast<const char*>(attribute);
 		// Pasamos la cadena al tipo adecuado
-		utils::strTo(l_value_str, p_value);
-		// Liberamos la memoria ocupada por el atributo
-		xmlFree(l_attribute);
+		utils::strTo(value_str, value);
+		xmlFree(attribute);
 		return true;
 	}
 
 	/**
 	 * Obtiene contenido del nodo en tipo determinado.
-	 * @param p_value Tipo y lugar de retorno para el contenido obtenido
+	 * @param value Tipo y lugar de retorno para el contenido obtenido
 	 * @return true si se obtuvo el contenido, false en otro caso
 	 * @pre El nodo debe ser válido
 	 * @note Aunque virtualmente el método puede leer cualquier tipo de
-	 * valor, depende directamente de gelide::utils::toStr y por lo tanto
+	 * valor, depende directamente de utils::toStr y por lo tanto
 	 * está orientado a la lectura de tipos básicos y vectores de tipos
 	 * básicos (char, int, bool, double, string, etc).
 	 */
 	template<class T>
-	bool getContent(T& p_value) const{
-		xmlChar* l_content;
-		Glib::ustring l_value_str;
+	bool getContent(T& value) const
+	{
+		xmlChar* content;
+		Glib::ustring value_str;
 
 		assert(m_node);
+
 		// Obtenemos el atributo
-		l_content = xmlNodeListGetString(m_node->doc, m_node->xmlChildrenNode, 1);
-
-		// Si no se obtuvo el contenido lo indicamos en la salida
-		if(!l_content)
+		content = xmlNodeListGetString(m_node->doc, m_node->xmlChildrenNode, 1);
+		if (!content)
+		{
 			return true;
-
+		}
 		// Pasamos el contenido a string si es válido
-		l_value_str = reinterpret_cast<const char*>(l_content);
+		value_str = reinterpret_cast<const char*>(content);
 		// Pasamos la cadena al tipo adecuado
-		utils::strTo(l_value_str, p_value);
-		// Liberamos la memoria ocupada por el atributo
-		xmlFree(l_content);
+		utils::strTo(value_str, value);
+		xmlFree(content);
 		return true;
 	}
 
@@ -151,10 +160,10 @@ public:
 protected:
 	/**
 	 * Establece el valor del puntero interno al nodo del elemento
-	 * @param p_node Nuevo puntero al nodo
+	 * @param node Nuevo puntero al nodo
 	 */
-	void setXmlNode(const xmlNodePtr p_node){
-		m_node = p_node;
+	void setXmlNode(const xmlNodePtr node){
+		m_node = node;
 	}
 
 	/**
@@ -173,7 +182,7 @@ private:
 /**
  * Iterador sobre nodos de un documento xml.
  */
-class CXmlNode::iterator: public std::iterator<std::forward_iterator_tag, CXmlNode*>
+class XmlNode::iterator: public std::iterator<std::forward_iterator_tag, XmlNode*>
 {
 public:
 
@@ -184,9 +193,9 @@ public:
 
 	/**
 	 * Constructor a partir de un nodo xml
-	 * @param p_node Nodo xml real
+	 * @param node Nodo xml real
 	 */
-	iterator(xmlNodePtr p_node);
+	iterator(xmlNodePtr node);
 
 	/**
 	 * Destructor de la clase
@@ -195,24 +204,24 @@ public:
 
 	/**
 	 * Operador copia
-	 * @param p_iter Iterador del que se realizará la copia
+	 * @param iter Iterador del que se realizará la copia
 	 * @return Un nuevo iterador copia.
 	 */
-	iterator& operator=(const iterator& p_iter);
+	iterator& operator=(const iterator& iter);
 
 	/**
 	 * Comprueba si dos iteradores son iguales
-	 * @param p_iter Iterador con el que se compara
+	 * @param iter Iterador con el que se compara
 	 * @return true si los iteradores son iguales
 	 */
-	bool operator==(const iterator& p_iter) const;
+	bool operator==(const iterator& iter) const;
 
 	/**
 	 * Comprueba si dos iteradores son distintos
-	 * @param p_iter Iterador con el que se compara
+	 * @param iter Iterador con el que se compara
 	 * @return true si los iteradores son distintos
 	 */
-	bool operator!=(const iterator& p_iter) const;
+	bool operator!=(const iterator& iter) const;
 
 	/**
 	 * Operación de pre-incremento o avance
@@ -230,16 +239,16 @@ public:
 	 * Operador *
 	 * @return Referencia al objeto al que apunta el iterador
 	 */
-	CXmlNode& operator*(void);
+	XmlNode& operator*(void);
 
 	/**
 	 * Operador de acceso
 	 * @return Obtiene un puntero al objeto al que apunta el iterador
 	 */
-	CXmlNode* operator->(void);
+	XmlNode* operator->(void);
 
 private:
-	CXmlNode m_xml_node;		/**< Elemento interno del iterador */
+	XmlNode m_xml_node;		/**< Elemento interno del iterador */
 };
 
 
@@ -250,41 +259,48 @@ private:
  * A partir de un elemento principal, permite iterar sobre sus hijos, obteniendo
  * atributos y contenidos en prácticamente cualquier tipo de datos.
  */
-class CXmlReader
+class XmlReader
 {
 public:
 	/**
 	 * Constructor básico
 	 */
-	CXmlReader();
+	XmlReader();
 
 	/**
 	 * Constructor con apertura directa de fichero para lectura del xml
 	 * @param p_file Nombre del fichero a abrir
 	 *
 	 */
-	CXmlReader(const Glib::ustring& p_file);
+	XmlReader(const Glib::ustring& file);
 
 	/**
 	 * Destructor de la clase
 	 */
-	~CXmlReader();
+	~XmlReader();
 
 	/**
 	 * Carga un archivo especificado creando el árbol xml
-	 * @param p_file Fichero xml a cargar
+	 * @param file Fichero xml a cargar
 	 * @pre El nombre del fichero debe ser válidos
 	 * @return true si se pudo realizar la carga sin problemas
 	 */
-	bool open(const Glib::ustring& p_file);
+	bool open(const Glib::ustring& file);
 
 	/**
 	 * Crea un árbol xml a partir de un buffer de memoria
-	 * @param p_buffer Puntero al buffer donde se almacenan los datos
-	 * @param p_size Tamaño total del buffer
+	 * @param buffer Puntero al buffer donde se almacenan los datos
+	 * @param size Tamaño total del buffer
 	 * @return true si se pudo realizar la carga sin problemas
 	 */
-	bool load(const char *p_buffer, int p_size);
+	bool load(const char* buffer, const unsigned int size);
+
+	/**
+	 * Crea un árbol xml a partir de una cadena de texto
+	 * @param str Cadena de datos
+	 * @return true si se pudo realizar la carga sin problemas
+	 */
+	bool load(const Glib::ustring& str);
 
 	/**
 	 * Resetea el reader liberando la memoria utilizada
@@ -297,14 +313,13 @@ public:
 	 * @note Una vez obtenido el nodo maestro, podemos movernos por el xml
 	 * haciendo uso de iteradores sobre elementos.
 	 */
-	CXmlNode getRootElement() const{
+	XmlNode getRootElement() const{
 		return m_root;
 	}
 
 private:
-	xmlDocPtr m_doc;		/**< Documento xml de uso interno */
-	CXmlNode m_root;		/**< Elemento root del xml */
+	xmlDocPtr m_doc;	/**< Documento xml de uso interno */
+	XmlNode m_root;		/**< Elemento root del xml */
 };
-
 
 #endif // _XML_READER_HPP_

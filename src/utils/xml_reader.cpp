@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -22,41 +22,52 @@
 #include "xml_reader.hpp"
 
 
-CXmlNode::CXmlNode(void):
+XmlNode::XmlNode(void):
 	m_node(NULL)
 {
 }
 
-CXmlNode::CXmlNode(xmlNodePtr p_node) :
-	m_node(p_node)
+XmlNode::XmlNode(xmlNodePtr node) :
+	m_node(node)
 {
 }
 
-Glib::ustring CXmlNode::getName(void) const{
+Glib::ustring XmlNode::getName(void) const
+{
 	if (m_node->name != NULL)
-		return( reinterpret_cast<const char*>(m_node->name));
+	{
+		return(reinterpret_cast<const char*>(m_node->name));
+	}
 	else
+	{
 		return "";
+	}
 }
 
-
-CXmlNode::iterator CXmlNode::begin(){
-	xmlNodePtr l_node;
+XmlNode::iterator XmlNode::begin()
+{
+	xmlNodePtr node;
 
 	assert(m_node);
 
-	l_node = m_node->children;
+	node = m_node->children;
 	// Saltamos los nodos no válidos
-	while((l_node != NULL) && (l_node->type != XML_ELEMENT_NODE))
-		l_node = l_node->next;
-	if(l_node)
-		return iterator(l_node);
+	while ((node != NULL) && (node->type != XML_ELEMENT_NODE))
+	{
+		node = node->next;
+	}
+	if (node)
+	{
+		return iterator(node);
+	}
 	else
+	{
 		return iterator(m_node);
+	}
 }
 
-CXmlNode::iterator CXmlNode::end(){
-
+XmlNode::iterator XmlNode::end()
+{
 	assert(m_node);
 	// Consideramos al nodo padre como "uno pasado el último", por lo que
 	// devolvemos como end el propio nodo
@@ -64,89 +75,104 @@ CXmlNode::iterator CXmlNode::end(){
 }
 
 
-CXmlNode::iterator::iterator(){
+XmlNode::iterator::iterator()
+{
 }
 
-CXmlNode::iterator::iterator(xmlNodePtr p_node){
-	m_xml_node.setXmlNode(p_node);
+XmlNode::iterator::iterator(xmlNodePtr node)
+{
+	m_xml_node.setXmlNode(node);
 }
 
 
-CXmlNode::iterator& CXmlNode::iterator::operator=(const iterator& p_iter){
-	m_xml_node = p_iter.m_xml_node;
+XmlNode::iterator& XmlNode::iterator::operator=(const iterator& iter)
+{
+	m_xml_node = iter.m_xml_node;
 	return(*this);
 }
 
-bool CXmlNode::iterator::operator==(const iterator& p_iter) const{
-	return(m_xml_node.getXmlNode() == p_iter.m_xml_node.getXmlNode());
+bool XmlNode::iterator::operator==(const iterator& iter) const
+{
+	return(m_xml_node.getXmlNode() == iter.m_xml_node.getXmlNode());
 }
 
-bool CXmlNode::iterator::operator!=(const iterator& p_iter) const{
-	return(m_xml_node.getXmlNode() != p_iter.m_xml_node.getXmlNode());
+bool XmlNode::iterator::operator!=(const iterator& iter) const
+{
+	return(m_xml_node.getXmlNode() != iter.m_xml_node.getXmlNode());
 }
 
-CXmlNode::iterator& CXmlNode::iterator::operator++(void){
-	xmlNodePtr l_node;
+XmlNode::iterator& XmlNode::iterator::operator++(void)
+{
+	xmlNodePtr node;
 
 	// Obtenemos el siguiente nodo
-	l_node = m_xml_node.getXmlNode()->next;
+	node = m_xml_node.getXmlNode()->next;
 
 	// Saltamos los nodos no válidos
-	while((l_node != NULL) && (l_node->type != XML_ELEMENT_NODE) )
-		l_node = l_node->next;
+	while ((node != NULL) && (node->type != XML_ELEMENT_NODE) )
+	{
+		node = node->next;
+	}
 
 	// Comprobamos si no estamos en el último nodo hijo
-	if(l_node)
-		m_xml_node.setXmlNode(l_node);
+	if (node)
+	{
+		m_xml_node.setXmlNode(node);
+	}
 	else
+	{
 		// Consideramos al nodo padre como "uno pasado el último" y lo asignamos
 		// desde el nodo original, ya que l_node sera nulo
 		m_xml_node.setXmlNode(m_xml_node.getXmlNode()->parent);
+	}
 
 	return(*this);
 }
 
-CXmlNode::iterator CXmlNode::iterator::operator++(int){
-	iterator l_iter(this->m_xml_node.getXmlNode());
+XmlNode::iterator XmlNode::iterator::operator++(int)
+{
+	iterator iter(this->m_xml_node.getXmlNode());
 
 	++(*this);
-	return(l_iter);
+	return(iter);
 }
 
-CXmlNode& CXmlNode::iterator::operator*(void){
+XmlNode& XmlNode::iterator::operator*(void)
+{
 	return m_xml_node;
 }
 
-CXmlNode* CXmlNode::iterator::operator->(void){
+XmlNode* XmlNode::iterator::operator->(void)
+{
 	return &m_xml_node;
 }
 
 
-CXmlReader::CXmlReader():
+XmlReader::XmlReader():
 	m_doc(NULL)
 {
 }
 
-CXmlReader::CXmlReader(const Glib::ustring& p_file):
+XmlReader::XmlReader(const Glib::ustring& file):
 	m_doc(NULL)
 {
-	open(p_file);
+	open(file);
 }
 
-CXmlReader::~CXmlReader(){
+XmlReader::~XmlReader()
+{
 	close();
 }
 
-bool CXmlReader::open(const Glib::ustring& p_file){
-
-	assert(p_file.size());
+bool XmlReader::open(const Glib::ustring& file)
+{
+	assert(file.size());
 
 	// Liberamos la memoria si fuera necesario
 	close();
-	// Creamos el parser xml
-	m_doc = xmlParseFile(p_file.c_str());
-
-	if (m_doc == NULL){
+	m_doc = xmlParseFile(file.c_str());
+	if (m_doc == NULL)
+	{
 		// Anulamos el nodo root
 		m_root.setXmlNode(NULL);
 		return false;
@@ -156,14 +182,13 @@ bool CXmlReader::open(const Glib::ustring& p_file){
 	return true;
 }
 
-bool CXmlReader::load(const char *p_buffer, int p_size){
-
+bool XmlReader::load(const char* buffer, const unsigned int size)
+{
 	// Liberamos la memoria si fuera necesario
 	close();
-	// Creamos el parser xml
-	m_doc = xmlParseMemory(p_buffer, p_size);
-
-	if (m_doc == NULL){
+	m_doc = xmlParseMemory(buffer, size);
+	if (m_doc == NULL)
+	{
 		// Anulamos el nodo root
 		m_root.setXmlNode(NULL);
 		return false;
@@ -173,12 +198,16 @@ bool CXmlReader::load(const char *p_buffer, int p_size){
 	return true;
 }
 
-void CXmlReader::close(void){
+bool XmlReader::load(const Glib::ustring& str)
+{
+	return(load(str.c_str(), str.bytes()));
+}
+
+void XmlReader::close(void)
+{
 	// Anulamos el nodo root
 	m_root.setXmlNode(NULL);
 	// Liberamos la memoria ocupada por el reader
 	xmlFreeDoc(m_doc);
 	m_doc = NULL;
 }
-
-
