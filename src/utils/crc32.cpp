@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -22,11 +22,12 @@
 #include "crc32.hpp"
 #include <fstream>
 
+
 // Definimos el tamaño del buffer interno de 10K
 #define CRC32_BUFF_SIZE 10240
 
 // Tabla CRC32 pregenerada con el polinomio utilizado por WinZip y PKZIP
-const CCrc32::TCrc32 CCrc32::m_crc_table[256] =
+const Crc32::Crc Crc32::m_crc_table[256] =
 {
   0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA,
   0x076DC419, 0x706AF48F, 0xE963A535, 0x9E6495A3,
@@ -94,119 +95,137 @@ const CCrc32::TCrc32 CCrc32::m_crc_table[256] =
   0xB40BBE37, 0xC30C8EA1, 0x5A05DF1B, 0x2D02EF8D
 };
 
-const char CCrc32::m_hex_table[] = "0123456789abcdef";
+const char Crc32::m_hex_table[] = "0123456789abcdef";
 
 
-CCrc32::TCrc32 CCrc32::CCrc32::getCrc32(const Glib::ustring p_file){
-	std::ifstream l_file;
-	unsigned int l_readed;
-	char l_buff[CRC32_BUFF_SIZE];
-	TCrc32 l_crc = 0xFFFFFFFF;
+Crc32::Crc Crc32::Crc32::getCrc32(const Glib::ustring file)
+{
+	std::ifstream file_stream;
+	unsigned int readed;
+	char buff[CRC32_BUFF_SIZE];
+	Crc crc = 0xFFFFFFFF;
 
-	l_file.open(p_file.data());
+	file_stream.open(file.data());
 	// Comprobamos si la apertura fue correcta
-	if(!l_file.good()){
-		l_file.close();
+	if (!file_stream.good())
+	{
+		file_stream.close();
 		return 0;
 	}
 	// Procesamos los datos
-	do{
+	do
+	{
 		// Cargamos un bloque en el buffer
-		l_file.read (l_buff, CRC32_BUFF_SIZE);
-		l_readed = l_file.gcount();
-		l_crc = getCrc32(l_buff, l_readed, l_crc);
-	}while(!l_file.eof());
-	l_file.close();
+		file_stream.read (buff, CRC32_BUFF_SIZE);
+		readed = file_stream.gcount();
+		crc = getCrc32(buff, readed, crc);
+	}
+	while (!file_stream.eof());
+	file_stream.close();
 
 	// Devolvemos la finalización del crc
-	return getCrc32Finalize(l_crc);
+	return getCrc32Finalize(crc);
 }
 
-CCrc32::TCrc32 CCrc32::getCrc32(char* p_data, const unsigned int p_size){
-	return getCrc32Finalize( getCrc32(p_data, p_size, 0xFFFFFFFF) );
+Crc32::Crc Crc32::getCrc32(char* data, const unsigned int size)
+{
+	return getCrc32Finalize( getCrc32(data, size, 0xFFFFFFFF) );
 }
 
-CCrc32::TCrc32 CCrc32::getCrc32(char* p_data, const unsigned int p_size,
-								const TCrc32 p_crc){
-    char* l_end_data = NULL;
-    char* l_pchar = NULL;
-    TCrc32 l_crc = p_crc;
+Crc32::Crc Crc32::getCrc32(char* data, const unsigned int size,	const Crc crc)
+{
+    char* end_data = NULL;
+    char* p = NULL;
+    Crc return_crc = crc;
 
     // Aplicamos el algoritmo de cálculo del crc
-    l_end_data = p_data + p_size;
-    for(l_pchar = p_data; l_pchar < l_end_data; l_pchar++)
-      l_crc = ((l_crc >> 8) & 0x00FFFFFF) ^ m_crc_table[(l_crc ^ *l_pchar) & 0xFF];
+    end_data = data + size;
+    for (p = data; p < end_data; p++)
+    {
+      return_crc = ((return_crc >> 8) & 0x00FFFFFF) ^ m_crc_table[(return_crc ^ *p) & 0xFF];
+    }
 
-    return(l_crc);
+    return(return_crc);
 }
 
-CCrc32::TCrc32 CCrc32::getCrc32Finalize(const TCrc32 p_crc){
-	return ~p_crc;
+Crc32::Crc Crc32::getCrc32Finalize(const Crc crc)
+{
+	return ~crc;
 }
 
-CCrc32::TCrc32 CCrc32::fromString(const Glib::ustring p_crc){
-	int l_ind;
-	char l_char;
-	TCrc32 l_crc32 = 0;
+Crc32::Crc Crc32::fromString(const Glib::ustring crc)
+{
+	int i;
+	char c;
+	Crc crc32 = 0;
 
 	// Para cada dígito hexadecimal realizamos una pasada
-	for (l_ind = 0; l_ind < 8; l_ind++){
+	for (i = 0; i < 8; i++)
+	{
 		// Obtenemos el dígito hexadecimal de derecha a izquierda en minúscula
-		l_char = tolower(p_crc[7 - l_ind]);
+		c = tolower(crc[7 - i]);
 
 		// Si está entre 0 y 9 restamos el ascii del digito para ajustar
-		if (l_char >= '0' && l_char <= '9')
-			l_char -= '0';
+		if (c >= '0' && c <= '9')
+		{
+			c -= '0';
+		}
 		// Si está entre a y f, restamos (ascii_a - 10) así obtenemos:
 		// a: a - (a - 10) = 10
 		// b: b - (a - 10) = 11
 		// ...
 		// f: f - (a - 10) = 15
-		else if (l_char >= 'a' && l_char <= 'f')
-			l_char -= 'a' - 10;
+		else if (c >= 'a' && c <= 'f')
+		{
+			c -= 'a' - 10;
+		}
 		else
+		{
 			return 0;
+		}
 		// En cada pasada insertamos el dígito hexadecimal en su posición
 		// 0x00000000 -> 0x0000000b
 		// 0x0000000b -> 0x000000ab
 		// 0x000000ab -> 0x000005ab
-		l_crc32 |= (l_char << (4 * l_ind));
+		crc32 |= (c << (4 * i));
 	}
 
-	return(l_crc32);
+	return(crc32);
 }
 
-Glib::ustring CCrc32::toString(TCrc32 p_crc){
+Glib::ustring Crc32::toString(Crc crc)
+{
 	// Almacen temporal para el crc
-	unsigned char l_crc[4];
+	unsigned char buff[4];
 	// Cadena generada y su puntero
-	char l_str[9] = "00000000";
-	char* l_pstr = l_str;
-	int l_ind;
+	char str[9] = "00000000";
+	char* p = str;
+	int i;
 
 	// Pasamos el crc a un array de la siguiente manera
 	// 0xaaf345b1 >> 24 = 0x000000aa -> crc[0] = 0xaa
 	// 0xaaf345b1 >> 16 = 0x0000aaf3 -> crc[1] = 0xf3
 	// 0xaaf345b1 >>  8 = 0x00aaf345 -> crc[2] = 0x45
 	//                    0xaaf345b1 -> crc[3] = 0xb1
-	l_crc[0] = (unsigned char)(p_crc >> 24);
-	l_crc[1] = (unsigned char)(p_crc >> 16);
-	l_crc[2] = (unsigned char)(p_crc >> 8);
-	l_crc[3] = (unsigned char) p_crc;
+	buff[0] = static_cast<unsigned char>(crc >> 24);
+	buff[1] = static_cast<unsigned char>(crc >> 16);
+	buff[2] = static_cast<unsigned char>(crc >> 8);
+	buff[3] = static_cast<unsigned char>(crc);
 
 	// Obtenemos la representación de los bytes en 2 pasos
 	// 1: 0xa7 >> 4 = 0x0a & 0x0f = 0x0a -> hex_table[0x0a] = 'a'
 	// 2:             0xa7 & 0x0f = 0x07 -> hex_table[0x07] = '7'
-	for(l_ind = 0; l_ind < 4; l_ind++){
-		*l_pstr++ = m_hex_table[(l_crc[l_ind] >> 4) & 0xF];
-		*l_pstr++ = m_hex_table[l_crc[l_ind] & 0xF];
+	for (i = 0; i < 4; i++)
+	{
+		*p++ = m_hex_table[(buff[i] >> 4) & 0xF];
+		*p++ = m_hex_table[buff[i] & 0xF];
 	}
 
-	return l_str;
+	return str;
 }
 
 /*
- Glib::ustring CCrc32::toString(TCrc32 p_crc){
+ Glib::ustring Crc32::toString(Crc p_crc){
 	// Cadena generada
 	char l_str[9] = "00000000";
 
