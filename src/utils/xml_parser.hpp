@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -22,7 +22,6 @@
 #ifndef _XML_PARSER_HPP_
 #define _XML_PARSER_HPP_
 
-#include "../gelide.hpp"
 #include <glibmm/ustring.h>
 #include <sigc++/sigc++.h>
 #include <libxml2/libxml/parser.h>
@@ -36,27 +35,27 @@
  * Proporciona una serie de señales que indicarán el estado del parseo del
  * ficheros xml pasando los datos correspondientes de cada estado.
  */
-class CXmlParser
+class XmlParser
 {
 public:
 	/**
 	 * Constructor básico
 	 */
-	CXmlParser();
+	XmlParser();
 
 	/**
 	 * Destructor de la clase
 	 */
-	virtual ~CXmlParser(void){}
+	virtual ~XmlParser(void){}
 
 	/**
 	 * Ejecuta el parseo del fichero indicado
-	 * @param p_file Fichero xml que parsear
+	 * @param file Fichero xml que parsear
 	 * @return true si se pudo ejecutar el parser, false en otro caso
 	 * @note Para el correcto funcionamiento del parser, las señales deben ser
 	 * conectadas antes de llamar a este método.
 	 */
-	bool parse(const Glib::ustring& p_file);
+	bool parse(const Glib::ustring& file);
 
 	/**
 	 * Interfaz para acceder a la señal que indica el inicio del documento xml
@@ -152,86 +151,85 @@ public:
 private:
 	/**
 	 * Callback para el parser sax que gestionara el inicio del documento.
-	 * @param p_data Datos de usuario
+	 * @param data Datos de usuario
 	 */
-	static void onStartDocument(void *p_data);
+	static void onStartDocument(void* data);
 
 	/**
 	 * Callback para el parser sax que gestionara el fin del documento.
-	 * @param p_data Datos de usuario
+	 * @param data Datos de usuario
 	 */
-	static void onEndDocument(void *p_data);
+	static void onEndDocument(void* data);
 
 	/**
 	 * Callback para el parser sax que gestionará el inicio de un elemento xml
-	 * @param p_data Datos de usuario
-	 * @param p_name Nombre del elemento procesado
-	 * @param p_attributes Listado de atributos y sus valores
+	 * @param data Datos de usuario
+	 * @param name Nombre del elemento procesado
+	 * @param attributes Listado de atributos y sus valores
 	 */
-	static void onStartElement(void *p_data, const xmlChar *p_name, const xmlChar **p_attributes);
+	static void onStartElement(void* data, const xmlChar* name, const xmlChar** attributes);
 
 	/**
 	 * Callback para el parser sax que gestionará el fin de un elemento xml
-	 * @param p_data Datos de usuario
-	 * @param p_name Nombre del elemento procesado
+	 * @param data Datos de usuario
+	 * @param name Nombre del elemento procesado
 	 */
-	static void onEndElement(void *p_data, const xmlChar *p_name);
+	static void onEndElement(void* data, const xmlChar* name);
 
 	/**
 	 * Callback para el parser sax que gestionará el contenido de un elemento
 	 * xml
-	 * @param p_data Datos de usuario
-	 * @param p_content Contenido del elemento xml
-	 * @param p_length Longitud del contenido en p_content
+	 * @param data Datos de usuario
+	 * @param content Contenido del elemento xml
+	 * @param length Longitud del contenido en p_content
 	 */
-	static void onContent(void *p_data, const xmlChar *p_content, int p_length);
+	static void onContent(void* data, const xmlChar* content, int length);
 
 	/**
 	 * Callback que se encarga de gestionar las entidades xml (&...)
-	 * @param p_data Datos de usuario
-	 * @param p_name Entidad xml
+	 * @param data Datos de usuario
+	 * @param name Entidad xml
 	 * @return Traducción de la entidad xml
 	 */
-	static xmlEntityPtr	onGetEntity(void *p_data, const xmlChar *p_name){
-		return xmlGetPredefinedEntity(p_name);
+	static xmlEntityPtr	onGetEntity(void* data, const xmlChar* name){
+		return xmlGetPredefinedEntity(name);
 	}
 
 	/**
 	 * Callback para gestionar pequeños problemas en la estructura del xml
-	 * @param p_data Datos de usuario
-	 * @param p_msg Mensaje para transmitir
+	 * @param data Datos de usuario
+	 * @param msg Mensaje para transmitir
 	 * @param ... Parámetros extra para el mensaje
 	 */
-    static void onWarning(void *p_data, const char *p_msg, ...);
+	static void onWarning(void* data, const char* msg, ...);
 
-    /**
+	/**
 	 * Callback para gestionar errores no críticos en la estructura del xml
-	 * @param p_data Datos de usuario
-	 * @param p_msg Mensaje para transmitir
+	 * @param data Datos de usuario
+	 * @param msg Mensaje para transmitir
 	 * @param ... Parámetros extra para el mensaje
 	 */
-    static void onError(void *p_data, const char *p_msg, ...);
+	static void onError(void* data, const char* msg, ...);
 
-    /**
+	/**
 	 * Callback para gestionar errores críticos en la estructura del xml
-	 * @param p_data Datos de usuario
-	 * @param p_msg Mensaje para transmitir
+	 * @param data Datos de usuario
+	 * @param msg Mensaje para transmitir
 	 * @param ... Parámetros extra para el mensaje
 	 */
-    static void onFatalError(void *p_data, const char *p_msg, ...);
+	static void onFatalError(void* data, const char* msg, ...);
 
-    // Señales emitidas por la clase
-    sigc::signal<void> m_signal_start_document;					/**< Indica el comienzo de un documento xml */
-    sigc::signal<void> m_signal_end_document;					/**< Indica el final de un documento xml */
-    sigc::signal<void, Glib::ustring&, std::map<Glib::ustring, Glib::ustring >& > m_signal_start_element;	/**< Indica el comienzo de un elemento xml */
-    sigc::signal<void, Glib::ustring& > m_signal_end_element;	/**< Indica el final de un elemento xml */
-    sigc::signal<void, Glib::ustring& > m_signal_content;		/**< Indica el contenido de un elemento xml */
-    sigc::signal<void, Glib::ustring& > m_signal_warning;		/**< Indica un problema en el parseo */
-    sigc::signal<void, Glib::ustring& > m_signal_error;			/**< Indica un error en el parseo */
-    sigc::signal<void, Glib::ustring& > m_signal_fatal_error;	/**< Indica un error fatal en el parseo */
+	// Señales emitidas por la clase
+	sigc::signal<void> m_signal_start_document;					/**< Indica el comienzo de un documento xml */
+	sigc::signal<void> m_signal_end_document;					/**< Indica el final de un documento xml */
+	sigc::signal<void, Glib::ustring&, std::map<Glib::ustring, Glib::ustring >& > m_signal_start_element;	/**< Indica el comienzo de un elemento xml */
+	sigc::signal<void, Glib::ustring& > m_signal_end_element;	/**< Indica el final de un elemento xml */
+	sigc::signal<void, Glib::ustring& > m_signal_content;		/**< Indica el contenido de un elemento xml */
+	sigc::signal<void, Glib::ustring& > m_signal_warning;		/**< Indica un problema en el parseo */
+	sigc::signal<void, Glib::ustring& > m_signal_error;			/**< Indica un error en el parseo */
+	sigc::signal<void, Glib::ustring& > m_signal_fatal_error;	/**< Indica un error fatal en el parseo */
 
-    xmlSAXHandler m_sax_handler;	/**< Handler de callbacks para el parser sax */
+	xmlSAXHandler m_sax_handler;	/**< Handler de callbacks para el parser sax */
 };
-
 
 #endif // _XML_PARSER_HPP_
