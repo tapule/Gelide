@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -20,165 +20,267 @@
  */
 
 #include "process.hpp"
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <glibmm.h>
+#include "os_detect.hpp"
+#if defined(OS_POSIX)
+	#include <sys/types.h>
+	#include <sys/wait.h>
+#elif defined(OS_WIN)
+	#include <windows.h>
+#endif
+#include <glibmm/shell.h>
+#include <glibmm/spawn.h>
+#include "log.hpp"
+#include "utils.hpp"
 
 
-CProcess::CProcess(void): m_proc_id(-1){
+Process::Process(void):
+	// Iniciamos el id con -1 para indicar que no está en ejecución
+#if defined(OS_POSIX)
+	m_proc_id(-1),
+#elif defined(OS_WIN)
+	m_proc_id(NULL),
+#endif
+	m_channel_in(NULL),
+	m_channel_out(NULL),
+	m_channel_err(NULL)
+{
 }
 
-CProcess::~CProcess(){
-	this->stop();
+Process::~Process()
+{
+	stop();
 }
 
-bool CProcess::run(const Glib::ustring p_command,  const Glib::ustring p_path){
-	std::vector<Glib::ustring> l_argv;
-	if(m_proc_id != -1){
-		GELIDE_ERROR("Process " << m_proc_id << " is already running.");
-		return false;
+void Process::run(const Glib::ustring& command, const Glib::ustring& path)
+{
+	std::vector<Glib::ustring> argv;
+	int proc_in, proc_out, proc_err;
+	Glib::ustring run_path;
+
+	// Comprobamos si el proceso ya está en ejecución
+#if defined(OS_POSIX)
+	if (m_proc_id != -1)
+#elif defined(OS_WIN)
+	if (m_proc_id != NULL)
+#endif
+	{
+		LOG_ERROR("Process " << m_proc_id << " is already running.");
+		return;
 	}
 
-	GELIDE_DEBUG("Launching process...");
+	// Si no se especifica un path, actuamos en el directoria actual
+	run_path = path.size() ? path: ".";
 
-	try{
-		l_argv = Glib::shell_parse_argv(p_command);
+	LOG_DEBUG("Launching process...");
+
+	try
+	{
+		argv = Glib::shell_parse_argv(command);
+		LOG_DEBUG("Shell argv: " << utils::toStr(argv));
+
 		Glib::spawn_async_with_pipes(
-			p_path,							// working_directory
-			l_argv,							// argv
+			run_path,						// working_directory
+			argv,							// argv
 			Glib::SPAWN_DO_NOT_REAP_CHILD,	//Glib::SPAWN_LEAVE_DESCRIPTORS_OPEN,	// SpawnFlags
 			sigc::slot< void >(),			// child_setup
 			&m_proc_id, 					// child_pid
-			&m_proc_in,						// standard_input
-			&m_proc_out,					// standard_output
-			&m_proc_err						// standard_error
+			&proc_in,						// standard_input
+			&proc_out,						// standard_output
+			&proc_err						// standard_error
 		);
 	}
-	catch(const Glib::Exception& l_exception){
-		GELIDE_WARNING("Running command (" << l_exception.what().c_str() << ")");
-		return false;
+	catch (const Glib::Exception& e)
+	{
+		LOG_ERROR("Running command (" << e.what().c_str() << ")");
+		return;
 	}
 
 	// Creamos los canales de lectura
-	m_channel_in = Glib::IOChannel::create_from_fd(m_proc_in);
-	m_channel_out = Glib::IOChannel::create_from_fd(m_proc_out);
-	m_channel_err = Glib::IOChannel::create_from_fd(m_proc_err);
+	m_channel_in = Glib::IOChannel::create_from_fd(proc_in);
+	m_channel_out = Glib::IOChannel::create_from_fd(proc_out);
+	m_channel_err = Glib::IOChannel::create_from_fd(proc_err);
 
-	GELIDE_DEBUG("Process launched correctly with id " << m_proc_id);
+	// Añadimos un watch para enterarnos de cuando termina el proceso
+	m_connection = Glib::signal_child_watch().connect(sigc::mem_fun(*this, &Process::onProcessExit), m_proc_id);
 
-	return true;
+	LOG_DEBUG("Process launched correctly with id " << m_proc_id);
 }
 
-void CProcess::stop(void){
-	if (m_proc_id != -1){
-		m_channel_in->close();
-		m_channel_out->close();
-		m_channel_err->close();
-		// CHECKME: No se si el iochanel los cierra
-		close(m_proc_out);
-		close(m_proc_in);
-		close(m_proc_err);
-		kill(m_proc_id, SIGINT);
-		waitpid( m_proc_id, NULL, 0 );
-		Glib::spawn_close_pid(m_proc_id);
+int Process::wait(void)
+{
+	int child_id;
+	int ret = 0;
 
-		GELIDE_DEBUG("Process " << m_proc_id << " finished");
-
-		m_proc_id = -1;
-
+	// Comprobamos si el proceso está en ejecución
+#if defined(OS_POSIX)
+	if (m_proc_id == -1)
+#elif defined(OS_WIN)
+	if (m_proc_id == NULL)
+#endif
+	{
+		return 0;
 	}
+
+#if defined(OS_POSIX)
+	int status;
+
+	// Bloqueamos al llamante y comprobamos el estado del proceso
+	child_id = waitpid(m_proc_id, &status, 0);
+	// Comprobamos si se produjo un error en wait
+	//if(l_child_id == -1)
+	//	return -1;
+
+	// Comprobamos la terminación del proceso
+	if (WIFEXITED(status))
+	{
+		// El proceso terminó normalmente (llamada a exit o similares)
+		LOG_DEBUG("Process " << m_proc_id << " terminated correctly");
+		ret = 1;
+	}
+	else if (WIFSIGNALED(status))
+	{
+		// El proceso terminó por una señal
+		LOG_DEBUG("Process " << m_proc_id << " terminated by a signal");
+		ret = 2;
+	}
+	else
+	{
+		// El proceso terminó de alguna otra manera
+		LOG_DEBUG("Process " << m_proc_id << " terminated by a unknown cause");
+		ret = 3;
+	}
+#elif defined(OS_WIN)
+	DWORD status;
+
+	if (WaitForSingleObject((HANDLE)m_proc_id, INFINITE) != WAIT_OBJECT_0 || !GetExitCodeProcess((HANDLE)m_proc_id, &status))
+	{
+		// El proceso terminó de alguna otra manera
+		LOG_DEBUG("Process " << m_proc_id << " terminated by a unknown cause");
+		ret = 3;
+	}
+	else
+	{
+		// El proceso terminó normalmente (llamada a exit o similares)
+		LOG_DEBUG("Process " << m_proc_id << " terminated correctly");
+		ret = 1;
+	}
+#endif
+	// Hay que llamar a está función para liberar los recursos (En linux no hace nada)
+	Glib::spawn_close_pid(m_proc_id);
+
+	// Reiniciamos el id como no en ejecución
+#if defined(OS_POSIX)
+	m_proc_id = -1;
+#elif defined(OS_WIN)
+	m_proc_id = NULL;
+#endif
+
+	return ret;
 }
 
-bool CProcess::isRunning(void){
-	int l_status;
-	int l_child_id;
+int Process::stop(void)
+{
+	int ret;
 
-	if (m_proc_id != -1){
-		// Comprobamos el estado del proceso
-		//waitpid( m_proc_id, &l_status, WNOHANG );
-		l_child_id = waitpid( m_proc_id, &l_status, 0);
-
-		// Comprobamos si se produjo un error
-		if(l_child_id == -1)
-			return false;
-
-		// Comprobamos la terminación del proceso
-		if(!WIFEXITED(l_status))
-			return true;
-		else
-			return false;
+	// Comprobamos si el proceso está en ejecución
+#if defined(OS_POSIX)
+	if (m_proc_id == -1)
+#elif defined(OS_WIN)
+	if (m_proc_id == NULL)
+#endif
+	{
+		return 0;
 	}
-	return false;
+
+#if defined(OS_POSIX)
+	// Mandamos al proceso la señar de terminación
+	kill(m_proc_id, SIGTERM);
+#elif defined(OS_WIN)
+	TerminateProcess(m_proc_id, 0);
+//	CloseHandle(m_proc_id);
+#endif
+	// Una vez enviada la señal, esperamos a que termine
+	ret = this->wait();
+
+	// Cerramos los canales de lectura
+	m_channel_in->close();
+	m_channel_out->close();
+	m_channel_err->close();
+
+	// Desconectamos la señal del watch
+	m_connection.disconnect();
+
+	return ret;
 }
 
-int CProcess::outReadLine(Glib::ustring& p_text){
-	Glib::IOStatus l_status;
+bool Process::isRunning(void)
+{
+	int ret;
 
-	if (m_proc_id != -1){
-		try{
-			l_status = m_channel_out->read_line(p_text);
-			if((l_status == Glib::IO_STATUS_EOF) || (l_status == Glib::IO_STATUS_ERROR))
-				return -1;
-			return p_text.size();
+#if defined(OS_POSIX)
+	if (m_proc_id == -1)
+#elif defined(OS_WIN)
+	if (m_proc_id == NULL)
+#endif
+	{
+		return false;
+	}
+
+#if defined(OS_POSIX)
+	// Hacemos un wait sin bloqueo para comprobar el estado del proceso
+	ret = waitpid(m_proc_id, NULL, WNOHANG);
+#elif defined(OS_WIN)
+	DWORD status;
+
+	if (WaitForSingleObject((HANDLE)m_proc_id, 0) != WAIT_TIMEOUT || !GetExitCodeProcess((HANDLE)m_proc_id, &status))
+	{
+		ret = true;
+	}
+	else
+	{
+		if (status == STILL_ACTIVE){
+			l_ret = false;
 		}
-		catch(const Glib::Exception& l_exception){
-			GELIDE_ERROR("Reading from process (" << l_exception.what().c_str() << ")");
-			return -1;
+		else{
+			l_ret = true;
 		}
 	}
-	return -1;
+#endif
+
+	// Comprobamos si continua en ejecución
+	return !ret;
 }
 
-int CProcess::errReadLine(Glib::ustring& p_text){
-	Glib::IOStatus l_status;
-
-	if (m_proc_id != -1){
-		try{
-			l_status = m_channel_err->read_line(p_text);
-			if((l_status == Glib::IO_STATUS_EOF) || (l_status == Glib::IO_STATUS_ERROR))
-				return -1;
-			return p_text.size();
-		}
-		catch(const Glib::Exception& l_exception){
-			GELIDE_ERROR("Reading from process (" << l_exception.what().c_str() << ")");
-			return -1;
-		}
-	}
-	return -1;
+Glib::Pid Process::getId(void)
+{
+	return m_proc_id;
 }
 
-bool CProcess::write(const Glib::ustring p_text){
-	if (m_proc_id != -1){
-		try{
-			m_channel_in->write(p_text);
-			return true;
-		}
-		catch(const Glib::Exception& l_exception){
-			GELIDE_ERROR("Writing in process (" << l_exception.what().c_str() << ")");
-			return false;
-		}
-	}
-	return false;
+Glib::RefPtr<Glib::IOChannel> Process::getInChannel(void)
+{
+	return m_channel_in;
 }
 
+Glib::RefPtr<Glib::IOChannel> Process::getOutChannel(void)
+{
+	return m_channel_out;
+}
 
-bool CProcess::write( void *p_data, unsigned int p_size ){
-	unsigned int l_total_writed;
-	unsigned int l_writed;
+Glib::RefPtr<Glib::IOChannel> Process::getErrChannel(void)
+{
+	return m_channel_err;
+}
 
-	if (m_proc_id != -1){
-		try{
-			l_total_writed = 0;
-			while(l_total_writed < p_size){
-				m_channel_in->write((char *)p_data, (gssize) p_size,(gsize &) l_writed);
-				l_total_writed += l_writed;
-			}
-			return true;
-		}
-		catch(const Glib::Exception& l_exception){
-			GELIDE_ERROR("Writing in process (" << l_exception.what().c_str() << ")");
-			return false;
-		}
-	}
-	return false;
+sigc::signal<void, int> Process::signalExit(void)
+{
+	return m_signal_exit;
+}
+
+void Process::onProcessExit(Glib::Pid id, int priority)
+{
+	int ret;
+
+	// Cuando el proceso finalice, emitimos la señal correspondiente
+	ret = this->wait();
+	m_signal_exit.emit(ret);
 }
