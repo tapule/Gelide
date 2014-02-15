@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -22,40 +22,49 @@
 #include "xml_writer.hpp"
 
 
-CXmlWriter::CXmlWriter():m_writer(0){
+XmlWriter::XmlWriter():
+	m_writer(0)
+{
 }
 
-CXmlWriter::CXmlWriter(const Glib::ustring& p_file):m_writer(0){
-	open(p_file);
+XmlWriter::XmlWriter(const Glib::ustring& file):
+	m_writer(0)
+{
+	open(file);
 }
 
-CXmlWriter::~CXmlWriter(){
+XmlWriter::~XmlWriter()
+{
 	close();
 }
 
-bool CXmlWriter::open(const Glib::ustring& p_file, const bool p_wdeclaration){
-
-	assert(p_file.size());
+bool XmlWriter::open(const Glib::ustring& file, const bool with_declaration)
+{
+	assert(!file.empty());
 
 	// Cerramos el writer si estuviera abierto
 	close();
     // Creamos el writer sin compresión
-    m_writer = xmlNewTextWriterFilename(p_file.c_str(), 0);
+    m_writer = xmlNewTextWriterFilename(file.c_str(), 0);
 
     if (m_writer == NULL)
+    {
         return false;
+    }
     // Establecemos la indentación
     xmlTextWriterSetIndent(m_writer, 1);
-
-    // Añadimos la declaración xml si fuera necesario
-    if(p_wdeclaration)
+    if (with_declaration)
+    {
     	return writeDeclaration();
+    }
     return true;
 }
 
-void CXmlWriter::close(void){
+void XmlWriter::close(void)
+{
 
-	if(m_writer){
+	if (m_writer)
+	{
 		// Finalizamos el documento y liberamos la memoria del writer
 		xmlTextWriterEndDocument(m_writer);
 		xmlFreeTextWriter(m_writer);
@@ -63,52 +72,59 @@ void CXmlWriter::close(void){
 	}
 }
 
-bool CXmlWriter::writeComment(const Glib::ustring& p_comment){
-	int l_ret;
+bool XmlWriter::writeComment(const Glib::ustring& comment)
+{
+	int ret;
 
 	assert(m_writer);
 
-	l_ret = xmlTextWriterWriteComment(m_writer, BAD_CAST p_comment.c_str());
-
-	if (l_ret < 0)
+	ret = xmlTextWriterWriteComment(m_writer, BAD_CAST comment.c_str());
+	if (ret < 0)
+	{
 		return false;
+	}
 	return true;
 }
 
-bool CXmlWriter::writeDeclaration(void){
-	int l_ret;
+bool XmlWriter::writeDeclaration(void)
+{
+	int ret;
 
     assert(m_writer);
 
-    l_ret = xmlTextWriterStartDocument(m_writer, "1.0", "utf-8", NULL);
-    if (l_ret < 0)
+    ret = xmlTextWriterStartDocument(m_writer, "1.0", "utf-8", NULL);
+    if (ret < 0)
+    {
     	return false;
+    }
     return true;
 }
 
-bool CXmlWriter::startElement(const Glib::ustring& p_name){
-	int l_ret;
+bool XmlWriter::startElement(const Glib::ustring& name)
+{
+	int ret;
 
 	assert(m_writer);
-	assert(p_name.size());
+	assert(!name.empty());
 
-	l_ret = xmlTextWriterStartElement(m_writer, BAD_CAST p_name.c_str());
-
-	if (l_ret < 0)
+	ret = xmlTextWriterStartElement(m_writer, BAD_CAST name.c_str());
+	if (ret < 0)
+	{
 		return false;
+	}
 	return true;
 }
 
-bool CXmlWriter::endElement(void){
-	int l_ret;
+bool XmlWriter::endElement(void)
+{
+	int ret;
 
 	assert(m_writer);
 
-	l_ret = xmlTextWriterEndElement(m_writer);
-
-	if (l_ret < 0)
+	ret = xmlTextWriterEndElement(m_writer);
+	if (ret < 0)
+	{
 		return false;
+	}
 	return true;
 }
-
-
