@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -23,67 +23,101 @@
 #define _GAME_HPP_
 
 #include <glibmm/ustring.h>
+#include "item.hpp"
 
-class CGame
-{
-public:
-	CGame(void);
-	virtual ~CGame(){};
 
-	// Obtener los campos del juego
-	unsigned int getSystemId(void);
-	bool getFavorite(void);
-	Glib::ustring getName(void);
-	unsigned int getRank(void);
-	unsigned int getYear(void);
-	Glib::ustring getDescription(void);
-	Glib::ustring getManufacturer(void);
-	Glib::ustring getPath(void);
-	Glib::ustring getRomCrc(void);
+namespace gelide{
 
-	// Obtener los flags del juego
-	int getFlags(void);
-	bool getPlayed(void);
-	bool getWorking(void);
-	bool getAvailable(void);
-	bool getUnknown(void);
-
-	// Establecer los campos del juego
-	void setSystemId(const unsigned int p_id);
-	void setFavorite(const bool p_favorite);
-	void setName(const Glib::ustring& p_name);
-	void setRank(const unsigned int p_rank);
-	void setYear(const unsigned int p_year);
-	void setDescription(const Glib::ustring& p_description);
-	void setManufacturer(const Glib::ustring& p_manufacturer);
-	void setPath(const Glib::ustring& p_path);
-	void setRomCrc(const Glib::ustring& p_crc);
-
-	// Establecer los flags del juego
-	void setFlags(const int p_flags);
-	void setPlayed(const bool p_played);
-	void setWorking(const bool p_working);
-	void setAvailable(const bool p_available);
-	void setUnknown(const bool p_unknown);
-
-private:
-	unsigned int m_system_id;		// Id del sistema al que pertenece el juego
-	bool m_favorite;				// ¿Es favorito?
-	Glib::ustring m_name;			// Nombre del juego
-	unsigned int m_rank;			// Puntuación
-	unsigned int m_year;			// Año
-	Glib::ustring m_description;	// Descripción
-	Glib::ustring m_manufacturer;	// Fabricante
-	Glib::ustring m_path;			// Path del juego
-	Glib::ustring m_rom_crc;		// crc de la rom
-
-	//CHECKME: Los flags, se podrían guardar directamente codificados, y
-	//decodificar las funciones una a una.
-	//Flags decodificados
-	bool m_played;					// Jugado?
-	bool m_working;					// Funcional?
-	bool m_available;				// Disponible ?
-	bool m_unknown;					// Desconocido ?
+// Posibles tipos de juegos
+enum GameType{
+	GAME_TYPE_UNKNOWN = 0,		/**< Tipo desconocido */
+	GAME_TYPE_ORIGINAL,			/**< Juego original */
+	GAME_TYPE_CLONE,			/**< Juego clon */
+	GAME_TYPE_BIOS				/**< Bios */
 };
+
+// Posibles estados de un juego
+enum GameState{
+	GAME_STATE_UNKNOWN = 0,		/**< Estado desconocido (no comprobado) */
+	GAME_STATE_CORRECT,			/**< Estado correcto (comprobado y localizado) */
+	GAME_STATE_INCORRECT		/**< Estado incorrecto (comprobado y no localizado) */
+};
+
+/**
+ * Mantiene la información de un juego.
+ */
+struct Game : public Item
+{
+	/**
+	 * Constructor básico
+	 */
+	Game(void):
+		Item(),
+		enabled(true),
+		collection_id(0),
+		state(GAME_STATE_UNKNOWN),
+		type(GAME_TYPE_UNKNOWN),
+		manufacturer_id(1),
+		year_id(1),
+		genre_id(1),
+		players(1),
+		rating(0),
+		times_played(0),
+		favorite(false),
+		use_custom_emulator(0),
+		emulator_id(0)
+	{
+	}
+
+	/**
+	 * Constructor parametrizado
+	 * @param p_id Nuevo identificador para el elemento
+	 * @param p_name Nombre para el elemento
+	 */
+	Game(const long long int p_id, const Glib::ustring& p_name, const Glib::ustring& p_title):
+		Item(p_id, p_name, p_title),
+		enabled(true),
+		collection_id(0),
+		state(GAME_STATE_UNKNOWN),
+		type(GAME_TYPE_UNKNOWN),
+		manufacturer_id(1),
+		year_id(1),
+		genre_id(1),
+		players(1),
+		rating(0),
+		times_played(0),
+		favorite(false),
+		use_custom_emulator(0),
+		emulator_id(0)
+	{
+	}
+
+	bool enabled;					/**< Indica si está activado o no */
+	long long int collection_id;	/**< Identificador de la colección a la que pertenece*/
+	GameState state;				/**< Estado del juego (0 desconocido, 1 lcorrecto, 2 incorrecto) */
+	Glib::ustring file;				/**< Path al fichero del juego */
+
+	GameType type;					/**< Indica el tipo del set (original, clon, bios) */
+	Glib::ustring crc;				/**< CRC asignado al juego (de su rom) */
+
+	long long int manufacturer_id;	/**< Identificador del fabricante */
+	Glib::ustring manufacturer;		/**< Fabricante del juego */
+	long long int year_id;			/**< Identificador del año */
+	Glib::ustring year;				/**< Año de lanzamiento */
+	long long int genre_id;			/**< Identificador del género del juego */
+	Glib::ustring genre;			/**< Género del juego */
+	int players;					/**< Número de jugadores del juego*/
+
+	int rating;						/**< Puntuación del juego*/
+	unsigned int times_played;		/**< Contador de veces jugado */
+	Glib::ustring last_time_played;	/**< Fecha de la última partida */
+	Glib::ustring date_added;		/**< Fecha de inserción en la BD */
+	bool favorite;					/**< Indica si el juego está marcado como favorito */
+
+	bool use_custom_emulator;		/**< Indica si se usa un emu custom */
+	long long int emulator_id;		/**< Identificador del emulador custom */
+};
+
+} // namespace gelide
 
 #endif // _GAME_HPP_

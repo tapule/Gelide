@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -23,53 +23,41 @@
 #define _EMULATOR_HPP_
 
 #include <glibmm/ustring.h>
-#include <gdkmm/pixbuf.h>
 
-class CEmulator
-{
-public:
-	CEmulator(void);
-	virtual ~CEmulator(void){};
 
-	// Obtener los campos del emu
-	unsigned int getSystemId(void);
-	unsigned int getId(void);
-	Glib::ustring getIconFile(void);
-	Glib::RefPtr<Gdk::Pixbuf> getIcon(void);
-	Glib::ustring getName(void);
-	Glib::ustring getDescription(void);
-	Glib::ustring getVersion(void);
-	Glib::ustring getAuthor(void);
-	Glib::ustring getHomepage(void);
-	Glib::ustring getPath(void);
-	Glib::ustring getParams(void);
+namespace gelide{
 
-	// Establecer los campos del emu
-	void setSystemId(const unsigned int p_id);
-	void setId(const unsigned int p_id);
-	void setIconFile(const Glib::ustring& p_icon);
-	void setIcon(Glib::RefPtr<Gdk::Pixbuf> p_icon);
-	void setName(const Glib::ustring& p_name);
-	void setDescription(const Glib::ustring& p_description);
-	void setVersion(const Glib::ustring& p_version);
-	void setAuthor(const Glib::ustring& p_author);
-	void setHomepage(const Glib::ustring& p_homepage);
-	void setPath(const Glib::ustring& p_path);
-	void setParams(const Glib::ustring& p_params);
-
-private:
-	// Información de descripción del emulador
-	unsigned int m_system_id;
-	unsigned int m_id;
-	Glib::ustring m_icon_file;
-	Glib::RefPtr<Gdk::Pixbuf> m_icon;	// Icono del e
-	Glib::ustring m_name;
-	Glib::ustring m_description;
-	Glib::ustring m_version;
-	Glib::ustring m_author;
-	Glib::ustring m_homepage;
-	Glib::ustring m_path;
-	Glib::ustring m_params;
+enum EmulatorParentType{
+	EMULATOR_PARENT_COLLECTION = 0,	/**< Tipo de padre colección */
+	EMULATOR_PARENT_GAMELIST,		/**< Tipo de padre lista */
+	EMULATOR_PARENT_GAME			/**< Tipo de padre juego */
 };
+
+/**
+ * Encapsula las propiedades de un emulador
+ */
+struct Emulator
+{
+	/**
+	 * Constructor básico
+	 */
+	Emulator(void):
+		id(0),
+		parent_id(0),
+		parent_type(EMULATOR_PARENT_COLLECTION)
+	{
+	}
+
+	long long int id;					/**< Identificador del emulador */
+	long long int parent_id;			/**< Identificador del padre del emu */
+	EmulatorParentType parent_type;		/**< Tipo de padre del emulador */
+	Glib::ustring binary;				/**< Path del ejecutable del emulador */
+	Glib::ustring params;				/**< Parámetros para la llamada al emulador */
+	Glib::ustring precommand;			/**< Comandos previos a la emulación */
+	Glib::ustring postcommad;			/**< Comandos posteriores a la emulación */
+	Glib::ustring rundir;				/**< Directorio donde ejecutar la emulación */
+};
+
+} // namespace gelide
 
 #endif // _EMULATOR_HPP_
