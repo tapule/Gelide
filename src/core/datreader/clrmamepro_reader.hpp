@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -19,60 +19,74 @@
  * along with gelide.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef _DAT_READER_CLRMAMEPRO_HPP_
-#define _DAT_READER_CLRMAMEPRO_HPP_
+#ifndef _CLRMAMEPRO_READER_HPP_
+#define _CLRMAMEPRO_READER_HPP_
 
-#include <glibmm/ustring.h>
+#ifdef HAVE_CONFIG_H
+	#include "config.h"
+#endif /* HAVE_CONFIG_H */
+
+// Si no está definido el modo debug, desactivamos los asserts
+#ifndef ENABLE_DEBUG_MODE
+	#define NDEBUG
+#endif
+
+#include <cassert>
 #include <map>
+#include <vector>
+#include <glibmm/ustring.h>
 #include "dat_reader.hpp"
-#include "game.hpp"
-#include "../utils/tokenizer.hpp"
+#include "dat_set.hpp"
+#include "../utils/parser.hpp"
+
+
+namespace gelide{
 
 /**
- * Parser lector para ficheros dat en formato ClrMamePro
+ * Lector para ficheros dat en formato ClrMamePro
+ *
+ * Obtiene los sets en un fichero dat en formato ClrMamePro, incluyendo los sets
+ * bios.
+ * @note Este lector consume el recurso en su lectura y se resetea
  * @note Más información en http://mamedev.emulab.it/clrmamepro/index.htm
  */
-class CDatReaderClrMamePro : public CDatReader
+class ClrMameProReader : public DatReader
 {
 public:
 	/**
 	 * Constructor de la clase
 	 */
-	CDatReaderClrMamePro(void);
+	ClrMameProReader(void);
 
 	/**
 	 * Destructor de la clase
 	 */
-	~CDatReaderClrMamePro(void);
-
-	/**
-	 * Carga un dat desde un fichero
-	 * @param p_file Path del fichero dat
-	 * @return true si se pudo cargar el fichero dat, false en otro caso
-	 */
-	bool open(const Glib::ustring& p_file = "");
+	~ClrMameProReader(void);
 
 	/**
 	 * Carga un dat desde un buffer de memoria
-	 * @param p_buffer Buffer con los datos del dat
-	 * @param p_size Tamaño total del buffer
+	 * @param buffer Buffer con los datos del dat
+	 * @param size Tamaño total del buffer
 	 * @return true si se pudo cargar el dat, false en otro caso
 	 */
-	bool load(const char* p_buffer, int p_size);
+	bool load(const char* buffer, const unsigned int size);
 
 	/**
 	 * Obtiene los datos de los sets contenidos en el dat
-	 * @param p_sets Mapa donde se almacenarán los sets del dat indexados por
-	 * el nombre del set
+	 * @param set_collection Mapa donde se almacenarán los sets del dat
+	 * indexados por el nombre del set
 	 * @return true si se realizó la lectura correctamente, false en otro caso
-	 * @pre El mapa destino está listo para añadir los sets
+	 * @note El mapa será vaciado previamente
 	 */
-	bool read(std::map<Glib::ustring, CGame*>& p_sets);
+	bool read(std::map<Glib::ustring, DatSet>& set_collection);
 
 	/**
-	 * Resetea el lector liberando la memoria utilizada y limpiando sus campos
+	 * Obtiene los datos de los sets contenidos en el dat
+	 * @param set_collection Vector donde se almacenarán los sets del dat
+	 * @return true si se realizó la lectura correctamente, false en otro caso
+	 * @note El vector será vaciado previamente
 	 */
-	void reset(void);
+	bool read(std::vector<DatSet>& set_collection);
 
 	/**
 	 * Obtiene una cadena identificativa del formato soportado por el lector
@@ -81,17 +95,13 @@ public:
 	Glib::ustring getType(void);
 
 private:
-	/**
-	 * Realiza el análisis de un bloque "clrmamepro" que contiene la cabecera
-	 * con la información del dat.
-	 */
-	void parseHeaderBlock(void);
 
 	/**
 	 * Realiza el análisis de los bloques "game" y "resource"
-	 * @return CGame con los datos leidos
+	 * @param set Set donde dejará el resultado
+	 * @return true si se localizó un set, false en otro caso
 	 */
-	CGame* parseGameBlock(void);
+	bool parseGameBlock(DatSet& set);
 
 	/**
 	 * Realiza el análisis de un bloque "rom" devolviendo su crc
@@ -105,7 +115,15 @@ private:
 	 */
 	void skipBlock(void);
 
-	CTokenizer m_tokenizer;			/**< Tokenizador utilizado internamente */
+	/**
+	 * Limpia los recursos usados por el lector y lo devuelve a su estado
+	 * inicial.
+	 */
+	void clean(void);
+
+	Parser m_parser;			/**<  utilizado internamente */
 };
+
+} // namespace gelide
 
 #endif // _DAT_READER_CLRMAMEPRO_HPP_

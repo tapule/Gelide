@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -22,8 +22,21 @@
 #ifndef _DAT_READER_FACTORY_HPP_
 #define _DAT_READER_FACTORY_HPP_
 
-#include "../gelide.hpp"
+#ifdef HAVE_CONFIG_H
+	#include "config.h"
+#endif /* HAVE_CONFIG_H */
+
+// Si no está definido el modo debug, desactivamos los asserts
+#ifndef ENABLE_DEBUG_MODE
+	#define NDEBUG
+#endif
+
+#include <cassert>
+#include <glibmm/ustring.h>
 #include "dat_reader.hpp"
+
+
+namespace gelide{
 
 /**
  * Clase factory para lectores de ficheros dat.
@@ -32,20 +45,22 @@
  * ficheros dat adecuado para el fichero pasado como parámetro.
  *
  */
-class CDatReaderFactory
+class DatReaderFactory
 {
 public:
 
 	/**
 	 * Obtiene un lector de ficheros dat adecuado para el fichero pasado
-	 * @param p_file Path al fichero dat para el que se necesita un lector
+	 * @param file Path al fichero dat para el que se necesita un lector
 	 * @return El lector adecuado para el fichero o NULL si el formato del
 	 * fichero pasado no está soportado.
 	 * @note El usuario debe encargarse de liberar la memoria ocupada por el
 	 * lector devuelto por el método.
 	 */
-	static CDatReader* getDatReader(const Glib::ustring& p_file);
+	static DatReader* getDatReader(const Glib::ustring& file);
 
 };
+
+} // namespace gelide
 
 #endif // _DAT_READER_FACTORY_HPP_

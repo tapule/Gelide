@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -19,47 +19,54 @@
  * along with gelide.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef _DAT_READER_MAMEXML_HPP_
-#define _DAT_READER_MAMEXML_HPP_
+#ifndef _LOGIQXXML_READER_HPP_
+#define _LOGIQXXML_READER_HPP_
 
-#include <glibmm/ustring.h>
+#ifdef HAVE_CONFIG_H
+	#include "config.h"
+#endif /* HAVE_CONFIG_H */
+
+// Si no está definido el modo debug, desactivamos los asserts
+#ifndef ENABLE_DEBUG_MODE
+	#define NDEBUG
+#endif
+
+#include <cassert>
 #include <map>
+#include <vector>
+#include <glibmm/ustring.h>
 #include "dat_reader.hpp"
-#include "game.hpp"
-#include "../utils/xml_reader.hpp"
+#include "dat_set.hpp"
+#include "../../utils/xml_reader.hpp"
+
+
+namespace gelide{
 
 /**
- * Parser lector para ficheros dat en el formato xml generado por Mame
- * @note Más información en http://mamedev.org/
- * @note Para generar un dat con mame: mame -listxml
+ * Parser lector para ficheros dat en el formato xml genérico de Logiqx
+ *
+ * @note Más información en http://www.logiqx.com
  */
-class CDatReaderMameXml : public CDatReader
+class LogiqxXmlReader : public DatReader
 {
 public:
 	/**
 	 * Constructor de la clase
 	 */
-	CDatReaderMameXml(void);
+	LogiqxXmlReader(void);
 
 	/**
 	 * Destructor de la clase
 	 */
-	~CDatReaderMameXml(void);
-
-	/**
-	 * Carga un dat desde un fichero
-	 * @param p_file Path del fichero dat
-	 * @return true si se pudo cargar el fichero dat, false en otro caso
-	 */
-	bool open(const Glib::ustring& p_file = "");
+	~LogiqxXmlReader(void);
 
 	/**
 	 * Carga un dat desde un buffer de memoria
-	 * @param p_buffer Buffer con los datos del dat
-	 * @param p_size Tamaño total del buffer
+	 * @param buffer Buffer con los datos del dat
+	 * @param size Tamaño total del buffer
 	 * @return true si se pudo cargar el dat, false en otro caso
 	 */
-	bool load(const char* p_buffer, int p_size);
+	bool load(const char* buffer, const unsigned int size);
 
 	/**
 	 * Obtiene los datos de los sets contenidos en el dat
@@ -68,12 +75,15 @@ public:
 	 * @return true si se realizó la lectura correctamente, false en otro caso
 	 * @pre El mapa destino está listo para añadir los sets
 	 */
-	bool read(std::map<Glib::ustring, CGame*>& p_sets);
+	bool read(std::map<Glib::ustring, DatSet>& set_collection);
 
 	/**
-	 * Resetea el lector liberando la memoria utilizada y limpiando sus campos
+	 * Obtiene los datos de los sets contenidos en el dat
+	 * @param set_collection Vector donde se almacenarán los sets del dat
+	 * @return true si se realizó la lectura correctamente, false en otro caso
+	 * @note El vector será vaciado previamente
 	 */
-	void reset(void);
+	bool read(std::vector<DatSet>& set_collection);
 
 	/**
 	 * Obtiene una cadena identificativa del formato soportado por el lector
@@ -82,29 +92,25 @@ public:
 	Glib::ustring getType(void);
 
 private:
-	/**
-	 * Realiza el análisis de los bloques "header" que contiene la cabecera
-	 * con la información del dat.
-	 */
-	void parseHeaderBlock(void);
 
 	/**
 	 * Realiza el análisis de un bloque "game"
+	 * @param set Set donde dejará el resultado
 	 * @param Nodo xml apuntando al bloque game
-	 * @return CGame con los datos leidos
-	 * @pre El nodo xml pasado apunta a un bloque "game"
+	 * @return true si se localizó un set, false en otro caso
 	 */
-	CGame* parseGameBlock(CXmlNode& p_node);
+	bool parseGameBlock(DatSet& set, XmlNode& node);
 
 	/**
 	 * Realiza el análisis de un bloque "rom" devolviendo su crc
 	 * @param Nodo xml apuntando al bloque rom
 	 * @return Cadena con el crc del bloque rom
-	 * @pre El nodo xml pasado apunta a un bloque "rom"
 	 */
-	Glib::ustring parseRomBlock(CXmlNode& p_node);
+	Glib::ustring parseRomBlock(XmlNode& node);
 
-	CXmlReader m_reader;	/**<Reader xml usado internamente */
+	XmlReader m_reader;	/**<Reader xml usado internamente */
 };
 
-#endif // _DAT_READER_MAMEXML_HPP_
+} // namespace gelide
+
+#endif // _LOGIQXXML_READER_HPP_

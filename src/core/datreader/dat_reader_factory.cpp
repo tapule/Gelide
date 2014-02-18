@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -18,97 +18,85 @@
  * You should have received a copy of the GNU General Public License
  * along with gelide.  If not, see <http://www.gnu.org/licenses/>
  */
+
 #include <fstream>
 #include "dat_reader_factory.hpp"
-#include "dat_reader_clrmamepro.hpp"
-#include "dat_reader_logiqxxml.hpp"
-#include "dat_reader_mamexml.hpp"
+#include "clrmamepro_reader.hpp"
+#include "logiqxxml_reader.hpp"
+#include "mamexml_reader.hpp"
+#include "hyperspinxml_reader.hpp"
 
-CDatReader* CDatReaderFactory::getDatReader(const Glib::ustring& p_file){
-	char* l_buffer = NULL;
-	std::ifstream l_file;
-	int l_fsize;
-	CDatReader* l_reader = NULL;
 
-	// El fichero debe ser válido
-	if(!p_file.size())
-		return NULL;
+namespace gelide{
 
-	l_file.open(p_file.data());
+DatReader* DatReaderFactory::getDatReader(const Glib::ustring& file)
+{
+	char* buffer = NULL;
+	std::ifstream file_stream;
+	unsigned int size;
+	DatReader* reader = NULL;
+
+	assert(!file.empty());
+
+	file_stream.open(file.data());
 	// Comprobamos si la apertura fue correcta
-	if(!l_file.good()){
-		l_file.close();
+	if (!file_stream.good())
+	{
+		file_stream.close();
 		return NULL;
 	}
 	// Obtenemos el tamaño del fichero
-	l_file.seekg (0, std::ios::end);
-	l_fsize = l_file.tellg();
-	l_file.seekg (0, std::ios::beg);
+	file_stream.seekg(0, std::ios::end);
+	size = file_stream.tellg();
+	file_stream.seekg(0, std::ios::beg);
 
 	// Reservamos la memoria necesaria
-	l_buffer = new char[l_fsize];
-	if(!l_buffer){
-		l_file.close();
+	buffer = new char[size];
+	if (!buffer)
+	{
+		file_stream.close();
 		return NULL;
 	}
-
 	// Cargamos el contenido completo del fichero en memoria
-	l_file.read (l_buffer, l_fsize);
-	l_file.close();
-
+	file_stream.read(buffer, size);
+	file_stream.close();
 	// Buscamos el lector adecuado
 	// Chequeamos CMPro
-	l_reader = new CDatReaderClrMamePro();
-	if(l_reader->load(l_buffer, l_fsize)){
-		delete[] l_buffer;
-		return l_reader;
+	reader = new ClrMameProReader();
+	if (reader->load(buffer, size))
+	{
+		delete[] buffer;
+		return reader;
 	}
-	delete l_reader;
+	delete reader;
 	// Chequeamos Logiqx xml
-	l_reader = new CDatReaderLogiqxXml();
-	if(l_reader->load(l_buffer, l_fsize)){
-		delete[] l_buffer;
-		return l_reader;
+	reader = new LogiqxXmlReader();
+	if (reader->load(buffer, size))
+	{
+		delete[] buffer;
+		return reader;
 	}
-	delete l_reader;
+	delete reader;
 	// Chequeamos Mame xml
-	l_reader = new CDatReaderMameXml();
-	if(l_reader->load(l_buffer, l_fsize)){
-		delete[] l_buffer;
-		return l_reader;
+	reader = new MameXmlReader();
+	if (reader->load(buffer, size))
+	{
+		delete[] buffer;
+		return reader;
 	}
-	delete l_reader;
+	delete reader;
+	// Chequeamos Hyperspin xml
+	reader = new HyperspinXmlReader();
+	if (reader->load(buffer, size))
+	{
+		delete[] buffer;
+		return reader;
+	}
+	delete reader;
 
 	// No encontramos ningún lector adecuado para el fichero
-	delete[] l_buffer;
+	delete[] buffer;
 	return NULL;
 }
 
-/*CDatReader* CDatReaderFactory::getDatReader(const Glib::ustring& p_file){
-	CDatReader* l_reader = NULL;
-
-	// El fichero debe ser válido
-	assert(p_file.size());
-
-	// Buscamos el lector adecuado
-	// Chequeamos CMPro
-	l_reader = new CDatReaderClrMamePro();
-	if(l_reader->open(p_file)){
-		return l_reader;
-	}
-	delete l_reader;
-	// Chequeamos Logiqx xml
-	l_reader = new CDatReaderLogiqxXml();
-	if(l_reader->open(p_file)){
-		return l_reader;
-	}
-	delete l_reader;
-	// Chequeamos Mame xml
-	l_reader = new CDatReaderMameXml();
-	if(l_reader->open(p_file)){
-		return l_reader;
-	}
-	delete l_reader;
-
-	return NULL;
-}*/
+} // namespace gelide
