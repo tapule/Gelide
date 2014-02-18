@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * gelide
- * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
+ * Copyright (C) 2008 - 2014 Juan Ángel Moreno Fernández
  *
  * gelide is free software.
  *
@@ -19,73 +19,51 @@
  * along with gelide.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifdef HAVE_CONFIG_H
-	#include "config.h"
-#endif
-
+#include "../defines.hpp"
 #include <csignal>
-#include <gtkmm/main.h>
-#include <gtkmm/window.h>
+#include <cstdlib>
+#include <ctime>
+#include <glibmm/ustring.h>
+#include <glibmm/miscutils.h>
 #include "gelide.hpp"
-#include "config.hpp"
-#include "utils/utils.hpp"
-#include "ui/gelide_icons.hpp"
-#include "ui/gelide_ui.hpp"
+#include "../utils/utils.hpp"
+#include <vector>
 
+using namespace gelide;
 
-//using namespace std;
-
-//#define PIXMAPS_DIR PACKAGE_DATA_DIR"/gelide/pixmaps"
-
-/* For testing propose use the local (not installed) glade file */
-/* #define GLADE_FILE PACKAGE_DATA_DIR"/gelide/glade/gelide.glade" */
-//#define GLADE_FILE "gelide.glade"
-/*
-	Esto es lo que tendríamos que hacer para definir los path
-	#define PLUGINS_DIR PACKAGE_DATA_DIR"/gelide/plugins"
-	#define PIXMAPS_DIR PACKAGE_DATA_DIR"/gelide/pixmaps"
-
-	y luego en el configure cambiar la variable libdir por
-	libdir='${datadir}/gelide/plugins'
-*/
-
-void signalTerm(int sig){
-	GELIDE_DEBUG("SIGTERM");
-
-	CGelideUI::getInstance()->saveConfig();
-	CSystemManager::getInstance()->save();
+/**
+ * Callback para la señar de terminación
+ * @param sig Valor de la señal
+ */
+void signalTerm(int sig)
+{
+	LOG_DEBUG("SIGTERM");
 	exit(0);
 }
 
-void signalInt(int sig){
-	GELIDE_DEBUG("SIGINT");
+/**
+ * Callback para la señar de interrupción
+ * @param sig Valor de la señal
+ */
+void signalInt(int sig)
+{
+	LOG_DEBUG("SIGINT");
 }
 
-void signalKill(int sig){
-	GELIDE_DEBUG("SIGKILL");
+/**
+ * Callback para la señar de asesinato
+ * @param sig Valor de la señal
+ */
+void signalKill(int sig)
+{
+	LOG_DEBUG("SIGKILL");
 }
-
-bool checkUserDir(void){
-	Glib::ustring l_path;
-
-	// Montamos el path para ~/.gelide
-	l_path = Glib::build_filename(Glib::get_home_dir(), GELIDE_DIR);
-
-	// Comprobamos si existe y lo creamos en caso contrario
-	if(!Glib::file_test(l_path, Glib::FILE_TEST_EXISTS)){
-		if(!utils::createDir(l_path))
-			return false;
-	}
-	return true;
-}
-
 
 int main (int argc, char *argv[])
 {
-	 // register a SIGTERM handler
-	signal(SIGTERM, signalTerm);
-	//signal(SIGINT, signalInt);
-	//signal(SIGKILL, signalKill);
+	int app_ret;
+	GelideApp* gelide;
+	Glib::ustring working_dir;
 
 #ifdef ENABLE_NLS
 	bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
@@ -93,19 +71,36 @@ int main (int argc, char *argv[])
 	textdomain(GETTEXT_PACKAGE);
 #endif
 
-	Gtk::Main kit(argc, argv);
-	CGelideIcons gelide_icons;
 
+	// Registro de señales de terminación
+	signal(SIGTERM, signalTerm);
+	//signal(SIGINT, signalInt);
+	//signal(SIGKILL, signalKill);
 
+	srand(time(0));
 
-	if(checkUserDir()){
-		gelide_icons.initDefaultIcons();
-		kit.run(*CGelideUI::getInstance());
-		exit(0);
+	// Montamos el directorio sobre el que se debe ejecutar la aplicación
+#ifdef ENABLE_LOCAL_MODE
+	// En local mode siempre es el directorio actual
+	working_dir = Glib::get_current_dir();
+#else
+	// En modo no local, usamos el directorio por defecto del usuario
+	working_dir = Glib::build_filename(Glib::get_home_dir(), GELIDE_DEFAULT_DIR);
+#endif
+
+	// Comprobamos el directorio de trabajo antes de continuar
+	if (utils::checkOrCreateDir(working_dir))
+	{
+		// Creamos la instancia de la aplicación principal y ejecutamos su bucle
+		gelide = new GelideApp(working_dir);
+		app_ret = gelide->run(argc, argv);
+		delete gelide;
 	}
-	else{
-		GELIDE_ERROR("Unable to create user directory. Gelide can't continue.");
-		exit(-1);
+	else
+	{
+		std::cout << _("Error**\t Can't initialize Gelide's working dir") << std::endl;
+		app_ret = EXIT_FAILURE;
 	}
 
+	exit(app_ret);
 }
