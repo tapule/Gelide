@@ -3,3 +3,4 @@ Gelide by:
 
 Gelide uses:
 - SQLite data base engine (http://www.sqlite.org/)
+- File_Extractor by Shay Green <gblargg@gmail.com>
