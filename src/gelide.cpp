@@ -24,6 +24,7 @@
 #endif
 
 #include <csignal>
+#include <glibmm.h>
 #include <gtkmm/main.h>
 #include <gtkmm/window.h>
 #include "gelide.hpp"

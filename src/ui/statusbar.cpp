@@ -59,8 +59,8 @@ CStatusBar::CStatusBar(){
 }
 
 void CStatusBar::initFlagsIcons(void){
-	m_flag_working[0] = this->render_icon(Gtk::StockID("gelide-working"), Gtk::ICON_SIZE_MENU);
-	m_flag_working[1] = this->render_icon(Gtk::StockID("gelide-working-neg"), Gtk::ICON_SIZE_MENU);
+	m_flag_working[0] = this->render_icon_pixbuf(Gtk::StockID("gelide-working"), Gtk::ICON_SIZE_MENU);
+	m_flag_working[1] = this->render_icon_pixbuf(Gtk::StockID("gelide-working-neg"), Gtk::ICON_SIZE_MENU);
 }
 
 void CStatusBar::setGameInfo(const Glib::ustring p_system, const Glib::ustring p_game){

@@ -19,6 +19,7 @@
  * along with gelide.  If not, see <http://www.gnu.org/licenses/>
  */
 #include <fstream>
+#include <glibmm.h>
 #include "dat_reader_factory.hpp"
 #include "dat_reader_clrmamepro.hpp"
 #include "dat_reader_logiqxxml.hpp"

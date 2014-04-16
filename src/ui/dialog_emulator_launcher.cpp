@@ -20,6 +20,7 @@
  */
 
 #include "dialog_emulator_launcher.hpp"
+#include <glibmm.h>
 #include <gtkmm/main.h>
 #include <gtkmm/stock.h>
 #include <gtkmm/messagedialog.h>

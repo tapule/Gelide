@@ -20,6 +20,7 @@
  */
 
 #include "config.hpp"
+#include <glibmm.h>
 #include "utils/xml_reader.hpp"
 #include "utils/xml_writer.hpp"
 

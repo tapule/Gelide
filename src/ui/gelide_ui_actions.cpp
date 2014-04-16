@@ -19,6 +19,7 @@
  * along with gelide.  If not, see <http://www.gnu.org/licenses/>
  */
 
+#include <glibmm.h>
 #include <gtkmm/toggleaction.h>
 #include <gtkmm/radioaction.h>
 #include <gtkmm/icontheme.h>

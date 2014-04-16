@@ -19,6 +19,7 @@
  * along with gelide.  If not, see <http://www.gnu.org/licenses/>
  */
 
+#include <glibmm.h>
 #include <gtkmm/image.h>
 #include <gtkmm/messagedialog.h>
 #include "dialog_system_edit.hpp"

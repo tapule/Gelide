@@ -24,23 +24,35 @@
 
 #ifdef HAVE_CONFIG_H
 	#include <config.h>
-#endif /* HAVE_CONFIG_H */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
-#include "gelide_i18n.hpp"
-
-//#define LOCAL_MODE
-//#define ENABLE_DEBUG_MODE
-
-
-#ifndef HAVE_CONFIG_H
+#else
+	// Defines por defecto
+	#define ENABLE_DEBUG_MODE
 	#define PACKAGE_NAME			"Gelide"
 	#define PACKAGE_VERSION			"0.1.5"
 	#define PACKAGE_CODENAME		 "\"\""
-	#define PACKAGE_WEBSITE			"http://gelide.sourceforge.net"
+	#define PACKAGE_WEBSITE			"http://gelide.sf.net"
+	#define PACKAGE_DATA_DIR		"."
 #endif
+
+//#define ENABLE_DEBUG_MODE
+
+// CHECKME: Este defines solo se utiliza en wip, para release hay que quitarlo
+// Activa el modo de ejecución local.
+// El modo de ejecución local implica que todo el procesamiento se realizará
+// desde el directorio donde reside el binario.
+#define ENABLE_LOCAL_MODE
+
+
+#ifndef ENABLE_DEBUG_MODE
+	#define NDEBUG
+#endif
+
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <cassert>
+#include "gelide_i18n.hpp"
+
 
 #ifdef ENABLE_DEBUG_MODE
 	#define GELIDE_DEBUG(str) std::cout << "Debug** " << str << std::endl
@@ -48,14 +60,13 @@
 #else
 	#define GELIDE_DEBUG(str)
 	#define GELIDE_WARNING(str)
-	#define NDEBUG
 #endif
 
 #define GELIDE_ERROR(str) std::cerr << "Error** " << __FILE__ << "[" << __LINE__ << "]: " << str << std::endl; exit(1)
 
-#include <cassert>
 
-#ifndef LOCAL_MODE
+
+#ifndef ENABLE_LOCAL_MODE
 	#define GELIDE_ICON				PACKAGE_DATA_DIR"/icons/hicolor/scalable/apps/gelide.svg"
 	#define GELIDE_PIXMAPS			PACKAGE_DATA_DIR"/gelide/pixmaps/"
 	#define GELIDE_UI_ICONS			PACKAGE_DATA_DIR"/gelide/ui/icons/"

@@ -153,8 +153,8 @@ void CDialogColumns::populateColumns(void){
 	Glib::RefPtr<Gtk::TreeSelection> l_tree_selection;
 	Gtk::TreeModel::iterator l_tree_iter;
 	Gtk::TreeModel::Row l_row;
-	std::list<Gtk::TreeViewColumn*> l_columns;
-	std::list<Gtk::TreeViewColumn*>::iterator l_columns_iter;
+	std::vector<Gtk::TreeViewColumn*> l_columns;
+	std::vector<Gtk::TreeViewColumn*>::iterator l_columns_iter;
 
 	assert(m_tree);
 
@@ -245,8 +245,8 @@ void CDialogColumns::onColumnUpClicked(void){
 	Glib::RefPtr<Gtk::TreeSelection> l_selection;
 	Gtk::TreeModel::iterator l_iter, l_dest;
 	Gtk::TreeViewColumn* l_column;
-	std::list<Gtk::TreeViewColumn*> l_columns;
-	std::list<Gtk::TreeViewColumn*>::iterator l_columns_iter;
+	std::vector<Gtk::TreeViewColumn*> l_columns;
+	std::vector<Gtk::TreeViewColumn*>::iterator l_columns_iter;
 
 	assert(m_tree);
 
@@ -275,8 +275,8 @@ void CDialogColumns::onColumnDownClicked(void){
 	Glib::RefPtr<Gtk::TreeSelection> l_selection;
 	Gtk::TreeModel::iterator l_iter, l_dest;
 	Gtk::TreeViewColumn* l_column;
-	std::list<Gtk::TreeViewColumn*> l_columns;
-	std::list<Gtk::TreeViewColumn*>::iterator l_columns_iter;
+	std::vector<Gtk::TreeViewColumn*> l_columns;
+	std::vector<Gtk::TreeViewColumn*>::iterator l_columns_iter;
 
 	assert(m_tree);
 

@@ -20,6 +20,7 @@
  */
 
 #include "info_pannel.hpp"
+#include <glibmm.h>
 #include <gtkmm/stock.h>
 #include <gtkmm/icontheme.h>
 #include "../utils/utils.hpp"
@@ -340,19 +341,19 @@ void CInfoPannel::saveConfig(void){
 }
 
 void CInfoPannel::initFlagsIcons(void){
-	m_flag_favorite[0] = this->render_icon(Gtk::StockID("gelide-favorite"), Gtk::ICON_SIZE_BUTTON);
-	m_flag_played[0] = this->render_icon(Gtk::StockID("gelide-played"), Gtk::ICON_SIZE_BUTTON);
-	m_flag_working[0] = this->render_icon(Gtk::StockID("gelide-working"), Gtk::ICON_SIZE_BUTTON);
-	m_flag_available[0] = this->render_icon(Gtk::StockID("gelide-available"), Gtk::ICON_SIZE_BUTTON);
-	m_flag_unknown[0] = this->render_icon(Gtk::StockID("gelide-unknown"), Gtk::ICON_SIZE_BUTTON);
-	m_flag_rank[0] = this->render_icon(Gtk::StockID("gelide-rank"), Gtk::ICON_SIZE_BUTTON);
+	m_flag_favorite[0] = this->render_icon_pixbuf(Gtk::StockID("gelide-favorite"), Gtk::ICON_SIZE_BUTTON);
+	m_flag_played[0] = this->render_icon_pixbuf(Gtk::StockID("gelide-played"), Gtk::ICON_SIZE_BUTTON);
+	m_flag_working[0] = this->render_icon_pixbuf(Gtk::StockID("gelide-working"), Gtk::ICON_SIZE_BUTTON);
+	m_flag_available[0] = this->render_icon_pixbuf(Gtk::StockID("gelide-available"), Gtk::ICON_SIZE_BUTTON);
+	m_flag_unknown[0] = this->render_icon_pixbuf(Gtk::StockID("gelide-unknown"), Gtk::ICON_SIZE_BUTTON);
+	m_flag_rank[0] = this->render_icon_pixbuf(Gtk::StockID("gelide-rank"), Gtk::ICON_SIZE_BUTTON);
 
-	m_flag_favorite[1] = this->render_icon(Gtk::StockID("gelide-favorite-neg"), Gtk::ICON_SIZE_BUTTON);
-	m_flag_played[1] = this->render_icon(Gtk::StockID("gelide-played-neg"), Gtk::ICON_SIZE_BUTTON);
-	m_flag_working[1] = this->render_icon(Gtk::StockID("gelide-working-neg"), Gtk::ICON_SIZE_BUTTON);
-	m_flag_available[1] = this->render_icon(Gtk::StockID("gelide-available-neg"), Gtk::ICON_SIZE_BUTTON);
-	m_flag_unknown[1] = this->render_icon(Gtk::StockID("gelide-unknown-neg"), Gtk::ICON_SIZE_BUTTON);
-	m_flag_rank[1] = this->render_icon(Gtk::StockID("gelide-rank-neg"), Gtk::ICON_SIZE_BUTTON);
+	m_flag_favorite[1] = this->render_icon_pixbuf(Gtk::StockID("gelide-favorite-neg"), Gtk::ICON_SIZE_BUTTON);
+	m_flag_played[1] = this->render_icon_pixbuf(Gtk::StockID("gelide-played-neg"), Gtk::ICON_SIZE_BUTTON);
+	m_flag_working[1] = this->render_icon_pixbuf(Gtk::StockID("gelide-working-neg"), Gtk::ICON_SIZE_BUTTON);
+	m_flag_available[1] = this->render_icon_pixbuf(Gtk::StockID("gelide-available-neg"), Gtk::ICON_SIZE_BUTTON);
+	m_flag_unknown[1] = this->render_icon_pixbuf(Gtk::StockID("gelide-unknown-neg"), Gtk::ICON_SIZE_BUTTON);
+	m_flag_rank[1] = this->render_icon_pixbuf(Gtk::StockID("gelide-rank-neg"), Gtk::ICON_SIZE_BUTTON);
 }
 
 void CInfoPannel::initDescription(void){

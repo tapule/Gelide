@@ -63,53 +63,53 @@ CTreeViewFilters::CTreeViewFilters(void):
 
 	GELIDE_DEBUG("Generating filters tree...");
 	// Filtro todos
-	l_all = addFilter(FILTER_TYPE_ALL, 0, this->render_icon(Gtk::StockID("gelide-all"), Gtk::ICON_SIZE_BUTTON), _("All"));
+	l_all = addFilter(FILTER_TYPE_ALL, 0, this->render_icon_pixbuf(Gtk::StockID("gelide-all"), Gtk::ICON_SIZE_BUTTON), _("All"));
 	GELIDE_DEBUG("All added.");
 	// Filtro favoritos
-	addFilter(FILTER_TYPE_FAVORITE, 1, 	this->render_icon(Gtk::StockID("gelide-favorite"), Gtk::ICON_SIZE_BUTTON), _("Favorites"));
+	addFilter(FILTER_TYPE_FAVORITE, 1, 	this->render_icon_pixbuf(Gtk::StockID("gelide-favorite"), Gtk::ICON_SIZE_BUTTON), _("Favorites"));
 	GELIDE_DEBUG("Favorites added.");
 	// Filtro jugados
 	//l_pixbuf = this->render_icon(Gtk::StockID("gelide-played"), Gtk::ICON_SIZE_LARGE_TOOLBAR);
-	addFilter(FILTER_TYPE_PLAYED, 1, this->render_icon(Gtk::StockID("gelide-played"), Gtk::ICON_SIZE_BUTTON), _("Played"));
+	addFilter(FILTER_TYPE_PLAYED, 1, this->render_icon_pixbuf(Gtk::StockID("gelide-played"), Gtk::ICON_SIZE_BUTTON), _("Played"));
 	GELIDE_DEBUG("Played added.");
 	// Filtro no jugados
-	addFilter(FILTER_TYPE_PLAYED, 0, this->render_icon(Gtk::StockID("gelide-played-neg"), Gtk::ICON_SIZE_BUTTON), _("Non played"));
+	addFilter(FILTER_TYPE_PLAYED, 0, this->render_icon_pixbuf(Gtk::StockID("gelide-played-neg"), Gtk::ICON_SIZE_BUTTON), _("Non played"));
 	GELIDE_DEBUG("Non Played added.");
 	// Filtro funcionales
 	//l_pixbuf = Gtk::IconTheme::get_default()->load_icon("gtk-ok", 48, Gtk::ICON_LOOKUP_USE_BUILTIN);
-	addFilter(FILTER_TYPE_WORKING, 1, this->render_icon(Gtk::StockID("gelide-working"), Gtk::ICON_SIZE_BUTTON), _("Working"));
+	addFilter(FILTER_TYPE_WORKING, 1, this->render_icon_pixbuf(Gtk::StockID("gelide-working"), Gtk::ICON_SIZE_BUTTON), _("Working"));
 	GELIDE_DEBUG("Working added.");
 	// Filtro no funcionales
 	//l_pixbuf = this->render_icon(Gtk::StockID("gelide-working-neg"), Gtk::ICON_SIZE_LARGE_TOOLBAR);
-	addFilter(FILTER_TYPE_WORKING, 0, this->render_icon(Gtk::StockID("gelide-working-neg"), Gtk::ICON_SIZE_BUTTON), _("Non working"));
+	addFilter(FILTER_TYPE_WORKING, 0, this->render_icon_pixbuf(Gtk::StockID("gelide-working-neg"), Gtk::ICON_SIZE_BUTTON), _("Non working"));
 	GELIDE_DEBUG("Non Working added.");
 	// Filtro disponibles
 	//l_pixbuf = Gtk::IconTheme::get_default()->load_icon("gtk-apply", 48, Gtk::ICON_LOOKUP_USE_BUILTIN);
-	addFilter(FILTER_TYPE_AVAILABLE, 1, this->render_icon(Gtk::StockID("gelide-available"), Gtk::ICON_SIZE_BUTTON), _("Availables"));
+	addFilter(FILTER_TYPE_AVAILABLE, 1, this->render_icon_pixbuf(Gtk::StockID("gelide-available"), Gtk::ICON_SIZE_BUTTON), _("Availables"));
 	GELIDE_DEBUG("Availables added.");
 	// Filtro no disponibles
 	//l_pixbuf = this->render_icon(Gtk::StockID("gelide-available-neg"), Gtk::ICON_SIZE_LARGE_TOOLBAR);
-	addFilter(FILTER_TYPE_AVAILABLE, 0, this->render_icon(Gtk::StockID("gelide-available-neg"), Gtk::ICON_SIZE_BUTTON), _("Non availables"));
+	addFilter(FILTER_TYPE_AVAILABLE, 0, this->render_icon_pixbuf(Gtk::StockID("gelide-available-neg"), Gtk::ICON_SIZE_BUTTON), _("Non availables"));
 	GELIDE_DEBUG("Non Availables added.");
 	// Filtro desconocidos
 	//l_pixbuf = Gtk::IconTheme::get_default()->load_icon("dialog-warning", 48, Gtk::ICON_LOOKUP_USE_BUILTIN);
-	addFilter(FILTER_TYPE_UNKNOWN, 1, this->render_icon(Gtk::StockID("gelide-unknown"), Gtk::ICON_SIZE_BUTTON), _("Unknown"));
+	addFilter(FILTER_TYPE_UNKNOWN, 1, this->render_icon_pixbuf(Gtk::StockID("gelide-unknown"), Gtk::ICON_SIZE_BUTTON), _("Unknown"));
 	GELIDE_DEBUG("Unknown added.");
 	// Filtro no desconocidos
 	//l_pixbuf = this->render_icon(Gtk::StockID("gelide-unknown-neg"), Gtk::ICON_SIZE_LARGE_TOOLBAR);
-	addFilter(FILTER_TYPE_UNKNOWN, 0, this->render_icon(Gtk::StockID("gelide-unknown-neg"), Gtk::ICON_SIZE_BUTTON), _("Non unknown"));
+	addFilter(FILTER_TYPE_UNKNOWN, 0, this->render_icon_pixbuf(Gtk::StockID("gelide-unknown-neg"), Gtk::ICON_SIZE_BUTTON), _("Non unknown"));
 	GELIDE_DEBUG("Not Unknown added.");
 	// Contenedor para filtros de puntuación y filtros
-	l_pixbuf = this->render_icon(Gtk::StockID("gelide-rank"), Gtk::ICON_SIZE_BUTTON);
+	l_pixbuf = this->render_icon_pixbuf(Gtk::StockID("gelide-rank"), Gtk::ICON_SIZE_BUTTON);
 	l_iter = addFilter(FILTER_TYPE_NOFILTER, 1, l_pixbuf, _("Rank"));
-	addChildFilter(l_iter, FILTER_TYPE_RANK, 0, this->render_icon(Gtk::StockID("gelide-rank-neg"), Gtk::ICON_SIZE_BUTTON), "0");
+	addChildFilter(l_iter, FILTER_TYPE_RANK, 0, this->render_icon_pixbuf(Gtk::StockID("gelide-rank-neg"), Gtk::ICON_SIZE_BUTTON), "0");
 	for(l_index = 1; l_index <= 5; l_index++){
 		sprintf(l_buffer, "%i", l_index);
 		addChildFilter(l_iter, FILTER_TYPE_RANK, l_index, l_pixbuf, l_buffer);
 	}
 	GELIDE_DEBUG("Rank added.");
 	// Contenedor para filtros de años y filtros
-	l_pixbuf = this->render_icon(Gtk::StockID("gelide-year"), Gtk::ICON_SIZE_BUTTON);
+	l_pixbuf = this->render_icon_pixbuf(Gtk::StockID("gelide-year"), Gtk::ICON_SIZE_BUTTON);
 	l_iter = addFilter(FILTER_TYPE_NOFILTER, 2, l_pixbuf, _("Year"));
 	addChildFilter(l_iter, FILTER_TYPE_YEAR, 0, l_pixbuf, _("Unknown"));
 	l_year = utils::getYear();

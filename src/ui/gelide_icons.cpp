@@ -23,7 +23,7 @@
 #include "../utils/utils.hpp"
 #include <gtkmm/image.h>
 #include <gtkmm/icontheme.h>
-
+#include <glibmm/miscutils.h>
 
 CGelideIcons::CGelideIcons(void){
 	// Creamos el icon Factory para Gelide y añadimos los iconos por defecto
@@ -40,7 +40,7 @@ void CGelideIcons::updateDefaultIcons(void){
 void CGelideIcons::addStockIcon(const Glib::ustring& p_file,
 		const Glib::ustring& p_id, const Glib::ustring& p_label){
 	Gtk::IconSource l_icon_source;
-	Gtk::IconSet l_icon_set;
+	Glib::RefPtr<Gtk::IconSet> l_icon_set;
 	Gtk::StockID l_stock_id;
 	Glib::RefPtr<Gdk::Pixbuf> l_pixbuf;
 
@@ -55,7 +55,7 @@ void CGelideIcons::addStockIcon(const Glib::ustring& p_file,
 	}
 
 	l_stock_id = Gtk::StockID(p_id);
-	l_icon_set = Gtk::IconSet(l_pixbuf);
+	l_icon_set = Gtk::IconSet::create(l_pixbuf);
 
 	m_icon_factory->add(l_stock_id, l_icon_set);
 	Gtk::Stock::add(Gtk::StockItem(l_stock_id, p_label));
@@ -64,11 +64,11 @@ void CGelideIcons::addStockIcon(const Glib::ustring& p_file,
 void CGelideIcons::addStockIcon(Glib::RefPtr<Gdk::Pixbuf> p_pixbuf,
 		const Glib::ustring& p_id, const Glib::ustring& p_label){
 	Gtk::IconSource l_icon_source;
-	Gtk::IconSet l_icon_set;
+	Glib::RefPtr<Gtk::IconSet> l_icon_set;
 	Gtk::StockID l_stock_id;
 
 	l_stock_id = Gtk::StockID(p_id);
-	l_icon_set = Gtk::IconSet(p_pixbuf);
+	l_icon_set = Gtk::IconSet::create(p_pixbuf);
 
 	m_icon_factory->add(l_stock_id, l_icon_set);
 	Gtk::Stock::add(Gtk::StockItem(l_stock_id, p_label));
@@ -108,7 +108,7 @@ void CGelideIcons::addThemeIcon(const Glib::ustring& p_icon, const Glib::ustring
 	// Si no se pudo añadir el icono del tema, lo añadimos del fichero
 	if(!l_continue){
 		addStockIcon(p_file , p_id, p_label);
-		l_pixbuf = l_image.render_icon(Gtk::StockID(p_id), Gtk::ICON_SIZE_DND);
+		l_pixbuf = l_image.render_icon_pixbuf(Gtk::StockID(p_id), Gtk::ICON_SIZE_DND);
 		if(p_neg){
 			l_pixbuf_neg = utils::createNegativePixbuf(l_pixbuf);
 			addStockIcon(l_pixbuf_neg, p_id + "-neg", p_label + "-neg");

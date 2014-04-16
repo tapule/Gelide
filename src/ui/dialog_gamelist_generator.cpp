@@ -21,6 +21,7 @@
 
 #include <algorithm>
 #include <sstream>
+#include <glibmm.h>
 #include <gtkmm/main.h>
 #include <gtkmm/stock.h>
 #include <gtkmm/messagedialog.h>

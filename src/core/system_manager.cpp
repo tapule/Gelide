@@ -23,7 +23,8 @@
 #include <stdlib.h>
 #include <sstream>
 //#include <glib/gstdio.h>
-#include <glib.h>
+//#include <glib.h>
+#include <glibmm.h>
 #include <gtkmm/image.h>
 #include <giomm/file.h>
 #include "system_manager.hpp"
@@ -40,8 +41,8 @@ CSystemManager::CSystemManager(void){
 	m_config = CConfig::getInstance();
 	// Renderizamos el icono por defecto de los sistemas y de los emuladores
 	//m_system_icon = l_image.render_icon(Gtk::StockID("gnome-system"), Gtk::ICON_SIZE_DND);
-	m_system_icon = l_image.render_icon(Gtk::StockID("gelide-system"), Gtk::ICON_SIZE_DND);
-	m_emulator_icon = l_image.render_icon(Gtk::StockID("gelide-emulator"), Gtk::ICON_SIZE_DND);
+	m_system_icon = l_image.render_icon_pixbuf(Gtk::StockID("gelide-system"), Gtk::ICON_SIZE_DND);
+	m_emulator_icon = l_image.render_icon_pixbuf(Gtk::StockID("gelide-emulator"), Gtk::ICON_SIZE_DND);
 
 	// Inicialización del listado de sistemas
 	m_system_list = Gtk::ListStore::create(m_system_columns);

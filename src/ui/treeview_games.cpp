@@ -274,17 +274,17 @@ Gtk::TreeModel::iterator CTreeViewGames::getSelected(void){
 }
 
 void CTreeViewGames::initFlagsIcons(void){
-	m_flag_favorite[0] = this->render_icon(Gtk::StockID("gelide-favorite"), Gtk::ICON_SIZE_MENU);
-	m_flag_played[0] = this->render_icon(Gtk::StockID("gelide-played"), Gtk::ICON_SIZE_MENU);
-	m_flag_working[0] = this->render_icon(Gtk::StockID("gelide-working"), Gtk::ICON_SIZE_MENU);
-	m_flag_available[0] = this->render_icon(Gtk::StockID("gelide-available"), Gtk::ICON_SIZE_MENU);
-	m_flag_unknown[0] = this->render_icon(Gtk::StockID("gelide-unknown"), Gtk::ICON_SIZE_MENU);
+	m_flag_favorite[0] = this->render_icon_pixbuf(Gtk::StockID("gelide-favorite"), Gtk::ICON_SIZE_MENU);
+	m_flag_played[0] = this->render_icon_pixbuf(Gtk::StockID("gelide-played"), Gtk::ICON_SIZE_MENU);
+	m_flag_working[0] = this->render_icon_pixbuf(Gtk::StockID("gelide-working"), Gtk::ICON_SIZE_MENU);
+	m_flag_available[0] = this->render_icon_pixbuf(Gtk::StockID("gelide-available"), Gtk::ICON_SIZE_MENU);
+	m_flag_unknown[0] = this->render_icon_pixbuf(Gtk::StockID("gelide-unknown"), Gtk::ICON_SIZE_MENU);
 
-	m_flag_favorite[1] = this->render_icon(Gtk::StockID("gelide-favorite-neg"), Gtk::ICON_SIZE_MENU);
-	m_flag_played[1] = this->render_icon(Gtk::StockID("gelide-played-neg"), Gtk::ICON_SIZE_MENU);
-	m_flag_working[1] = this->render_icon(Gtk::StockID("gelide-working-neg"), Gtk::ICON_SIZE_MENU);
-	m_flag_available[1] = this->render_icon(Gtk::StockID("gelide-available-neg"), Gtk::ICON_SIZE_MENU);
-	m_flag_unknown[1] = this->render_icon(Gtk::StockID("gelide-unknown-neg"), Gtk::ICON_SIZE_MENU);
+	m_flag_favorite[1] = this->render_icon_pixbuf(Gtk::StockID("gelide-favorite-neg"), Gtk::ICON_SIZE_MENU);
+	m_flag_played[1] = this->render_icon_pixbuf(Gtk::StockID("gelide-played-neg"), Gtk::ICON_SIZE_MENU);
+	m_flag_working[1] = this->render_icon_pixbuf(Gtk::StockID("gelide-working-neg"), Gtk::ICON_SIZE_MENU);
+	m_flag_available[1] = this->render_icon_pixbuf(Gtk::StockID("gelide-available-neg"), Gtk::ICON_SIZE_MENU);
+	m_flag_unknown[1] = this->render_icon_pixbuf(Gtk::StockID("gelide-unknown-neg"), Gtk::ICON_SIZE_MENU);
 }
 
 void CTreeViewGames::loadConfig(void){
@@ -332,8 +332,8 @@ void CTreeViewGames::saveConfig(void){
 	std::vector<bool> l_visibility;
 	std::vector<int> l_widths;
 	std::vector<int> l_order;
-	std::list<Gtk::TreeViewColumn*> l_columns;
-	std::list<Gtk::TreeViewColumn*>::iterator l_iter;
+	std::vector<Gtk::TreeViewColumn*> l_columns;
+	std::vector<Gtk::TreeViewColumn*>::iterator l_iter;
 	int l_ind;
 
 	// Construimos los listados de visibilidad, anchuras
