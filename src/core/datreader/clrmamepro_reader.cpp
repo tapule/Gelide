@@ -19,7 +19,7 @@
  * along with gelide.  If not, see <http://www.gnu.org/licenses/>
  */
 
-#include "../defines.hpp"
+#include "../../defines.hpp"
 #include <vector>
 #include "clrmamepro_reader.hpp"
 

@@ -37,7 +37,7 @@
 #include <glibmm/ustring.h>
 #include "dat_reader.hpp"
 #include "dat_set.hpp"
-#include "../utils/parser.hpp"
+#include "../../utils/parser.hpp"
 
 
 namespace gelide{

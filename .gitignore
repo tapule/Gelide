@@ -58,3 +58,4 @@ data/systems.xml
 .cproject
 .project
 /.settings
+/Gelide Debug
