@@ -123,7 +123,7 @@ bool MetaDb::resetDataBase(void)
 
 bool MetaDb::closeDataBase(void)
 {
-	assert(m_db.isOpen());
+	//assert(m_db.isOpen());
 
 	LOG_INFO("MetaDB: Closing data base \"" << m_db_file << "\"...");
 	// Cerramos la base de datos

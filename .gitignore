@@ -16,8 +16,8 @@ Makefile.in
 /configure
 /config.*
 /aclocal.m4
-/Debug
-/Release
+/*Debug
+/*Release
 /autom4te.cache
 /depcomp
 /install-sh
@@ -58,4 +58,3 @@ data/systems.xml
 .cproject
 .project
 /.settings
-/Gelide Debug

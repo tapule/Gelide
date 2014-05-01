@@ -111,7 +111,8 @@
 #define GELIDE_CHANGELOG_FILE			"ChangeLog"
 
 // Ficheros manejados por el metadbmanager
-#define METADB_DB_FILE					"metadb.sqlite"
+#define METADBM_DB_FILE					"metadb.sqlite"
+#define METADBM_LOG_FILE				"metadbm.log"
 
 // Root, versión y grupos para el fichero de configuración de Gelide
 #define GELIDE_CFG_ROOT					"gelidecfg"
