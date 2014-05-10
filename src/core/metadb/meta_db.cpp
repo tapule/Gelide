@@ -94,7 +94,7 @@ bool MetaDb::resetDataBase(void)
 			"System             TEXT NOT NULL COLLATE NOCASE,\n"
 
 			"Type               INTEGER NOT NULL DEFAULT 0,\n"
-			"CRC                TEXT,\n"
+			"Hash               TEXT,\n"
 
 			"Title              TEXT,\n"
 			"Manufacturer       TEXT,\n"
@@ -103,7 +103,7 @@ bool MetaDb::resetDataBase(void)
 			"Players            INTEGER NOT NULL DEFAULT 1,\n"
 
 			"UNIQUE (Name, System),\n"
-			"UNIQUE (CRC, System)\n"
+			"UNIQUE (Hash, System)\n"
 			")"
 	);
 

@@ -25,6 +25,45 @@
 
 namespace gelide{
 
+MetaDbSet* MetaDb::setGet(const long long int id)
+{
+	SqliteStatement* stm;
+	MetaDbSet* element;
+
+	assert(m_db.isOpen());
+
+	// Creamos el comando sql para obtener el juego
+	stm = m_db.createStatement(
+			"SELECT * \n"
+			"FROM Sets\n"
+			"WHERE Id = :id"
+	);
+	if (!stm)
+	{
+		return NULL;
+	}
+	stm->bind(1, id);
+	if (stm->step() == SqliteStatement::STATEMENT_ROW)
+	{
+		element = new MetaDbSet(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(5));
+		element->system = stm->getColumnText(2);
+		element->type = static_cast<SetType>(stm->getColumnInt(3));
+		element->hash = stm->getColumnText(4);
+		//element->title = stm->getColumnText(5);
+		element->manufacturer = stm->getColumnText(6);
+		element->year = stm->getColumnText(7);
+		element->genre = stm->getColumnText(8);
+		element->players = stm->getColumnInt(9);
+	}
+	else{
+		element = NULL;
+	}
+	stm->finalize();
+	delete stm;
+
+	return element;
+}
+
 MetaDbSet* MetaDb::setGetByName(const Glib::ustring& system, const Glib::ustring& name)
 {
 	SqliteStatement* stm;
@@ -51,7 +90,7 @@ MetaDbSet* MetaDb::setGetByName(const Glib::ustring& system, const Glib::ustring
 		element = new MetaDbSet(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(5));
 		element->system = stm->getColumnText(2);
 		element->type = static_cast<SetType>(stm->getColumnInt(3));
-		element->crc = stm->getColumnText(4);
+		element->hash = stm->getColumnText(4);
 		//element->title = stm->getColumnText(5);
 		element->manufacturer = stm->getColumnText(6);
 		element->year = stm->getColumnText(7);
@@ -67,33 +106,33 @@ MetaDbSet* MetaDb::setGetByName(const Glib::ustring& system, const Glib::ustring
 	return element;
 }
 
-MetaDbSet* MetaDb::setGetByCrc(const Glib::ustring& system, const Glib::ustring& crc)
+MetaDbSet* MetaDb::setGetByHash(const Glib::ustring& system, const Glib::ustring& hash)
 {
 	SqliteStatement* stm;
 	MetaDbSet* element;
 
 	assert(m_db.isOpen());
 	assert(!system.empty());
-	assert(!crc.empty());
+	assert(!hash.empty());
 
 	// Creamos el comando sql para obtener el juego
 	stm = m_db.createStatement(
 			"SELECT * \n"
 			"FROM Sets\n"
-			"WHERE System = :system AND CRC = :crc"
+			"WHERE System = :system AND Hash = :hash"
 	);
 	if (!stm)
 	{
 		return NULL;
 	}
 	stm->bind(1, system);
-	stm->bind(2, crc);
+	stm->bind(2, hash.lowercase());
 	if (stm->step() == SqliteStatement::STATEMENT_ROW)
 	{
 		element = new MetaDbSet(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(5));
 		element->system = stm->getColumnText(2);
 		element->type = static_cast<SetType>(stm->getColumnInt(3));
-		element->crc = stm->getColumnText(4);
+		element->hash = stm->getColumnText(4);
 		//element->title = stm->getColumnText(5);
 		element->manufacturer = stm->getColumnText(6);
 		element->year = stm->getColumnText(7);
@@ -118,11 +157,11 @@ bool MetaDb::setAdd(MetaDbSet* set)
 	assert(set);
 	assert(!set->name.empty());
 	assert(!set->system.empty());
-	assert(!set->crc.empty());
+	assert(!set->hash.empty());
 
 	stm = m_db.createStatement(
-			"INSERT INTO Sets (Name, System, Type, CRC, Title, Manufacturer, Year, Genre, Players)\n"
-			"VALUES (:name, :system, :type, :crc, :title, :manufacturer, :year, :genre, :players)"
+			"INSERT INTO Sets (Name, System, Type, Hash, Title, Manufacturer, Year, Genre, Players)\n"
+			"VALUES (:name, :system, :type, :hash, :title, :manufacturer, :year, :genre, :players)"
 	);
 	if (!stm)
 	{
@@ -131,7 +170,7 @@ bool MetaDb::setAdd(MetaDbSet* set)
 	stm->bind(1, set->name);
 	stm->bind(2, set->system);
 	stm->bind(3, set->type);
-	stm->bind(4, set->crc);
+	stm->bind(4, set->hash.lowercase());
 	stm->bind(5, set->title);
 	stm->bind(6, set->manufacturer);
 	stm->bind(7, set->year);
@@ -159,10 +198,10 @@ bool MetaDb::setUpdate(MetaDbSet* set)
 	assert(set->id);
 	assert(!set->name.empty());
 	assert(!set->system.empty());
-	assert(!set->crc.empty());
+	assert(!set->hash.empty());
 
 	// En las actualizaciones, no se modifican:
-	// Id, System, CRC
+	// Id, System, Hash
 	stm = m_db.createStatement(
 			"UPDATE Sets\n"
 			"SET Name = :name, Type = :type, Title = :title, Manufacturer = :manufacturer, Year = :year, Genre = :genre, Players = :players\n"
@@ -254,7 +293,7 @@ bool MetaDb::setGetAll(std::vector<MetaDbSet* >& list)
 		element = new MetaDbSet(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(5));
 		element->system = stm->getColumnText(2);
 		element->type = static_cast<SetType>(stm->getColumnInt(3));
-		element->crc = stm->getColumnText(4);
+		element->hash = stm->getColumnText(4);
 		//element->title = stm->getColumnText(5);
 		element->manufacturer = stm->getColumnText(6);
 		element->year = stm->getColumnText(7);
@@ -301,7 +340,7 @@ bool MetaDb::setFindName(const Glib::ustring& name, std::vector<MetaDbSet* >& li
 		element = new MetaDbSet(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(5));
 		element->system = stm->getColumnText(2);
 		element->type = static_cast<SetType>(stm->getColumnInt(3));
-		element->crc = stm->getColumnText(4);
+		element->hash = stm->getColumnText(4);
 		//element->title = stm->getColumnText(5);
 		element->manufacturer = stm->getColumnText(6);
 		element->year = stm->getColumnText(7);
@@ -315,7 +354,7 @@ bool MetaDb::setFindName(const Glib::ustring& name, std::vector<MetaDbSet* >& li
 	return true;
 }
 
-bool MetaDb::setFindCrc(const Glib::ustring& crc, std::vector<MetaDbSet* >& list)
+bool MetaDb::setFindHash(const Glib::ustring& hash, std::vector<MetaDbSet* >& list)
 {
 	SqliteStatement* stm;
 	MetaDbSet* element;
@@ -323,20 +362,20 @@ bool MetaDb::setFindCrc(const Glib::ustring& crc, std::vector<MetaDbSet* >& list
 	int ret;
 
 	assert(m_db.isOpen());
-	assert(!crc.empty());
+	assert(!hash.empty());
 
 	// Creamos el comando sql para obtener los sets
 	stm = m_db.createStatement(
 			"SELECT * \n"
 			"FROM Sets\n"
-			"WHERE CRC = :crc\n"
+			"WHERE Hash = :hash\n"
 			"ORDER BY Name"
 	);
 	if (!stm)
 	{
 		return false;
 	}
-	stm->bind(1, crc);
+	stm->bind(1, hash.lowercase());
 
 	for (iter = list.begin(); iter != list.end(); ++iter)
 	{
@@ -348,7 +387,7 @@ bool MetaDb::setFindCrc(const Glib::ustring& crc, std::vector<MetaDbSet* >& list
 		element = new MetaDbSet(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(5));
 		element->system = stm->getColumnText(2);
 		element->type = static_cast<SetType>(stm->getColumnInt(3));
-		element->crc = stm->getColumnText(4);
+		element->hash = stm->getColumnText(4);
 		//element->title = stm->getColumnText(5);
 		element->manufacturer = stm->getColumnText(6);
 		element->year = stm->getColumnText(7);
@@ -395,7 +434,7 @@ bool MetaDb::setFindTitle(const Glib::ustring& title, std::vector<MetaDbSet* >& 
 		element = new MetaDbSet(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(5));
 		element->system = stm->getColumnText(2);
 		element->type = static_cast<SetType>(stm->getColumnInt(3));
-		element->crc = stm->getColumnText(4);
+		element->hash = stm->getColumnText(4);
 		//element->title = stm->getColumnText(5);
 		element->manufacturer = stm->getColumnText(6);
 		element->year = stm->getColumnText(7);

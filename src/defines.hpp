@@ -26,7 +26,7 @@
 	#include <config.h>
 #else
 	// Defines por defecto
-	#define ENABLE_DEBUG_MODE
+	//#define ENABLE_DEBUG_MODE
 	#define PACKAGE_NAME			"Gelide"
 	#define PACKAGE_VERSION			"0.2.0"
 	#define PACKAGE_CODENAME		 "\"Theoden\""

@@ -69,7 +69,7 @@ struct MetaDbSet
 	Glib::ustring system;		/**< Nombre del sistema al que pertenece */
 
 	SetType type;				/**< Indica el tipo del set (original, clon, bios) */
-	Glib::ustring crc;			/**< CRC asignado al set (de su rom) */
+	Glib::ustring hash;			/**< Hash asignado al set */
 
 	Glib::ustring title;		/**< Título del set */
 	Glib::ustring manufacturer;	/**< Fabricante del set */

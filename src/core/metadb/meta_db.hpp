@@ -140,10 +140,47 @@ public:
 	 */
 	bool systemGetSets(const Glib::ustring& system,	std::vector<MetaDbSet* >& list);
 
+	/**
+	 * Busca sets de un sitema cuyo nombre coincida con el nombre dado
+	 * @param system Sistema del que buscar sets
+	 * @param name Nombre de set a buscar
+	 * @param list Vector donde se almacenarán los datos
+	 * @return true si se pudo realizar la operación, false en otro caso
+	 * @note El vector será vaciado previamente
+	 */
+	bool systemFindSetsName(const Glib::ustring& system, const Glib::ustring& name, std::vector<MetaDbSet* >& list);
+
+	/**
+	 * Busca sets de un sistema cuyo hash coincida con el dado
+	 * @param system Sistema del que buscar sets
+	 * @param hash Hash a buscar
+	 * @param list Vector donde se almacenarán los datos
+	 * @return true si se pudo realizar la operación, false en otro caso
+	 * @note El vector será vaciado previamente
+	 */
+	bool systemFindSetsHash(const Glib::ustring& system, const Glib::ustring& hash, std::vector<MetaDbSet* >& list);
+
+	/**
+	 * Busca sets de un sistema cuyo título comience con el título dado
+	 * @param system Sistema del que buscar sets
+	 * @param titulo Título de set a buscar
+	 * @param list Vector donde se almacenarán los datos
+	 * @return true si se pudo realizar la operación, false en otro caso
+	 * @note El vector será vaciado previamente
+	 */
+	bool systemFindSetsTitle(const Glib::ustring& system, const Glib::ustring& title, std::vector<MetaDbSet* >& list);
+
 
 	/***************************************
 		Gestión de los sets
 	****************************************/
+
+	/**
+	 * Obtiene un set por su identificador
+	 * @param id Identificador del set buscado
+	 * @return Set búscado o null si no existe
+	 */
+	MetaDbSet* setGet(const long long int id);
 
 	/**
 	 * Obtiene el set de un sistema dado con un nombre determinado
@@ -154,12 +191,12 @@ public:
 	MetaDbSet* setGetByName(const Glib::ustring& system, const Glib::ustring& name);
 
 	/**
-	 * Obtiene el set de un sistema dado con un crc determinado
+	 * Obtiene el set de un sistema dado con un hash determinado
 	 * @param system Sistema del que obtener el set
-	 * @param crc CRC de set requerido
+	 * @param hash Hash del set requerido
 	 * @return Set búscado o null si no existe
 	 */
-	MetaDbSet* setGetByCrc(const Glib::ustring& system, const Glib::ustring& crc);
+	MetaDbSet* setGetByHash(const Glib::ustring& system, const Glib::ustring& hash);
 
 	/**
 	 * Añade un nuevo set a la base de datos
@@ -201,13 +238,13 @@ public:
 	bool setFindName(const Glib::ustring& name, std::vector<MetaDbSet* >& list);
 
 	/**
-	 * Busca en la base de datos sets cuyo CRC coincida con el CRC dado
-	 * @param crc CRC a buscar
+	 * Busca en la base de datos sets cuyo hash coincida con el dado
+	 * @param hash Hash a buscar
 	 * @param list Vector donde se almacenarán los datos
 	 * @return true si se pudo realizar la operación, false en otro caso
 	 * @note El vector será vaciado previamente
 	 */
-	bool setFindCrc(const Glib::ustring& crc, std::vector<MetaDbSet* >& list);
+	bool setFindHash(const Glib::ustring& hash, std::vector<MetaDbSet* >& list);
 
 	/**
 	 * Busca en la base de datos sets cuyo título comience con el título dado

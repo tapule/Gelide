@@ -127,7 +127,154 @@ bool MetaDb::systemGetSets(const Glib::ustring& system,	std::vector<MetaDbSet* >
 		element = new MetaDbSet(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(5));
 		element->system = stm->getColumnText(2);
 		element->type = static_cast<SetType>(stm->getColumnInt(3));
-		element->crc = stm->getColumnText(4);
+		element->hash = stm->getColumnText(4);
+		//element->title = stm->getColumnText(5);
+		element->manufacturer = stm->getColumnText(6);
+		element->year = stm->getColumnText(7);
+		element->genre = stm->getColumnText(8);
+		element->players = stm->getColumnInt(9);
+		list.push_back(element);
+	}
+	stm->finalize();
+	delete stm;
+
+	return true;
+}
+
+bool MetaDb::systemFindSetsName(const Glib::ustring& system, const Glib::ustring& name, std::vector<MetaDbSet* >& list)
+{
+	SqliteStatement* stm;
+	MetaDbSet* element;
+	std::vector<MetaDbSet* >::iterator iter;
+	int ret;
+
+	assert(m_db.isOpen());
+	assert(!system.empty());
+	assert(!name.empty());
+
+	// Creamos el comando sql para obtener los sets
+	stm = m_db.createStatement(
+			"SELECT * \n"
+			"FROM Sets\n"
+			"WHERE System = :system AND Name = :name\n"
+			"ORDER BY Name"
+	);
+	if (!stm)
+	{
+		return false;
+	}
+	stm->bind(1, system);
+	stm->bind(2, name);
+
+	for (iter = list.begin(); iter != list.end(); ++iter)
+	{
+		delete (*iter);
+	}
+	list.clear();
+
+	while((ret = stm->step()) == SqliteStatement::STATEMENT_ROW){
+		element = new MetaDbSet(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(5));
+		element->system = stm->getColumnText(2);
+		element->type = static_cast<SetType>(stm->getColumnInt(3));
+		element->hash = stm->getColumnText(4);
+		//element->title = stm->getColumnText(5);
+		element->manufacturer = stm->getColumnText(6);
+		element->year = stm->getColumnText(7);
+		element->genre = stm->getColumnText(8);
+		element->players = stm->getColumnInt(9);
+		list.push_back(element);
+	}
+	stm->finalize();
+	delete stm;
+
+	return true;
+}
+
+bool MetaDb::systemFindSetsHash(const Glib::ustring& system, const Glib::ustring& hash, std::vector<MetaDbSet* >& list)
+{
+	SqliteStatement* stm;
+	MetaDbSet* element;
+	std::vector<MetaDbSet* >::iterator iter;
+	int ret;
+
+	assert(m_db.isOpen());
+	assert(!system.empty());
+	assert(!hash.empty());
+
+	// Creamos el comando sql para obtener los sets
+	stm = m_db.createStatement(
+			"SELECT * \n"
+			"FROM Sets\n"
+			"WHERE System = :system AND Hash = :hash\n"
+			"ORDER BY Name"
+	);
+	if (!stm)
+	{
+		return false;
+	}
+	stm->bind(1, system);
+	stm->bind(2, hash.lowercase());
+
+	for (iter = list.begin(); iter != list.end(); ++iter)
+	{
+		delete (*iter);
+	}
+	list.clear();
+
+	while((ret = stm->step()) == SqliteStatement::STATEMENT_ROW){
+		element = new MetaDbSet(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(5));
+		element->system = stm->getColumnText(2);
+		element->type = static_cast<SetType>(stm->getColumnInt(3));
+		element->hash = stm->getColumnText(4);
+		//element->title = stm->getColumnText(5);
+		element->manufacturer = stm->getColumnText(6);
+		element->year = stm->getColumnText(7);
+		element->genre = stm->getColumnText(8);
+		element->players = stm->getColumnInt(9);
+		list.push_back(element);
+	}
+	stm->finalize();
+	delete stm;
+
+	return true;
+}
+
+bool MetaDb::systemFindSetsTitle(const Glib::ustring& system, const Glib::ustring& title, std::vector<MetaDbSet* >& list)
+{
+	SqliteStatement* stm;
+	MetaDbSet* element;
+	std::vector<MetaDbSet* >::iterator iter;
+	int ret;
+
+	assert(m_db.isOpen());
+	assert(!system.empty());
+	assert(!title.empty());
+
+	// Creamos el comando sql para obtener los sets
+	stm = m_db.createStatement(
+			"SELECT * \n"
+			"FROM Sets\n"
+			"WHERE System = :system AND Title LIKE :title\n"
+			"ORDER BY Name"
+	);
+	if (!stm)
+	{
+		return false;
+	}
+	stm->bind(1, system);
+	stm->bind(2, title + "%");
+
+	for (iter = list.begin(); iter != list.end(); ++iter)
+	{
+		delete (*iter);
+	}
+	list.clear();
+
+	while((ret = stm->step()) == SqliteStatement::STATEMENT_ROW){
+		element = new MetaDbSet(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(5));
+		element->system = stm->getColumnText(2);
+		element->type = static_cast<SetType>(stm->getColumnInt(3));
+		element->hash = stm->getColumnText(4);
 		//element->title = stm->getColumnText(5);
 		element->manufacturer = stm->getColumnText(6);
 		element->year = stm->getColumnText(7);
