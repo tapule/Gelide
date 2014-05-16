@@ -577,32 +577,81 @@ void MetadbmApp::addSets(const Glib::ustring& system, const Glib::ustring& file,
 	std::cout << "Total dat sets: " << sets.size() <<  std::endl;
 	std::cout << "-------------------------------------" <<  std::endl;
 
-	// Procesamos todos los sets del dat
-	for (iter = sets.begin(); iter != sets.end(); ++iter)
-	{
-		// Type nos indica que campo debemos usar como hash
-		switch (type)
+	// Hacemos las inserciones o actualizaciones en una transacción
+	m_db->transactionBegin();
+		// Procesamos todos los sets del dat
+		for (iter = sets.begin(); iter != sets.end(); ++iter)
 		{
-		case COMMAND_ADD_NAME:
-			hash = iter->name;
-			break;
-		case COMMAND_ADD_CRC:
-			hash = iter->crc;
-			break;
-		case COMMAND_ADD_MD5:
-		case COMMAND_ADD_SHA1:
-			continue;
-			break;
-		}
-
-		// Comprobamos si ya tenemos el set con ese hash para el sistema dado
-		set = m_db->setGetByHash(system, hash);
-		if (set)
-		{
-			// Para la actualización, rellenamos los campos que estén vacíos
-			// Excepto Id, Name System y Hash
-			if (set->type == 0)
+			// Type nos indica que campo debemos usar como hash
+			switch (type)
 			{
+			case COMMAND_ADD_NAME:
+				hash = iter->name;
+				break;
+			case COMMAND_ADD_CRC:
+				hash = iter->crc;
+				break;
+			case COMMAND_ADD_MD5:
+			case COMMAND_ADD_SHA1:
+				continue;
+				break;
+			}
+
+			// Comprobamos si ya tenemos el set con ese hash para el sistema dado
+			set = m_db->setGetByHash(system, hash);
+			if (set)
+			{
+				// Para la actualización, rellenamos los campos que estén vacíos
+				// Excepto Id, Name System y Hash
+				if (set->type == 0)
+				{
+					if (iter->is_bios)
+					{
+						set->type = SET_TYPE_BIOS;
+					}
+					else if (!iter->clone_of.empty())
+					{
+						set->type = SET_TYPE_CLONE;
+					}
+					else
+					{
+						set->type = SET_TYPE_ORIGINAL;
+					}
+				}
+
+				if (set->title.empty())
+				{
+					set->title = iter->description;
+				}
+
+				if (set->manufacturer.empty())
+				{
+					set->manufacturer = iter->manufacturer;
+				}
+
+				if (set->year.empty())
+				{
+					set->year = iter->year;
+				}
+
+				if (set->genre.empty())
+				{
+					set->genre = iter->genre;
+				}
+
+				set->players = iter->players;
+
+				std::cout << "Updating set " << set->id << ", Hash: " << hash <<  std::endl;
+				m_db->setUpdate(set);
+				delete set;
+				set = NULL;
+				++updated;
+			}
+			else
+			{
+				set = new MetaDbSet();
+				set->name = iter->name;
+				set->system = system;
 				if (iter->is_bios)
 				{
 					set->type = SET_TYPE_BIOS;
@@ -615,66 +664,21 @@ void MetadbmApp::addSets(const Glib::ustring& system, const Glib::ustring& file,
 				{
 					set->type = SET_TYPE_ORIGINAL;
 				}
-			}
-
-			if (set->title.empty())
-			{
+				set->hash = hash;
 				set->title = iter->description;
-			}
-
-			if (set->manufacturer.empty())
-			{
 				set->manufacturer = iter->manufacturer;
-			}
-
-			if (set->year.empty())
-			{
 				set->year = iter->year;
-			}
-
-			if (set->genre.empty())
-			{
 				set->genre = iter->genre;
+				set->players = iter->players;
+				std::cout << "Adding set, Hash: " << hash <<  std::endl;
+				m_db->setAdd(set);
+				delete set;
+				set = NULL;
+				++added;
 			}
-
-			set->players = iter->players;
-
-			std::cout << "Updating set " << set->id << ", Hash: " << hash <<  std::endl;
-			m_db->setUpdate(set);
-			delete set;
-			set = NULL;
-			++updated;
 		}
-		else
-		{
-			set = new MetaDbSet();
-			set->name = iter->name;
-			set->system = system;
-			if (iter->is_bios)
-			{
-				set->type = SET_TYPE_BIOS;
-			}
-			else if (!iter->clone_of.empty())
-			{
-				set->type = SET_TYPE_CLONE;
-			}
-			else
-			{
-				set->type = SET_TYPE_ORIGINAL;
-			}
-			set->hash = hash;
-			set->title = iter->description;
-			set->manufacturer = iter->manufacturer;
-			set->year = iter->year;
-			set->genre = iter->genre;
-			set->players = iter->players;
-			std::cout << "Adding set, Hash: " << hash <<  std::endl;
-			m_db->setAdd(set);
-			delete set;
-			set = NULL;
-			++added;
-		}
-	}
+	m_db->transactionCommit();
+
 	std::cout << "-------------------------------------" <<  std::endl;
 	std::cout << "New sets: " << added << std::endl;
 	std::cout << "Updated sets: " << updated << std::endl;
