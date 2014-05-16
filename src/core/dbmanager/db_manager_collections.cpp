@@ -48,11 +48,12 @@ Collection* DbManager::collectionGet(const long long int id)
 		element = new Collection(stm->getColumnInt64(0), stm->getColumnText(1));
 		element->enabled = stm->getColumnBool(2);
 		element->sort_order = stm->getColumnInt(3);
-		element->manufacturer = stm->getColumnText(4);
-		element->year = stm->getColumnText(5);
-		element->Icon16 = stm->getColumnText(6);
-		element->Icon32 = stm->getColumnText(7);
-		element->emulator_id = stm->getColumnInt64(8);
+		element->system_id = stm->getColumnText(4);
+		element->manufacturer = stm->getColumnText(5);
+		element->year = stm->getColumnText(6);
+		element->Icon16 = stm->getColumnText(7);
+		element->Icon32 = stm->getColumnText(8);
+		element->emulator_id = stm->getColumnInt64(9);
 	}
 	else{
 		element = NULL;
@@ -109,8 +110,8 @@ bool DbManager::collectionAdd(Collection* collection)
 
 	// Preparamos el comando sql para la inserción y asociamos los valores
 	if (!stm->prepare(
-			"INSERT INTO Collections (Name, Enabled, SortOrder, Manufacturer, Year, Icon16, Icon32, EmulatorId)\n"
-			"VALUES (:name, :enabled, :order, :manufacturer, :year, :icon16, :icon32, :emuid)"
+			"INSERT INTO Collections (Name, Enabled, SortOrder, SystemId, Manufacturer, Year, Icon16, Icon32, EmulatorId)\n"
+			"VALUES (:name, :enabled, :order, :systemid, :manufacturer, :year, :icon16, :icon32, :emuid)"
 		)
 	)
 	{
@@ -119,11 +120,12 @@ bool DbManager::collectionAdd(Collection* collection)
 	stm->bind(1, collection->name);
 	stm->bind(2, collection->enabled);
 	stm->bind(3, order);
-	stm->bind(4, collection->manufacturer);
-	stm->bind(5, collection->year);
-	stm->bind(6, collection->Icon16);
-	stm->bind(7, collection->Icon32);
-	stm->bind(8, emu->id);
+	stm->bind(4, collection->system_id);
+	stm->bind(5, collection->manufacturer);
+	stm->bind(6, collection->year);
+	stm->bind(7, collection->Icon16);
+	stm->bind(8, collection->Icon32);
+	stm->bind(9, emu->id);
 	ret = stm->step();
 	stm->finalize();
 	delete stm;
@@ -157,7 +159,7 @@ bool DbManager::collectionUpdate(Collection* collection)
 	// En las actualizaciones, no se modifica ni el id ni el orden ni el emu
 	stm = m_db.createStatement(
 			"UPDATE Collections\n"
-			"SET Name = :name, Enabled = :enabled, Manufacturer = :manufacturer, Year = :year, Icon16 = :icon16, Icon32 = :icon32\n"
+			"SET Name = :name, Enabled = :enabled, SystemId = :systemid, Manufacturer = :manufacturer, Year = :year, Icon16 = :icon16, Icon32 = :icon32\n"
 			"WHERE Id = :id"
 	);
 	if (!stm)
@@ -166,11 +168,12 @@ bool DbManager::collectionUpdate(Collection* collection)
 	}
 	stm->bind(1, collection->name);
 	stm->bind(2, collection->enabled);
-	stm->bind(3, collection->manufacturer);
-	stm->bind(4, collection->year);
-	stm->bind(5, collection->Icon16);
-	stm->bind(6, collection->Icon32);
-	stm->bind(7, collection->id);
+	stm->bind(3, collection->system_id);
+	stm->bind(4, collection->manufacturer);
+	stm->bind(5, collection->year);
+	stm->bind(6, collection->Icon16);
+	stm->bind(7, collection->Icon32);
+	stm->bind(8, collection->id);
 	ret = stm->step();
 	stm->finalize();
 	delete stm;
@@ -498,7 +501,6 @@ bool DbManager::collectionMove(const long long int orig_id, const long long int 
 bool DbManager::collectionSetEnabled(const long long int id, bool enabled)
 {
 	SqliteStatement* stm;
-	int ret;
 
 	assert(m_db.isOpen());
 	assert(id);
@@ -596,11 +598,12 @@ bool DbManager::collectionGetAll(std::vector<Collection* >& list, const bool fil
 		element = new Collection(stm->getColumnInt64(0), stm->getColumnText(1));
 		element->enabled = stm->getColumnBool(2);
 		element->sort_order = stm->getColumnInt(3);
-		element->manufacturer = stm->getColumnText(4);
-		element->year = stm->getColumnText(5);
-		element->Icon16 = stm->getColumnText(6);
-		element->Icon32 = stm->getColumnText(7);
-		element->emulator_id = stm->getColumnInt64(8);
+		element->system_id = stm->getColumnText(4);
+		element->manufacturer = stm->getColumnText(5);
+		element->year = stm->getColumnText(6);
+		element->Icon16 = stm->getColumnText(7);
+		element->Icon32 = stm->getColumnText(8);
+		element->emulator_id = stm->getColumnInt64(9);
 		list.push_back(element);
 	}
 	stm->finalize();

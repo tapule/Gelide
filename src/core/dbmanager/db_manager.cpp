@@ -119,6 +119,9 @@ bool DbManager::resetDataBase(void)
 			"Enabled            INTEGER NOT NULL DEFAULT 1,\n"
 			"SortOrder          INTEGER NOT NULL DEFAULT 0,\n"
 
+			// Nombre del sistema en la metadb
+			"SystemId           TEXT,\n"
+
 			// Información general
 			"Manufacturer       TEXT,\n"
 			"Year               TEXT,\n"

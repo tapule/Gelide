@@ -60,6 +60,8 @@ struct Collection : public Item
 	bool enabled;				/**< Indica si está activado o no */
 	int sort_order;				/**< Orden ocupado en la lista de sistemas */
 
+	Glib::ustring system_id;	/**< Identificador del sistema al que referencia la colección */
+
 	Glib::ustring manufacturer;	/**< Fabricante de la colección */
 	Glib::ustring year;			/**< Año de lanzamiento */
 
