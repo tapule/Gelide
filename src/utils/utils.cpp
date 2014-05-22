@@ -370,4 +370,17 @@ Glib::ustring getTextFirstLine(const Glib::ustring& text)
 	}
 }
 
+std::vector<std::string> explode(const std::string& str, char delim)
+{
+    std::vector<std::string> result;
+    std::istringstream str_stream(str);
+    std::string token;
+
+    while (std::getline(str_stream, token, delim))
+    {
+        result.push_back(token);
+    }
+    return result;
+}
+
 } // namespace utils

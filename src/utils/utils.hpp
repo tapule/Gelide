@@ -149,6 +149,13 @@ unsigned int getTimeID(void);
 Glib::ustring getTextFirstLine(const Glib::ustring& text);
 
 /**
+ * Divide una cadena de texto en partes según un delimitador
+ * @param str Cadena que dividir en partes
+ * @return delim Carácter usado para la división de la cadena
+ */
+std::vector<std::string> explode(const std::string& str, char delim);
+
+/**
  * Realiza la conversión de un tipo básico a cadena
  * @param value Tipo básico a convertir a cadena
  * @return Cadena con la conversión textual
