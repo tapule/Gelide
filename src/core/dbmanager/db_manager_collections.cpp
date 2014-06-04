@@ -579,15 +579,13 @@ unsigned int DbManager::collectionCount(void)
 	return countTable("Collections");
 }
 
-bool DbManager::collectionGetGames(const long long int id, std::vector<Game* >& list, const bool filtered)
+bool DbManager::collectionGetGames(const long long int id, std::vector<Game* >& list, std::vector<Filter >& filters)
 {
 	SqliteStatement* stm;
 	std::vector<Game* >::iterator iter;
 	int ret;
 	Game* element;
 	Glib::ustring query, where, order;
-	int i;
-	Glib::ustring title;
 
 	assert(m_db.isOpen());
 	assert(id);
@@ -599,84 +597,9 @@ bool DbManager::collectionGetGames(const long long int id, std::vector<Game* >& 
 	order = "ORDER BY Games.Title ASC\n";
 
 	// Agregamos opciones de filtrado si corresponde
-	if (filtered)
+	if (filters.size())
 	{
-		if (m_only_favorites)
-		{
-			where += " AND Games.Favorite = 1";
-		}
-
-		// Comprobamos el filtrado por título
-		if (!m_filter_title.empty())
-		{
-			title = m_filter_title;
-			// Parseamos los * internos
-			i = title.find("*");
-			while (i > -1)
-			{
-				title = title.replace(i, 1, "%");
-				i = title.find("*", i + 1);
-			}
-			// Parseamos los ? internos
-			i = title.find("?");
-			while (i > -1)
-			{
-				title = title.replace(i, 1, "_");
-				i = title.find("?", i + 1);
-			}
-			title += "%";
-			where += " AND Games.Title LIKE ':title'";
-		}
-
-		switch (m_filter_type)
-		{
-		case DBFILTER_GENRE:
-			where += " AND Games.GenreId = " + utils::toStr(m_filter_value);
-			break;
-		case DBFILTER_LETTER:
-			where += " AND Games.Title LIKE '" + letterGet(m_filter_value)->name + "%'";
-			break;
-		case DBFILTER_MANUFACTURER:
-			where += " AND Games.ManufacturerId = " + utils::toStr(m_filter_value);
-			break;
-		case DBFILTER_PLAYERS:
-			where += " AND Games.Players = " + playersGet(m_filter_value)->name;
-			break;
-		case DBFILTER_RATING:
-			where += " AND Games.Rating = " + ratingGet(m_filter_value)->name;
-			break;
-		case DBFILTER_STATE:
-			where += " AND Games.State = " + utils::toStr(m_filter_value);
-			break;
-		case DBFILTER_TAG:
-			where += " AND Games.Id IN (\n"
-					 "   SELECT GameId\n"
-					 "   FROM TagEntries\n"
-					 "   WHERE TagId = " + utils::toStr(m_filter_value) + "\n"
-					 ")";
-			break;
-		case DBFILTER_TIMES_PLAYED:
-			switch (m_filter_value)
-			{
-			// Ninguna
-			case 0:
-			// Una
-			case 1:
-				where += " AND Games.TimesPlayed = " + utils::toStr(m_filter_value);
-				break;
-			// Más de 1
-			default:
-				where += " AND Games.TimesPlayed > 1";
-				break;
-			}
-			break;
-		case DBFILTER_GAME_TYPE:
-			where += " AND Games.Type = " + utils::toStr(m_filter_value);
-			break;
-		case DBFILTER_YEAR:
-			where += " AND Games.YearId = " + utils::toStr(m_filter_value);
-			break;
-		}
+		where += parseFiltersVector(filters);
 	}
 	where += "\n";
 
@@ -685,12 +608,6 @@ bool DbManager::collectionGetGames(const long long int id, std::vector<Game* >& 
 	if (!stm)
 	{
 		return false;
-	}
-	// Si se está filtrando y hay filtro de título, hacemos un bind
-	// para evitar sql injection
-	if (!m_filter_title.empty() && filtered)
-	{
-		stm->bind(1, title);
 	}
 
 	for (iter = list.begin(); iter != list.end(); ++iter)
@@ -729,15 +646,13 @@ bool DbManager::collectionGetGames(const long long int id, std::vector<Game* >& 
 	return true;
 }
 
-bool DbManager::collectionGetGames(const long long int id, std::vector<Item* >& list, const bool filtered)
+bool DbManager::collectionGetGames(const long long int id, std::vector<Item* >& list, std::vector<Filter >& filters)
 {
 	SqliteStatement* stm;
 	std::vector<Item* >::iterator iter;
 	int ret;
 	Item* element;
 	Glib::ustring query, where, order;
-	int i;
-	Glib::ustring title;
 
 	assert(m_db.isOpen());
 	assert(id);
@@ -749,84 +664,9 @@ bool DbManager::collectionGetGames(const long long int id, std::vector<Item* >& 
 	order = "ORDER BY Games.Title ASC\n";
 
 	// Agregamos opciones de filtrado si corresponde
-	if (filtered)
+	if (filters.size())
 	{
-		if (m_only_favorites)
-		{
-			where += " AND Games.Favorite = 1";
-		}
-
-		// Comprobamos el filtrado por título
-		if (!m_filter_title.empty())
-		{
-			title = m_filter_title;
-			// Parseamos los * internos
-			i = title.find("*");
-			while (i > -1)
-			{
-				title = title.replace(i, 1, "%");
-				i = title.find("*", i + 1);
-			}
-			// Parseamos los ? internos
-			i = title.find("?");
-			while (i > -1)
-			{
-				title = title.replace(i, 1, "_");
-				i = title.find("?", i + 1);
-			}
-			title += "%";
-			where += " AND Games.Title LIKE ':title'";
-		}
-
-		switch (m_filter_type)
-		{
-		case DBFILTER_GENRE:
-			where += " AND Games.GenreId = " + utils::toStr(m_filter_value);
-			break;
-		case DBFILTER_LETTER:
-			where += " AND Games.Title LIKE '" + letterGet(m_filter_value)->name + "%'";
-			break;
-		case DBFILTER_MANUFACTURER:
-			where += " AND Games.ManufacturerId = " + utils::toStr(m_filter_value);
-			break;
-		case DBFILTER_PLAYERS:
-			where += " AND Games.Players = " + playersGet(m_filter_value)->name;
-			break;
-		case DBFILTER_RATING:
-			where += " AND Games.Rating = " + ratingGet(m_filter_value)->name;
-			break;
-		case DBFILTER_STATE:
-			where += " AND Games.State = " + utils::toStr(m_filter_value);
-			break;
-		case DBFILTER_TAG:
-			where += " AND Games.Id IN (\n"
-					 "   SELECT GameId\n"
-					 "   FROM TagEntries\n"
-					 "   WHERE TagId = " + utils::toStr(m_filter_value) + "\n"
-					 ")";
-			break;
-		case DBFILTER_TIMES_PLAYED:
-			switch (m_filter_value)
-			{
-			// Ninguna
-			case 0:
-			// Una
-			case 1:
-				where += " AND Games.TimesPlayed = " + utils::toStr(m_filter_value);
-				break;
-			// Más de 1
-			default:
-				where += " AND Games.TimesPlayed > 1";
-				break;
-			}
-			break;
-		case DBFILTER_GAME_TYPE:
-			where += " AND Games.Type = " + utils::toStr(m_filter_value);
-			break;
-		case DBFILTER_YEAR:
-			where += " AND Games.YearId = " + utils::toStr(m_filter_value);
-			break;
-		}
+		where += parseFiltersVector(filters);
 	}
 	where += "\n";
 
@@ -835,12 +675,6 @@ bool DbManager::collectionGetGames(const long long int id, std::vector<Item* >& 
 	if (!stm)
 	{
 		return false;
-	}
-	// Si se está filtrando y hay filtro de título, hacemos un bind
-	// para evitar sql injection
-	if (!m_filter_title.empty() && filtered)
-	{
-		stm->bind(1, title);
 	}
 
 	for (iter = list.begin(); iter != list.end(); ++iter)

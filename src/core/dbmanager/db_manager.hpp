@@ -26,6 +26,7 @@
 #include <glibmm/ustring.h>
 #include "../../defines.hpp"
 #include "../../utils/sqlite.hpp"
+#include "filter.hpp"
 #include "item.hpp"
 #include "collection.hpp"
 #include "emulator.hpp"
@@ -45,21 +46,6 @@
 
 
 namespace gelide{
-
-// Posibles filtros para la BD
-enum DbFilterType{
-	DBFILTER_NONE = 0,		/**< Tipo de filtro ninguno */
-	DBFILTER_GENRE,			/**< Tipo de filtro por género */
-	DBFILTER_LETTER,		/**< Tipo de filtro por letra inicial */
-	DBFILTER_MANUFACTURER,	/**< Tipo de filtro por fabricante */
-	DBFILTER_PLAYERS,		/**< Tipo de filtro por núemro de juegadores */
-	DBFILTER_RATING,		/**< Tipo de filtro por puntuación */
-	DBFILTER_STATE,			/**< Tipo de filtro por estado */
-	DBFILTER_TAG,			/**< Tipo de filtro por etiqueta */
-	DBFILTER_TIMES_PLAYED,	/**< Tipo de filtro por partidas jugadas */
-	DBFILTER_GAME_TYPE,		/**< Tipo de filtro por tipo de juego (original, clon, bios) */
-	DBFILTER_YEAR			/**< Tipo de filtro por año */
-};
 
 /**
  * Gestor de la base de datos de Gelide.
@@ -143,41 +129,6 @@ public:
 	bool transactionRollBack(void);
 
 
-	/************************************
-		Gestión del estado de los filtros
-	*************************************/
-
-	/**
-	 * Establece un filtro para la lista de juegos
-	 * @param filter Tipo de filtro a activar
-	 * @param value Valor del filtro (es un identificador de un elemento)
-	 */
-	void setFilter(const DbFilterType filter, const long long int value);
-
-	/**
-	 * Limpia el filtro activo
-	 */
-	void clearFilter(void);
-
-	/**
-	 * Establece una cadena de búsqueda por título en la lista de juegos
-	 * @param search Cadena de búsqueda a usar
-	 * @return True si se pudo activar, false en otro caso
-	 */
-	void setSearch(const Glib::ustring& search);
-
-	/**
-	 * Limpia la búsqueda por título
-	 */
-	void clearSearch(void);
-
-	/**
-	 * Activa y desactiva el filtro de favoritos
-	 * @param value Nuevo valor para el filtrado de favoritos
-	 */
-	void setOnlyFavorites(const bool value = FALSE);
-
-
 	/***************************************
 		Gestión de las colecciones
 	****************************************/
@@ -250,21 +201,21 @@ public:
 	 * Obtiene la lista de juegos de una colección dada
 	 * @param id Identificador de la colección
 	 * @param list Vector donde guardar los juegos
-	 * @param filtered Indica si se deben aplicar los filtros de la BD
+	 * @param filters Filtros a aplicar a la consulta
 	 * @return true si se pudo realizar la operación, false en otro caso
-	 * @note El vector será vaciado antes de comenzar con la operación
+	 * @note El vector destino será vaciado antes de comenzar con la operación
 	 */
-	bool collectionGetGames(const long long int id, std::vector<Game* >& list, const bool filtered = false);
+	bool collectionGetGames(const long long int id, std::vector<Game* >& list, std::vector<Filter >& filters);
 
 	/**
 	 * Obtiene la lista de juegos de una colección dada
 	 * @param id Identificador de la colección
 	 * @param list Vector donde almacenar los juegos
-	 * @param filtered Indica si se deben aplicar los filtros de la BD
+	 * @param filters Filtros a aplicar a la consulta
 	 * @return true si se pudo realizar la operación, false en otro caso
 	 * @note El vector será vaciado antes de comenzar con la operación
 	 */
-	bool collectionGetGames(const long long int id, std::vector<Item* >& list, const bool filtered = false);
+	bool collectionGetGames(const long long int id, std::vector<Item* >& list, std::vector<Filter >& filters);
 
 	/**
 	 * Cuenta el número de juegos de una colección
@@ -408,21 +359,21 @@ public:
 	 * Obtiene los de juegos de una lista dada
 	 * @param id Identificador de la lista
 	 * @param list Vector donde almacenar los juegos
-	 * @param filtered Indica si se deben aplicar los filtros de la BD
+	 * @param filters Filtros a aplicar a la consulta
 	 * @return true si se pudo realizar la operación, false en otro caso
 	 * @note El vector será vaciado antes de comenzar con la operación
 	 */
-	bool gameListGetGames(const long long int id, std::vector<Game* >& list, const bool filtered = false);
+	bool gameListGetGames(const long long int id, std::vector<Game* >& list, std::vector<Filter >& filters);
 
 	/**
 	 * Obtiene los de juegos de una lista dada
 	 * @param id Identificador de la lista
 	 * @param list Vector donde almacenar los juegos
-	 * @param filtered Indica si se deben aplicar los filtros de la BD
+	 * @param filters Filtros a aplicar a la consulta
 	 * @return true si se pudo realizar la operación, false en otro caso
 	 * @note El vector será vaciado antes de comenzar con la operación
 	 */
-	bool gameListGetGames(const long long int id, std::vector<Item* >& list, const bool filtered = false);
+	bool gameListGetGames(const long long int id, std::vector<Item* >& list, std::vector<Filter >& filters);
 
 	/**
 	 * Añade un juego a una lista de juegos
@@ -1062,14 +1013,16 @@ private:
 	 */
 	unsigned int countTable(const Glib::ustring& table);
 
+	/**
+	 * Genera una cadena de consulta sql a partir de un vector de filtros
+	 * @param filters Vector de filtros (pares FilterType, valor)
+	 * @return Cadena preparada para la clausula where
+	 */
+	Glib::ustring parseFiltersVector(std::vector<Filter >& filters);
+
 
 	Sqlite m_db;					/**< Base de datos SQLite interna */
 	Glib::ustring m_db_file;		/**< Path a la base de datos */
-
-	DbFilterType m_filter_type;		/**< Tipo de filtro si está activado */
-	long long int m_filter_value;	/**< Valor del filtro activado */
-	Glib::ustring m_filter_title;	/**< Estado del filtro por título */
-	bool m_only_favorites;			/**< Valor del filtro de favoritos */
 };
 
 } // namespace gelide

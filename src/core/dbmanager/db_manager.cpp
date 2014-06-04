@@ -28,10 +28,7 @@
 
 namespace gelide{
 
-DbManager::DbManager(void):
-	m_filter_type(DBFILTER_NONE),
-	m_filter_value(0),
-	m_only_favorites(false)
+DbManager::DbManager(void)
 {
 	LOG_INFO("DBManager: DB Version: " << DATA_BASE_VERSION);
 }
@@ -640,38 +637,6 @@ bool DbManager::transactionRollBack(void)
 	return m_db.transactionRollBack();
 }
 
-void DbManager::setFilter(const DbFilterType filter, const long long int value)
-{
-	assert(m_db.isOpen());
-	m_filter_type = filter;
-	m_filter_value = value;
-}
-
-void DbManager::clearFilter(void)
-{
-	assert(m_db.isOpen());
-	m_filter_type = DBFILTER_NONE;
-	m_filter_value = 0;
-}
-
-void DbManager::setSearch(const Glib::ustring& search)
-{
-	assert(m_db.isOpen());
-	m_filter_title = search;
-}
-
-void DbManager::clearSearch(void)
-{
-	assert(m_db.isOpen());
-	m_filter_title.clear();
-}
-
-void DbManager::setOnlyFavorites(const bool value)
-{
-	assert(m_db.isOpen());
-	m_only_favorites = value;
-}
-
 bool DbManager::updateYearsTable(void)
 {
 	SqliteStatement* stm;
@@ -771,6 +736,72 @@ unsigned int DbManager::countTable(const Glib::ustring& table)
 	delete stm;
 
 	return ret;
+}
+
+Glib::ustring DbManager::parseFiltersVector(std::vector<Filter >& filters)
+{
+	std::vector<Filter >::iterator iter;
+	Glib::ustring query;
+
+	query = "";
+
+	for (iter = filters.begin(); iter != filters.end(); ++iter)
+	{
+		switch (iter->type)
+		{
+		case FILTER_FAVORITE:
+			query += " AND Games.Favorite = " + utils::toStr(iter->value);
+			break;
+		case FILTER_GENRE:
+			query += " AND Games.GenreId = " + utils::toStr(iter->value);
+			break;
+		case FILTER_LETTER:
+			query += " AND Games.Title LIKE '" + letterGet(iter->value)->name + "%'";
+			break;
+		case FILTER_MANUFACTURER:
+			query += " AND Games.ManufacturerId = " + utils::toStr(iter->value);
+			break;
+		case FILTER_PLAYERS:
+			query += " AND Games.Players = " + playersGet(iter->value)->name;
+			break;
+		case FILTER_RATING:
+			query += " AND Games.Rating = " + ratingGet(iter->value)->name;
+			break;
+		case FILTER_STATE:
+			query += " AND Games.State = " + utils::toStr(iter->value);
+			break;
+		case FILTER_TAG:
+			query += " AND Games.Id IN (\n"
+					 "   SELECT GameId\n"
+					 "   FROM TagEntries\n"
+					 "   WHERE TagId = " + utils::toStr(iter->value) + "\n"
+					 ")";
+			break;
+		case FILTER_TIMES_PLAYED:
+			switch (iter->value)
+			{
+			// Ninguna
+			case 0:
+			// Una
+			case 1:
+				query += " AND Games.TimesPlayed = 1";
+				break;
+			// Más de 1
+			default:
+				query += " AND Games.TimesPlayed > 1";
+				break;
+			}
+			break;
+		case FILTER_GAME_TYPE:
+			query += " AND Games.Type = " + utils::toStr(iter->value);
+			break;
+		case FILTER_YEAR:
+			query += " AND Games.YearId = " + utils::toStr(iter->value);
+			break;
+		}
+	}
+
+	return query;
 }
 
 } // namespace gelide

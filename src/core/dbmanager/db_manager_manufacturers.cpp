@@ -178,13 +178,6 @@ bool DbManager::manufacturerDelete(const long long int id)
 		delete stm;
 	m_db.transactionCommit();
 
-	// Desactivamos el filtro activo si coincide con el que eliminamos
-	if ((m_filter_type == DBFILTER_MANUFACTURER) && (m_filter_value == id))
-	{
-		m_filter_type = DBFILTER_NONE;
-		m_filter_value = 0;
-	}
-
 	return true;
 }
 
