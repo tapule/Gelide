@@ -46,14 +46,13 @@ Collection* DbManager::collectionGet(const long long int id)
 	if (stm->step() == SqliteStatement::STATEMENT_ROW)
 	{
 		element = new Collection(stm->getColumnInt64(0), stm->getColumnText(1));
-		element->enabled = stm->getColumnBool(2);
-		element->sort_order = stm->getColumnInt(3);
-		element->system_id = stm->getColumnText(4);
-		element->manufacturer = stm->getColumnText(5);
-		element->year = stm->getColumnText(6);
-		element->Icon16 = stm->getColumnText(7);
-		element->Icon32 = stm->getColumnText(8);
-		element->emulator_id = stm->getColumnInt64(9);
+		element->sort_order = stm->getColumnInt(2);
+		element->system_id = stm->getColumnText(3);
+		element->manufacturer = stm->getColumnText(4);
+		element->year = stm->getColumnText(5);
+		element->Icon16 = stm->getColumnText(6);
+		element->Icon32 = stm->getColumnText(7);
+		element->emulator_id = stm->getColumnInt64(8);
 	}
 	else{
 		element = NULL;
@@ -110,22 +109,21 @@ bool DbManager::collectionAdd(Collection* collection)
 
 	// Preparamos el comando sql para la inserción y asociamos los valores
 	if (!stm->prepare(
-			"INSERT INTO Collections (Name, Enabled, SortOrder, SystemId, Manufacturer, Year, Icon16, Icon32, EmulatorId)\n"
-			"VALUES (:name, :enabled, :order, :systemid, :manufacturer, :year, :icon16, :icon32, :emuid)"
+			"INSERT INTO Collections (Name, SortOrder, SystemId, Manufacturer, Year, Icon16, Icon32, EmulatorId)\n"
+			"VALUES (:name, :order, :systemid, :manufacturer, :year, :icon16, :icon32, :emuid)"
 		)
 	)
 	{
 		return false;
 	}
 	stm->bind(1, collection->name);
-	stm->bind(2, collection->enabled);
-	stm->bind(3, order);
-	stm->bind(4, collection->system_id);
-	stm->bind(5, collection->manufacturer);
-	stm->bind(6, collection->year);
-	stm->bind(7, collection->Icon16);
-	stm->bind(8, collection->Icon32);
-	stm->bind(9, emu->id);
+	stm->bind(2, order);
+	stm->bind(3, collection->system_id);
+	stm->bind(4, collection->manufacturer);
+	stm->bind(5, collection->year);
+	stm->bind(6, collection->Icon16);
+	stm->bind(7, collection->Icon32);
+	stm->bind(8, emu->id);
 	ret = stm->step();
 	stm->finalize();
 	delete stm;
@@ -159,7 +157,7 @@ bool DbManager::collectionUpdate(Collection* collection)
 	// En las actualizaciones, no se modifica ni el id ni el orden ni el emu
 	stm = m_db.createStatement(
 			"UPDATE Collections\n"
-			"SET Name = :name, Enabled = :enabled, SystemId = :systemid, Manufacturer = :manufacturer, Year = :year, Icon16 = :icon16, Icon32 = :icon32\n"
+			"SET Name = :name, SystemId = :systemid, Manufacturer = :manufacturer, Year = :year, Icon16 = :icon16, Icon32 = :icon32\n"
 			"WHERE Id = :id"
 	);
 	if (!stm)
@@ -167,13 +165,12 @@ bool DbManager::collectionUpdate(Collection* collection)
 		return false;
 	}
 	stm->bind(1, collection->name);
-	stm->bind(2, collection->enabled);
-	stm->bind(3, collection->system_id);
-	stm->bind(4, collection->manufacturer);
-	stm->bind(5, collection->year);
-	stm->bind(6, collection->Icon16);
-	stm->bind(7, collection->Icon32);
-	stm->bind(8, collection->id);
+	stm->bind(2, collection->system_id);
+	stm->bind(3, collection->manufacturer);
+	stm->bind(4, collection->year);
+	stm->bind(5, collection->Icon16);
+	stm->bind(6, collection->Icon32);
+	stm->bind(7, collection->id);
 	ret = stm->step();
 	stm->finalize();
 	delete stm;
@@ -498,63 +495,7 @@ bool DbManager::collectionMove(const long long int orig_id, const long long int 
 	return true;
 }
 
-bool DbManager::collectionSetEnabled(const long long int id, bool enabled)
-{
-	SqliteStatement* stm;
-
-	assert(m_db.isOpen());
-	assert(id);
-
-	// Activar/Desactivar una colección implica hacer lo mismo con sus juegos
-	m_db.transactionBegin();
-		stm = m_db.createStatement(
-				"UPDATE Collections\n"
-				"SET Enabled = :enabled\n"
-				"WHERE Id = :id"
-		);
-		if (!stm)
-		{
-			m_db.transactionRollBack();
-			return false;
-		}
-		stm->bind(1, enabled);
-		stm->bind(2, id);
-		if (stm->step() != SqliteStatement::STATEMENT_DONE)
-		{
-			stm->finalize();
-			delete stm;
-			m_db.transactionRollBack();
-			return false;
-		}
-		stm->finalize();
-
-		if (!stm->prepare(
-				"UPDATE Games\n"
-				"SET Enabled = :enabled\n"
-				"WHERE CollectionId = :id"
-			)
-		)
-		{
-			m_db.transactionRollBack();
-			return false;
-		}
-		stm->bind(1, enabled);
-		stm->bind(2, id);
-		if (stm->step() != SqliteStatement::STATEMENT_DONE)
-		{
-			stm->finalize();
-			delete stm;
-			m_db.transactionRollBack();
-			return false;
-		}
-		stm->finalize();
-		delete stm;
-	m_db.transactionCommit();
-
-	return true;
-}
-
-bool DbManager::collectionGetAll(std::vector<Collection* >& list, const bool filtered)
+bool DbManager::collectionGetAll(std::vector<Collection* >& list)
 {
 	SqliteStatement* stm;
 	std::vector<Collection* >::iterator iter;
@@ -563,25 +504,11 @@ bool DbManager::collectionGetAll(std::vector<Collection* >& list, const bool fil
 
 	assert(m_db.isOpen());
 
-	// Creamos el comando sql para obtener los elementos dependiendo de si se
-	// necesitan filtrados o no
-	if (filtered)
-	{
-		stm = m_db.createStatement(
-				"SELECT * \n"
-				"FROM Collections\n"
-				"WHERE Enabled = 1\n"
-				"ORDER BY SortOrder"
-		);
-	}
-	else
-	{
-		stm = m_db.createStatement(
-				"SELECT * \n"
-				"FROM Collections\n"
-				"ORDER BY SortOrder"
-		);
-	}
+	stm = m_db.createStatement(
+			"SELECT * \n"
+			"FROM Collections\n"
+			"ORDER BY SortOrder"
+	);
 	if (!stm)
 	{
 		return false;
@@ -596,14 +523,13 @@ bool DbManager::collectionGetAll(std::vector<Collection* >& list, const bool fil
 	while ((ret = stm->step()) == SqliteStatement::STATEMENT_ROW)
 	{
 		element = new Collection(stm->getColumnInt64(0), stm->getColumnText(1));
-		element->enabled = stm->getColumnBool(2);
-		element->sort_order = stm->getColumnInt(3);
-		element->system_id = stm->getColumnText(4);
-		element->manufacturer = stm->getColumnText(5);
-		element->year = stm->getColumnText(6);
-		element->Icon16 = stm->getColumnText(7);
-		element->Icon32 = stm->getColumnText(8);
-		element->emulator_id = stm->getColumnInt64(9);
+		element->sort_order = stm->getColumnInt(2);
+		element->system_id = stm->getColumnText(3);
+		element->manufacturer = stm->getColumnText(4);
+		element->year = stm->getColumnText(5);
+		element->Icon16 = stm->getColumnText(6);
+		element->Icon32 = stm->getColumnText(7);
+		element->emulator_id = stm->getColumnInt64(8);
 		list.push_back(element);
 	}
 	stm->finalize();
@@ -612,7 +538,7 @@ bool DbManager::collectionGetAll(std::vector<Collection* >& list, const bool fil
 	return true;
 }
 
-bool DbManager::collectionGetAll(std::vector<Item* >& list, const bool filtered)
+bool DbManager::collectionGetAll(std::vector<Item* >& list)
 {
 	SqliteStatement* stm;
 	std::vector<Item* >::iterator iter;
@@ -621,25 +547,11 @@ bool DbManager::collectionGetAll(std::vector<Item* >& list, const bool filtered)
 
 	assert(m_db.isOpen());
 
-	// Creamos el comando sql para obtener los elementos dependiendo de si se
-	// necesitan filtrados o no
-	if (filtered)
-	{
-		stm = m_db.createStatement(
-				"SELECT Id, Name \n"
-				"FROM Collections\n"
-				"WHERE Enabled = 1\n"
-				"ORDER BY SortOrder"
-		);
-	}
-	else
-	{
-		stm = m_db.createStatement(
-				"SELECT Id, Name \n"
-				"FROM Collections\n"
-				"ORDER BY SortOrder"
-		);
-	}
+	stm = m_db.createStatement(
+			"SELECT Id, Name \n"
+			"FROM Collections\n"
+			"ORDER BY SortOrder"
+	);
 	if (!stm)
 	{
 		return false;
@@ -683,7 +595,7 @@ bool DbManager::collectionGetGames(const long long int id, std::vector<Game* >& 
 	// Generamos las clausulas iniciales de la consulta
 	query = "SELECT Games.*, Manufacturers.Name, Years.Name, Genres.Name\n"
 			"FROM Games, Manufacturers, Years, Genres\n";
-	where = "WHERE Games.Enabled = 1 AND Games.ManufacturerId = Manufacturers.Id AND Games.YearId = Years.Id AND Games.GenreId = Genres.Id AND Games.CollectionId = " + utils::toStr(id);
+	where = "WHERE Games.ManufacturerId = Manufacturers.Id AND Games.YearId = Years.Id AND Games.GenreId = Genres.Id AND Games.CollectionId = " + utils::toStr(id);
 	order = "ORDER BY Games.Title ASC\n";
 
 	// Agregamos opciones de filtrado si corresponde
@@ -788,28 +700,27 @@ bool DbManager::collectionGetGames(const long long int id, std::vector<Game* >& 
 	list.clear();
 
 	while((ret = stm->step()) == SqliteStatement::STATEMENT_ROW){
-		element = new Game(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(8));
-		element->enabled = stm->getColumnBool(2);
-		element->collection_id = stm->getColumnInt64(3);
-		element->state = static_cast<GameState>(stm->getColumnInt(4));
-		element->file = stm->getColumnText(5);
-		element->type = static_cast<GameType>(stm->getColumnInt(6));
-		element->crc = stm->getColumnText(7);
-		//element->title = stm->getColumnText(8);
-		element->manufacturer_id = stm->getColumnInt64(9);
-		element->year_id = stm->getColumnInt64(10);
-		element->genre_id = stm->getColumnInt64(11);
-		element->players = stm->getColumnInt(12);
-		element->rating = stm->getColumnInt(13);
-		element->times_played = stm->getColumnInt(15);
-		element->last_time_played = stm->getColumnText(15);
-		element->date_added = stm->getColumnText(16);
-		element->favorite = stm->getColumnBool(17);
-		element->use_custom_emulator = stm->getColumnBool(18);
-		element->emulator_id = stm->getColumnInt64(19);
-		element->manufacturer = stm->getColumnText(20);
-		element->year = stm->getColumnText(21);
-		element->genre = stm->getColumnText(22);
+		element = new Game(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(7));
+		element->collection_id = stm->getColumnInt64(2);
+		element->state = static_cast<GameState>(stm->getColumnInt(3));
+		element->file = stm->getColumnText(4);
+		element->type = static_cast<GameType>(stm->getColumnInt(5));
+		element->crc = stm->getColumnText(6);
+		//element->title = stm->getColumnText(7);
+		element->manufacturer_id = stm->getColumnInt64(7);
+		element->year_id = stm->getColumnInt64(9);
+		element->genre_id = stm->getColumnInt64(10);
+		element->players = stm->getColumnInt(11);
+		element->rating = stm->getColumnInt(12);
+		element->times_played = stm->getColumnInt(13);
+		element->last_time_played = stm->getColumnText(14);
+		element->date_added = stm->getColumnText(15);
+		element->favorite = stm->getColumnBool(16);
+		element->use_custom_emulator = stm->getColumnBool(17);
+		element->emulator_id = stm->getColumnInt64(18);
+		element->manufacturer = stm->getColumnText(19);
+		element->year = stm->getColumnText(20);
+		element->genre = stm->getColumnText(21);
 		list.push_back(element);
 	}
 	stm->finalize();
@@ -834,7 +745,7 @@ bool DbManager::collectionGetGames(const long long int id, std::vector<Item* >& 
 	// Generamos las clausulas iniciales de la consulta
 	query = "SELECT Games.Id, Games.Name, Games.Title\n"
 			"FROM Games\n";
-	where = "WHERE Games.Enabled = 1 AND Games.CollectionId = " + utils::toStr(id);
+	where = "WHERE Games.CollectionId = " + utils::toStr(id);
 	order = "ORDER BY Games.Title ASC\n";
 
 	// Agregamos opciones de filtrado si corresponde
@@ -960,7 +871,7 @@ unsigned int DbManager::collectionCountGames(const long long int id)
 	stm = m_db.createStatement(
 			"SELECT COUNT(1)\n"
 			"FROM Games\n"
-			"WHERE Games.Enabled = 1 AND CollectionId = :id"
+			"WHERE CollectionId = :id"
 	);
 	if (!stm)
 	{

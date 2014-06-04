@@ -225,30 +225,20 @@ public:
 	bool collectionMove(const long long int orig_id, const long long int dest_id);
 
 	/**
-	 * Marca una colección como activada o desactivada
-	 * @param id Identificador de la colección a activar o desactivar
-	 * @param enabled Nuevo estado
+	 * Obtiene un listado de las colecciones en la base de datos
+	 * @param list Vector donde se almacenarán los datos
 	 * @return true si se pudo realizar la operación, false en otro caso
+	 * @note El vector será vaciado previamente
 	 */
-	bool collectionSetEnabled(const long long int id, const bool enabled);
+	bool collectionGetAll(std::vector<Collection* >& list);
 
 	/**
 	 * Obtiene un listado de las colecciones en la base de datos
 	 * @param list Vector donde se almacenarán los datos
-	 * @param filtered Indica si se deben filtrar colecciones inactivas
 	 * @return true si se pudo realizar la operación, false en otro caso
 	 * @note El vector será vaciado previamente
 	 */
-	bool collectionGetAll(std::vector<Collection* >& list, const bool filtered = false);
-
-	/**
-	 * Obtiene un listado de las colecciones en la base de datos
-	 * @param list Vector donde se almacenarán los datos
-	 * @param filtered Indica si se deben filtrar colecciones inactivas
-	 * @return true si se pudo realizar la operación, false en otro caso
-	 * @note El vector será vaciado previamente
-	 */
-	bool collectionGetAll(std::vector<Item* >& list, const bool filtered = false);
+	bool collectionGetAll(std::vector<Item* >& list);
 
 	/**
 	 * Cuenta el número total de colecciones presentes en el sistema

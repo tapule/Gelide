@@ -53,7 +53,6 @@ struct Game : public Item
 	 */
 	Game(void):
 		Item(),
-		enabled(true),
 		collection_id(0),
 		state(GAME_STATE_UNKNOWN),
 		type(GAME_TYPE_UNKNOWN),
@@ -76,7 +75,6 @@ struct Game : public Item
 	 */
 	Game(const long long int p_id, const Glib::ustring& p_name, const Glib::ustring& p_title):
 		Item(p_id, p_name, p_title),
-		enabled(true),
 		collection_id(0),
 		state(GAME_STATE_UNKNOWN),
 		type(GAME_TYPE_UNKNOWN),
@@ -92,7 +90,6 @@ struct Game : public Item
 	{
 	}
 
-	bool enabled;					/**< Indica si está activado o no */
 	long long int collection_id;	/**< Identificador de la colección a la que pertenece*/
 	GameState state;				/**< Estado del juego (0 desconocido, 1 lcorrecto, 2 incorrecto) */
 	Glib::ustring file;				/**< Path al fichero del juego */

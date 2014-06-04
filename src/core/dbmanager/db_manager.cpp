@@ -116,7 +116,6 @@ bool DbManager::resetDataBase(void)
 			//Información interna
 			"Id                 INTEGER PRIMARY KEY,\n"
 			"Name               TEXT UNIQUE NOT NULL COLLATE NOCASE,\n"
-			"Enabled            INTEGER NOT NULL DEFAULT 1,\n"
 			"SortOrder          INTEGER NOT NULL DEFAULT 0,\n"
 
 			// Nombre del sistema en la metadb
@@ -178,7 +177,6 @@ bool DbManager::resetDataBase(void)
 			"CREATE TABLE Games (\n"
 			"Id                 INTEGER PRIMARY KEY,\n"
 			"Name               TEXT NOT NULL COLLATE NOCASE,\n"
-			"Enabled            INTEGER NOT NULL DEFAULT 1,\n"
 			"CollectionId       INTEGER NOT NULL DEFAULT 0,\n"
 			"State              INTEGER NOT NULL DEFAULT 0,\n"
 			"File               TEXT,\n"

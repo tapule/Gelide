@@ -298,7 +298,7 @@ bool DbManager::gameListGetGames(const long long int id, std::vector<Game* >& li
 	// Generamos las clausulas iniciales de la consulta
 	query = "SELECT Games.*, Manufacturers.Name, Years.Name, Genres.Name\n"
 			"FROM Games, Manufacturers, Years, Genres\n";
-	where = "WHERE Games.Enabled = 1 AND Games.ManufacturerId = Manufacturers.Id AND Games.YearId = Years.Id AND Games.GenreId = Genres.Id AND Games.Id IN (\n"
+	where = "WHERE Games.ManufacturerId = Manufacturers.Id AND Games.YearId = Years.Id AND Games.GenreId = Genres.Id AND Games.Id IN (\n"
 			"   SELECT GameId\n"
 			"   FROM GamesListEntries\n"
 			"   WHERE GamelistId = " + utils::toStr(id) + "\n"
@@ -407,28 +407,27 @@ bool DbManager::gameListGetGames(const long long int id, std::vector<Game* >& li
 	list.clear();
 
 	while((ret = stm->step()) == SqliteStatement::STATEMENT_ROW){
-		element = new Game(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(8));
-		element->enabled = stm->getColumnBool(2);
-		element->collection_id = stm->getColumnInt64(3);
-		element->state = static_cast<GameState>(stm->getColumnInt(4));
-		element->file = stm->getColumnText(5);
-		element->type = static_cast<GameType>(stm->getColumnInt(6));
-		element->crc = stm->getColumnText(7);
-		//element->title = stm->getColumnText(8);
-		element->manufacturer_id = stm->getColumnInt64(9);
-		element->year_id = stm->getColumnInt64(10);
-		element->genre_id = stm->getColumnInt64(11);
-		element->players = stm->getColumnInt(12);
-		element->rating = stm->getColumnInt(13);
-		element->times_played = stm->getColumnInt(15);
-		element->last_time_played = stm->getColumnText(15);
-		element->date_added = stm->getColumnText(16);
-		element->favorite = stm->getColumnBool(17);
-		element->use_custom_emulator = stm->getColumnBool(18);
-		element->emulator_id = stm->getColumnInt64(19);
-		element->manufacturer = stm->getColumnText(20);
-		element->year = stm->getColumnText(21);
-		element->genre = stm->getColumnText(22);
+		element = new Game(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(7));
+		element->collection_id = stm->getColumnInt64(2);
+		element->state = static_cast<GameState>(stm->getColumnInt(3));
+		element->file = stm->getColumnText(4);
+		element->type = static_cast<GameType>(stm->getColumnInt(5));
+		element->crc = stm->getColumnText(6);
+		//element->title = stm->getColumnText(7);
+		element->manufacturer_id = stm->getColumnInt64(8);
+		element->year_id = stm->getColumnInt64(9);
+		element->genre_id = stm->getColumnInt64(10);
+		element->players = stm->getColumnInt(11);
+		element->rating = stm->getColumnInt(12);
+		element->times_played = stm->getColumnInt(13);
+		element->last_time_played = stm->getColumnText(14);
+		element->date_added = stm->getColumnText(15);
+		element->favorite = stm->getColumnBool(16);
+		element->use_custom_emulator = stm->getColumnBool(17);
+		element->emulator_id = stm->getColumnInt64(18);
+		element->manufacturer = stm->getColumnText(19);
+		element->year = stm->getColumnText(20);
+		element->genre = stm->getColumnText(21);
 		list.push_back(element);
 	}
 	stm->finalize();
@@ -453,7 +452,7 @@ bool DbManager::gameListGetGames(const long long int id, std::vector<Item* >& li
 	// Generamos las clausulas iniciales de la consulta
 	query = "SELECT Games.Id, Games.Name, Games.Title\n"
 			"FROM Games\n";
-	where = "WHERE Games.Enabled = 1 AND Games.Id IN (\n"
+	where = "WHERE Games.Id IN (\n"
 			"   SELECT GameId\n"
 			"   FROM GamesListEntries\n"
 			"   WHERE GamelistId = " + utils::toStr(id) + "\n"
@@ -718,7 +717,7 @@ unsigned int DbManager::gameListCountGames(const long long int id)
 	stm = m_db.createStatement(
 			"SELECT COUNT(1)\n"
 			"FROM Games\n"
-			"WHERE Games.Enabled = 1 AND Games.Id IN (\n"
+			"WHERE Games.Id IN (\n"
 			"   SELECT GameId\n"
 			"   FROM GamesListEntries\n"
 			"   WHERE GamelistId = :id\n"

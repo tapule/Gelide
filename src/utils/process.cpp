@@ -239,10 +239,10 @@ bool Process::isRunning(void)
 	else
 	{
 		if (status == STILL_ACTIVE){
-			l_ret = false;
+			ret = false;
 		}
 		else{
-			l_ret = true;
+			ret = true;
 		}
 	}
 #endif

@@ -38,7 +38,6 @@ struct Collection : public Item
 	 */
 	Collection(void):
 		Item(),
-		enabled(true),
 		sort_order(0),
 		emulator_id(0)
 	{
@@ -51,13 +50,11 @@ struct Collection : public Item
 	 */
 	Collection(const long long int p_id, const Glib::ustring& p_name):
 		Item(p_id, p_name),
-		enabled(true),
 		sort_order(0),
 		emulator_id(0)
 	{
 	}
 
-	bool enabled;				/**< Indica si está activado o no */
 	int sort_order;				/**< Orden ocupado en la lista de sistemas */
 
 	Glib::ustring system_id;	/**< Identificador del sistema al que referencia la colección */
