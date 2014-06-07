@@ -48,8 +48,14 @@ GameList* DbManager::gameListGet(const long long int id)
 	if (stm->step() == SqliteStatement::STATEMENT_ROW)
 	{
 		element = new GameList(stm->getColumnInt64(0), stm->getColumnText(1));
-		element->use_custom_emulator = stm->getColumnBool(2);
-		element->emulator_id = stm->getColumnInt64(3);
+		element->type = static_cast<GamelistType>(stm->getColumnInt(2));
+		element->operation = static_cast<GamelistOperation>(stm->getColumnInt(3));
+		element->rules = stm->getColumnText(4);
+		element->limited = stm->getColumnBool(5);
+		element->limit_amount = stm->getColumnInt(6);
+		element->query_cache = stm->getColumnText(7);
+		element->use_custom_emulator = stm->getColumnBool(8);
+		element->emulator_id = stm->getColumnInt64(9);
 	}
 	else
 	{
@@ -70,17 +76,29 @@ bool DbManager::gameListAdd(GameList* list)
 	assert(list);
 	assert(!list->name.empty());
 
+	// Si se trata de una lista inteligente actualizamos su cache de consulta
+	if (list->type == GAMELIST_TYPE_SMART)
+	{
+		gameListUpdateQueryCache(list);
+	}
+
 	stm = m_db.createStatement(
-			"INSERT INTO GamesLists (Name, UseCustomEmulator, EmulatorId)\n"
-			"VALUES (:name, :usecustom, :emuid)"
+			"INSERT INTO GamesLists (Name, Type, Operation, Rules, Limited, LimitAmount, QueryCache, UseCustomEmulator, EmulatorId)\n"
+			"VALUES (:name, :type, :operation, :rules, :limited, :limitamount, :querycache, :usecustom, :emuid)"
 	);
 	if (!stm)
 	{
 		return false;
 	}
 	stm->bind(1, list->name);
-	stm->bind(2, list->use_custom_emulator);
-	stm->bind(3, list->emulator_id);
+	stm->bind(2, list->type);
+	stm->bind(3, list->operation);
+	stm->bind(4, list->rules);
+	stm->bind(5, list->limited);
+	stm->bind(6, list->limit_amount);
+	stm->bind(7, list->query_cache);
+	stm->bind(8, list->use_custom_emulator);
+	stm->bind(9, list->emulator_id);
 	ret = stm->step();
 	stm->finalize();
 	delete stm;
@@ -102,10 +120,16 @@ bool DbManager::gameListUpdate(GameList* list)
 	assert(list->id);
 	assert(!list->name.empty());
 
-	// En las actualizaciones, no se modifica el id
+	// Si se trata de una lista inteligente actualizamos su cache de consulta
+	if (list->type == GAMELIST_TYPE_SMART)
+	{
+		gameListUpdateQueryCache(list);
+	}
+
+	// En las actualizaciones, no se modifica el id mi el tipo
 	stm = m_db.createStatement(
 			"UPDATE GamesLists\n"
-			"SET Name = :name, UseCustomEmulator = :custemu, EmulatorId = :emuid\n"
+			"SET Name = :name, Operation = :operation, Rules = :rules, Limited = :limited, LimitAmount = :limitamount, QueryCache = :querycache, UseCustomEmulator = :custemu, EmulatorId = :emuid\n"
 			"WHERE Id = :id"
 	);
 	if (!stm)
@@ -113,9 +137,14 @@ bool DbManager::gameListUpdate(GameList* list)
 		return false;
 	}
 	stm->bind(1, list->name);
-	stm->bind(2, list->use_custom_emulator);
-	stm->bind(3, list->emulator_id);
-	stm->bind(4, list->id);
+	stm->bind(2, list->operation);
+	stm->bind(3, list->rules);
+	stm->bind(4, list->limited);
+	stm->bind(5, list->limit_amount);
+	stm->bind(6, list->query_cache);
+	stm->bind(7, list->use_custom_emulator);
+	stm->bind(8, list->emulator_id);
+	stm->bind(9, list->id);
 	ret = stm->step();
 	stm->finalize();
 	delete stm;
@@ -230,8 +259,14 @@ bool DbManager::gamelistGetAll(std::vector<GameList* >& list)
 	while ((ret = stm->step()) == SqliteStatement::STATEMENT_ROW)
 	{
 		element = new GameList(stm->getColumnInt64(0), stm->getColumnText(1));
-		element->use_custom_emulator = stm->getColumnBool(2);
-		element->emulator_id = stm->getColumnInt64(3);
+		element->type = static_cast<GamelistType>(stm->getColumnInt(2));
+		element->operation = static_cast<GamelistOperation>(stm->getColumnInt(3));
+		element->rules = stm->getColumnText(4);
+		element->limited = stm->getColumnBool(5);
+		element->limit_amount = stm->getColumnInt(6);
+		element->query_cache = stm->getColumnText(7);
+		element->use_custom_emulator = stm->getColumnBool(8);
+		element->emulator_id = stm->getColumnInt64(9);
 		list.push_back(element);
 	}
 	stm->finalize();
@@ -286,44 +321,66 @@ bool DbManager::gameListGetGames(const long long int id, std::vector<Game* >& li
 {
 	SqliteStatement* stm;
 	std::vector<Game* >::iterator iter;
+	GameList* gamelist;
 	int ret;
 	Game* element;
-	Glib::ustring query, where, order;
+	Glib::ustring query, where, order, limit;
 
 	assert(m_db.isOpen());
 	assert(id);
 
+	gamelist = gameListGet(id);
+	if (!gamelist)
+	{
+		return false;
+	}
+
 	// Generamos las clausulas iniciales de la consulta
 	query = "SELECT Games.*, Manufacturers.Name, Years.Name, Genres.Name\n"
 			"FROM Games, Manufacturers, Years, Genres\n";
-	where = "WHERE Games.ManufacturerId = Manufacturers.Id AND Games.YearId = Years.Id AND Games.GenreId = Genres.Id AND Games.Id IN (\n"
-			"   SELECT GameId\n"
-			"   FROM GamesListEntries\n"
-			"   WHERE GamelistId = " + utils::toStr(id) + "\n"
-			")";
+	where = "WHERE (Games.ManufacturerId = Manufacturers.Id AND Games.YearId = Years.Id AND Games.GenreId = Genres.Id)\n";
 	order = "ORDER BY Games.Title ASC\n";
+	if (gamelist->type == GAMELIST_TYPE_STANDARD)
+	{
+		where += "AND Games.Id IN (\n"
+				  "   SELECT GameId\n"
+				  "   FROM GamesListEntries\n"
+				  "   WHERE GamelistId = " + utils::toStr(id) + "\n"
+				  ")\n";
+	}
+	else
+	{
+		where += "AND " + gamelist->query_cache + "\n";
+		// Comprobamos si hay que aplicar la limitación
+		if (gamelist->limited)
+		{
+			limit = "LIMIT " + utils::toStr(gamelist->limit_amount);
+		}
 
+	}
 	// Agregamos opciones de filtrado si corresponde
 	if (filters.size())
 	{
-		where += parseFiltersVector(filters);
+		where += "AND " + parseFiltersVector(filters) + "\n";
 	}
-	where += "\n";
+	// Ya tenemos la consulta, así que eliminamos la gamelist
+	delete gamelist;
 
 	// Creamos el comando sql para hacer la consulta final
-	stm = m_db.createStatement(query + where + order);
+	stm = m_db.createStatement(query + where + order + limit);
 	if (!stm)
 	{
 		return false;
 	}
 
-	for(iter = list.begin(); iter != list.end(); ++iter)
+	for (iter = list.begin(); iter != list.end(); ++iter)
 	{
 		delete (*iter);
 	}
 	list.clear();
 
-	while((ret = stm->step()) == SqliteStatement::STATEMENT_ROW){
+	while ((ret = stm->step()) == SqliteStatement::STATEMENT_ROW)
+	{
 		element = new Game(stm->getColumnInt64(0), stm->getColumnText(1), stm->getColumnText(7));
 		element->collection_id = stm->getColumnInt64(2);
 		element->state = static_cast<GameState>(stm->getColumnInt(3));
@@ -331,7 +388,7 @@ bool DbManager::gameListGetGames(const long long int id, std::vector<Game* >& li
 		element->type = static_cast<GameType>(stm->getColumnInt(5));
 		element->crc = stm->getColumnText(6);
 		//element->title = stm->getColumnText(7);
-		element->manufacturer_id = stm->getColumnInt64(8);
+		element->manufacturer_id = stm->getColumnInt64(7);
 		element->year_id = stm->getColumnInt64(9);
 		element->genre_id = stm->getColumnInt64(10);
 		element->players = stm->getColumnInt(11);
@@ -357,32 +414,55 @@ bool DbManager::gameListGetGames(const long long int id, std::vector<Item* >& li
 {
 	SqliteStatement* stm;
 	std::vector<Item* >::iterator iter;
+	GameList* gamelist;
 	int ret;
 	Item* element;
-	Glib::ustring query, where, order;
+	Glib::ustring query, where, order, limit;
 
 	assert(m_db.isOpen());
 	assert(id);
 
+	gamelist = gameListGet(id);
+	if (!gamelist)
+	{
+		return false;
+	}
+
 	// Generamos las clausulas iniciales de la consulta
 	query = "SELECT Games.Id, Games.Name, Games.Title\n"
 			"FROM Games\n";
-	where = "WHERE Games.Id IN (\n"
-			"   SELECT GameId\n"
-			"   FROM GamesListEntries\n"
-			"   WHERE GamelistId = " + utils::toStr(id) + "\n"
-			")";
+	where = "WHERE ";
 	order = "ORDER BY Games.Title ASC\n";
+
+	if (gamelist->type == GAMELIST_TYPE_STANDARD)
+	{
+		where += "Games.Id IN (\n"
+				  "   SELECT GameId\n"
+				  "   FROM GamesListEntries\n"
+				  "   WHERE GamelistId = " + utils::toStr(id) + "\n"
+				  ")\n";
+	}
+	else
+	{
+		where += gamelist->query_cache + "\n";
+		// Comprobamos si hay que aplicar la limitación
+		if (gamelist->limited)
+		{
+			limit = "LIMIT " + utils::toStr(gamelist->limit_amount);
+		}
+	}
 
 	// Agregamos opciones de filtrado si corresponde
 	if (filters.size())
 	{
-		where += parseFiltersVector(filters);
+		where += "AND " + parseFiltersVector(filters) + "\n";
 	}
-	where += "\n";
+
+	// Ya tenemos la consulta, así que eliminamos la gamelist
+	delete gamelist;
 
 	// Creamos el comando sql para hacer la consulta final
-	stm = m_db.createStatement(query + where + order);
+	stm = m_db.createStatement(query + where + order + limit);
 	if (!stm)
 	{
 		return false;
@@ -543,30 +623,57 @@ bool DbManager::gameListRemoveGameGroup(const long long int id, const std::vecto
 unsigned int DbManager::gameListCountGames(const long long int id)
 {
 	SqliteStatement* stm;
+	GameList* gamelist;
 	unsigned int ret;
+	Glib::ustring query, where, limit;
 
 	assert(m_db.isOpen());
 	assert(id);
 
-	stm = m_db.createStatement(
-			"SELECT COUNT(1)\n"
-			"FROM Games\n"
-			"WHERE Games.Id IN (\n"
-			"   SELECT GameId\n"
-			"   FROM GamesListEntries\n"
-			"   WHERE GamelistId = :id\n"
-			")"
-	);
+	gamelist = gameListGet(id);
+	if (!gamelist)
+	{
+		return 0;
+	}
+
+	// Generamos las clausulas iniciales de la consulta
+	query = "SELECT COUNT(1)\n"
+			"FROM Games\n";
+	where = "WHERE ";
+
+	if (gamelist->type == GAMELIST_TYPE_STANDARD)
+	{
+		where += "Games.Id IN (\n"
+				  "   SELECT GameId\n"
+				  "   FROM GamesListEntries\n"
+				  "   WHERE GamelistId = " + utils::toStr(id) + "\n"
+				  ")\n";
+	}
+	else
+	{
+		where += gamelist->query_cache + "\n";
+		// Comprobamos si hay que aplicar la limitación
+		if (gamelist->limited)
+		{
+			limit = "LIMIT " + utils::toStr(gamelist->limit_amount);
+		}
+	}
+
+	// Ya tenemos la consulta, así que eliminamos la gamelist
+	delete gamelist;
+
+	// Creamos el comando sql para hacer la consulta final
+	stm = m_db.createStatement(query + where + limit);
 	if (!stm)
 	{
 		return 0;
 	}
-	stm->bind(1, id);
 	if (stm->step() == SqliteStatement::STATEMENT_ROW)
 	{
 		ret = stm->getColumnInt(0);
 	}
-	else{
+	else
+	{
 		ret = 0;
 	}
 	stm->finalize();
@@ -574,5 +681,199 @@ unsigned int DbManager::gameListCountGames(const long long int id)
 
 	return ret;
 }
+
+bool DbManager::gameListUpdateQueryCache(GameList* list)
+{
+	Glib::ustring query, rules_operation;
+	XmlReader xml;
+	XmlNode root;
+	XmlNode node;
+	XmlNode::iterator iter, iter_tmp;
+	int ver, tmp;
+	GamelistRuleField field;
+	GamelistRuleOperation operation;
+	Glib::ustring value;
+
+	assert(list);
+	assert(list->name.size());
+
+	// Comprobamos si se trata de una lista inteligente
+	if (list->type == GAMELIST_TYPE_SMART)
+	{
+		// Cargamos el xml que contiene las reglas
+		if (xml.load(list->rules))
+		{
+			node = *(xml.getRootElement().begin());
+			if (node.getName() == "rules")
+			{
+				// Comprobamos la versión de las reglas
+				node.getAttribute("version", ver);
+				if (ver != GameList::RULES_VERSION)
+				{
+					LOG_ERROR("DBManager: Smart gamelist rules version mismatch");
+				}
+				// Comprobamos si hay reglas
+				iter = node.begin();
+				if (iter != node.end())
+				{
+					// Tipo de operación entre reglas de filtrado
+					if (list->operation == GAMELIST_OPERATION_AND)
+					{
+						rules_operation = "AND";
+					}
+					else
+					{
+						rules_operation = "OR";
+					}
+
+					// Parseamos las reglas
+					query = "(\n";
+					for (iter = node.begin(); iter != node.end(); ++iter)
+					{
+						// Leemos parámetros
+						iter->getAttribute("field", tmp);
+						field = static_cast<GamelistRuleField>(tmp);
+						iter->getAttribute("operation", tmp);
+						operation = static_cast<GamelistRuleOperation>(tmp);
+						iter->getAttribute("value", value);
+						query += gameListParseSmartRule(field, operation, value) + "\n";
+
+						iter_tmp = iter;
+						if (++iter_tmp != node.end())
+						{
+							query += rules_operation + "\n";
+						}
+					}
+					query += ")";
+				}
+			}
+			else
+			{
+				LOG_ERROR("DBManager: Loading smart gamelist rules");
+				xml.close();
+				return false;
+			}
+			xml.close();
+		}
+		else
+		{
+			LOG_ERROR("DBManager: Can't load smart gamelist rules");
+			return false;
+		}
+	}
+
+	list->query_cache = query;
+	return true;
+}
+
+Glib::ustring DbManager::gameListParseSmartRule(const GamelistRuleField field, const GamelistRuleOperation operation, const Glib::ustring& value)
+{
+	Glib::ustring rule;
+
+	// Nombres de los posibles campos en las reglas
+	static const Glib::ustring field_name[FIELD_COUNT] =
+	{
+		"Collections.Name",
+		"Games.Name",
+		"Games.Title",
+		"Manufacturers.Name",
+		"Genres.Name",
+		"Tags.Name",
+		"Games.State",
+		"Games.Type",
+		"Years.Name",
+		"Games.Players",
+		"Games.Rating",
+		"Games.TimesPlayed",
+		"Games.Favorite",
+		"Games.LastTimePlayed",
+		"Games.DateAdded"
+	};
+
+	// Obtenemos el nombre del campo
+	rule = field_name[field];
+	// Operación sobre el campo
+	switch (operation)
+	{
+	case RULE_OPERATION_CONTAINS:
+		rule += " LIKE '%" + value + "%'";
+		break;
+	case RULE_OPERATION_NOTCONTAINS:
+		rule += " NOT LIKE '%" + value + "%'";
+		break;
+	case RULE_OPERATION_EQUALS:
+		rule += " = '" + value + "'";
+		break;
+	case RULE_OPERATION_NOTEQUALS:
+		rule += " <> '" + value + "'";
+		break;
+	case RULE_OPERATION_STARTWITH:
+		rule += " LIKE '" + value + "%'";
+		break;
+	case RULE_OPERATION_ENDWITH:
+		rule += " LIKE '%" + value + "'";
+		break;
+	case RULE_OPERATION_LESSTHAN:
+		rule += " < '" + value + "'";
+		break;
+	case RULE_OPERATION_GREATERTHAN:
+		rule += " > '" + value + "'";
+		break;
+	case RULE_OPERATION_LESSTHANEQUALS:
+		rule += " <= '" + value + "'";
+		break;
+	case RULE_OPERATION_GREATERTHANEQUALS:
+		rule += " >= '" + value + "'";
+		break;
+	case RULE_OPERATION_BEFORE:
+		rule += " < '" + value + "'";
+		break;
+	case RULE_OPERATION_AFTER:
+		rule += " > '" + value + "'";
+		break;
+	}
+
+	// Campos especiales
+	switch (field)
+	{
+	case FIELD_COLLECTIONS_NAME:
+		rule = 	"Games.CollectionId IN (\n"
+				"    SELECT Collections.Id from Collections\n"
+				"    WHERE " + rule + "\n"
+				")";
+		break;
+	case FIELD_MANUFACTURERS_NAME:
+		rule = 	"Games.ManufacturerId IN (\n"
+				"    SELECT Manufacturers.Id from Manufacturers\n"
+				"    WHERE " + rule + "\n"
+				")";
+		break;
+	case FIELD_GENRES_NAME:
+		rule = 	"Games.GenreId IN (\n"
+				"    SELECT Genres.Id from Genres\n"
+				"    WHERE " + rule + "\n"
+				")";
+		break;
+	case FIELD_TAGS_NAME:
+		rule = 	"Games.Id IN (\n"
+				"    SELECT TagEntries.GameId from TagEntries\n"
+				"    WHERE TagEntries.TagId IN (\n"
+				"        SELECT Tags.Id\n"
+				"        FROM Tags\n"
+				"        WHERE " + rule + "\n"
+				"    )\n"
+				")";
+		break;
+	case FIELD_YEARS_NAME:
+		rule = 	"Games.YearId IN (\n"
+				"    SELECT Years.Id from Years\n"
+				"    WHERE " + rule + "\n"
+				")";
+		break;
+	}
+
+	return rule;
+}
+
 
 } // namespace gelide

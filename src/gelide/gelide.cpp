@@ -175,6 +175,33 @@ int GelideApp::run(int argc, char** argv)
 		kit.run(*gui);
 		delete gui;*/
 
+	GameList gl;
+
+	gl.name = "test00";
+	gl.type = GAMELIST_TYPE_SMART;
+	gl.operation = GAMELIST_OPERATION_OR;
+	gl.rules =
+		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+		"<ruleset>"
+		"<rules version=\"1\">"
+		"<rule field=\"0\" operation=\"0\" value=\"coleccion\" />"
+		"<rule field=\"1\" operation=\"1\" value=\"name\" />"
+		"<rule field=\"2\" operation=\"1\" value=\"titulo\" />"
+		"<rule field=\"3\" operation=\"4\" value=\"manu\" />"
+			"<rule field=\"4\" operation=\"3\" value=\"genre\" />"
+			"<rule field=\"5\" operation=\"2\" value=\"tag\" />"
+			"<rule field=\"6\" operation=\"2\" value=\"1\" />"
+			"<rule field=\"7\" operation=\"3\" value=\"2\" />"
+			"<rule field=\"8\" operation=\"2\" value=\"1988\" />"
+		"</rules>"
+		"</ruleset>";
+	gl.limited = true;
+	gl.limit_amount = 56;
+
+	m_db_manager->gameListAdd(&gl);
+
+	unsigned int i = m_db_manager->gameListCountGames(gl.id);
+	LOG_DEBUG("JUEGOS: " << i);
 
 	/*******************************************************/
 

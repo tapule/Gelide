@@ -593,15 +593,14 @@ bool DbManager::collectionGetGames(const long long int id, std::vector<Game* >& 
 	// Generamos las clausulas iniciales de la consulta
 	query = "SELECT Games.*, Manufacturers.Name, Years.Name, Genres.Name\n"
 			"FROM Games, Manufacturers, Years, Genres\n";
-	where = "WHERE Games.ManufacturerId = Manufacturers.Id AND Games.YearId = Years.Id AND Games.GenreId = Genres.Id AND Games.CollectionId = " + utils::toStr(id);
+	where = "WHERE Games.ManufacturerId = Manufacturers.Id AND Games.YearId = Years.Id AND Games.GenreId = Genres.Id AND Games.CollectionId = " + utils::toStr(id) + "\n";
 	order = "ORDER BY Games.Title ASC\n";
 
 	// Agregamos opciones de filtrado si corresponde
 	if (filters.size())
 	{
-		where += parseFiltersVector(filters);
+		where += "AND " + parseFiltersVector(filters) + "\n";
 	}
-	where += "\n";
 
 	// Creamos el comando sql para hacer la consulta final
 	stm = m_db.createStatement(query + where + order);
@@ -660,15 +659,14 @@ bool DbManager::collectionGetGames(const long long int id, std::vector<Item* >& 
 	// Generamos las clausulas iniciales de la consulta
 	query = "SELECT Games.Id, Games.Name, Games.Title\n"
 			"FROM Games\n";
-	where = "WHERE Games.CollectionId = " + utils::toStr(id);
+	where = "WHERE Games.CollectionId = " + utils::toStr(id) + "\n";
 	order = "ORDER BY Games.Title ASC\n";
 
 	// Agregamos opciones de filtrado si corresponde
 	if (filters.size())
 	{
-		where += parseFiltersVector(filters);
+		where += "AND " + parseFiltersVector(filters) + "\n";
 	}
-	where += "\n";
 
 	// Creamos el comando sql para hacer la consulta final
 	stm = m_db.createStatement(query + where + order);

@@ -23,6 +23,7 @@
 #define _DB_MANAGER_HPP_
 
 #include <vector>
+#include <map>
 #include <glibmm/ustring.h>
 #include "../../defines.hpp"
 #include "../../utils/sqlite.hpp"
@@ -414,7 +415,24 @@ public:
 	 */
 	unsigned int gameListCountGames(const long long int id);
 
+private:
+	/**
+	 * Actualiza el campo QueryCache de una lista de juegos a partir de sus reglas
+	 * @param list Lista de la que actualizar su consulta
+	 * @return true si se pudo realizar la tarea, false en otro caso
+	 */
+	bool gameListUpdateQueryCache(GameList* list);
 
+	/**
+	 * Parsea una regla de lista inteligente a partir de sus campos
+	 * @param field Campo field de una regla de lista inteligente
+	 * @param operation Campo operation de una regla de lista inteligente
+	 * @param value Campo value de una regla de lista inteligente
+	 * @return Cadena SQL con la regla generada
+	 */
+	Glib::ustring gameListParseSmartRule(const GamelistRuleField field, const GamelistRuleOperation operation, const Glib::ustring& value);
+
+public:
 	/***************************************
 		Gestión de los juegos
 	****************************************/

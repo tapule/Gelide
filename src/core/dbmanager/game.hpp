@@ -29,7 +29,8 @@
 namespace gelide{
 
 // Posibles tipos de juegos
-enum GameType{
+enum GameType
+{
 	GAME_TYPE_UNKNOWN = 0,		/**< Tipo desconocido */
 	GAME_TYPE_ORIGINAL,			/**< Juego original */
 	GAME_TYPE_CLONE,			/**< Juego clon */
@@ -37,7 +38,8 @@ enum GameType{
 };
 
 // Posibles estados de un juego
-enum GameState{
+enum GameState
+{
 	GAME_STATE_UNKNOWN = 0,		/**< Estado desconocido (no comprobado) */
 	GAME_STATE_CORRECT,			/**< Estado correcto (comprobado y localizado) */
 	GAME_STATE_INCORRECT		/**< Estado incorrecto (comprobado y no localizado) */
