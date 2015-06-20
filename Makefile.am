@@ -13,7 +13,7 @@ SUBDIRS = \
 	ui 
 
 # Lugar de instalación de la documentación estandar
-gelidedocdir = ${prefix}/doc/gelide
+gelidedocdir = ${prefix}/share/doc/gelide
 # Archivos de documentación estandar a instalar
 gelidedoc_DATA = \
 	AUTHORS \
