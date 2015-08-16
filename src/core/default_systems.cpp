@@ -380,6 +380,37 @@ void CSystemManager::generateDefaultSystems(void){
 	addSystem(*l_system);
 
 	/*
+	 *  Commodore - Amiga
+	 */
+	l_system = new CSystem();
+	l_system->setName(_("Commodore Amiga"));
+	l_system->setDescription(_("Amiga Corporation' intented fusion of a computer and video game console released in 1985 as Amiga Commodore"));
+	l_system->setIconFile(GELIDE_PIXMAPS"commodore-amiga.png");
+	// Emulador UAE original
+	l_emulator.setId(0);
+	l_emulator.setName(_("UAE"));
+	l_emulator.setDescription(_("Unix Amiga Emulator, firts emulator for Commodore Amiga started as Unnusable Amiga Emulator at 1995 today abandonware"));
+	l_emulator.setVersion("0.8.29");
+	l_emulator.setAuthor(_("Bernd Schmidt"));
+	l_emulator.setHomepage("");
+	l_emulator.setPath("/usr/bin/uae"); // here due in that times there's no inclusion of emulators as games (i really thing emulator are not game)
+	l_emulator.setParams(" -s gfx_fullscreen_amiga=yes floppy1=\"$gf\" "); // let floppy default and load the software as additional floppy 1
+	l_emulator.setIconFile(GELIDE_PIXMAPS"uae.png");
+	l_system->addEmulator(l_emulator);
+	// Emulador FS-UAE
+	l_emulator.setId(0);
+	l_emulator.setName(_("Fs-UAE"));
+	l_emulator.setDescription(_("Best unix Amiga emulator its the Frode-Solheim-UAE based on the experimental code from original UAE developers"));
+	l_emulator.setVersion("2.5.37");
+	l_emulator.setAuthor(_("Frode Solheim"));
+	l_emulator.setHomepage("http://fs-uae.net");
+	l_emulator.setPath("/usr/bin/fs-uae");
+	l_emulator.setParams(" --fullscreen=1 --floppy_drive_1=\"$gf\" --floppies_dir=\"$bp\"");
+	l_emulator.setIconFile(GELIDE_PIXMAPS"fs-uae.png");
+	l_system->addEmulator(l_emulator);
+	addSystem(*l_system);													
+
+	/*
 	 *  Bandai - WonderSwan Color
 	 */
 	l_system = new CSystem();
