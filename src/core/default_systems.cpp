@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-w7idth: 4 -*- */
 /*
  * gelide
  * Copyright (C) 2008 - 2011 Juan Ángel Moreno Fernández
@@ -29,6 +29,64 @@ void CSystemManager::generateDefaultSystems(void){
 "snap_dir";"tittle_dir";"front_dir";"back_dir";"media_dir";emulator_id;
 "datname";"datDescription";"datcategory";datversion";"datauthor";datgames;
 */
+
+	/*
+	 *  All - multiroms/multiemu sporte a todos los roms (cargar un directorio de multiples extensiones de roms)
+	 *                           ESTO REQUIERE QUE BASADO EN LA EXTENSION SE PASE EL TIPO DE SISTEMA A EL EMULADOR
+	 *                           ejemplo en el caso de mednafen no es necesario pero para xe/mess se necesita especificar
+	 *                           ejemplo para xe se pasa -m y seguido de el nombre de la consola, habra que agregar 
+	 *                           una nueva variable aparte de $gf como $ge (game extension) y una definicion que
+	 *                           segun esta extension que se pasa dinamicamente, se determina que "palabra" de consola se pase al emulador.
+	 */
+	l_system = new CSystem();
+	l_system->setName(_("All Roms"));
+	l_system->setDescription(_("See al roms and run a multiemulator based on user criteria, end users recomended use specific system below."));
+	l_system->setIconFile(GELIDE_PIXMAPS"xmame.png");
+	// Emulador mednafen emula los mas importantes y conocidos hoy dia
+	l_emulator.setId(0);
+	l_emulator.setName(_("Mednafen"));
+	l_emulator.setDescription(_("Portable Multi-system emulator under GPL"));
+	l_emulator.setVersion("0.9.24"); // el ultimo emula 10 consolas, pero es mas lento, el 0.8.X emula solo 6 consolas
+	l_emulator.setAuthor(_("The Mednafen team"));
+	l_emulator.setHomepage("http://mednafen.sourceforge.net");
+	l_emulator.setPath("/usr/games/mednafen");
+	l_emulator.setParams(" -fs 1 -vdriver 0 \"$gf\""); // no pasar ningun parametro, pues se usa varios roms/consolas
+	l_emulator.setIconFile(GELIDE_PIXMAPS"mednafen.png");
+	l_system->addEmulator(l_emulator);
+	// Emulador mess emula casi todos los sistemas
+	l_emulator.setId(0);
+	l_emulator.setName(_("Mess"));
+	l_emulator.setDescription(_("Multi Emulator Super System, the sister project of MAME"));
+	l_emulator.setVersion("0.139");
+	l_emulator.setAuthor(_("The MESS Team"));
+	l_emulator.setHomepage("http://www.mess.org/");
+	l_emulator.setPath("/usr/games/mess");
+	l_emulator.setParams(" -keepaspect -skip_gameinfo -sound -multithreading -video opengl -cart \"$gf\"");
+	l_emulator.setIconFile(GELIDE_PIXMAPS"mess.png");
+	l_system->addEmulator(l_emulator);
+	// Emulador sdlmess
+	l_emulator.setId(0);
+	l_emulator.setName(_("SdlMess"));
+	l_emulator.setDescription(_("Portable Mess version for POSIX-y systems with SDL"));
+	l_emulator.setVersion("0.136");
+	l_emulator.setAuthor(_("Olivier Galibert and R. Belmont"));
+	l_emulator.setHomepage("http://rbelmont.mameworld.info/?page_id=163");
+	l_emulator.setPath("/usr/games/sdlmess");
+	l_emulator.setParams(" -keepaspect -skip_gameinfo -sound -multithreading -video opengl -cart \"$gf\"");
+	l_emulator.setIconFile(GELIDE_PIXMAPS"sdlmess.png");
+	l_system->addEmulator(l_emulator);
+	addSystem(*l_system);
+	// Emulador Xe
+	l_emulator.setId(0);
+	l_emulator.setName(_("Xe Emulator"));
+	l_emulator.setDescription(_("Freeware Multi-system emulator for Linux and Windows"));
+	l_emulator.setVersion("2.16.2");
+	l_emulator.setAuthor(_("James Li"));
+	l_emulator.setHomepage("http://www.xe-emulator.com");
+	l_emulator.setPath("/usr/local/bin/xe");
+	l_emulator.setParams(" --lite --fullscreen --render 1 \"$gf\"");
+	l_emulator.setIconFile(GELIDE_PIXMAPS"xe.png");
+	l_system->addEmulator(l_emulator);
 
 	/*
 	 *  Amstrad - GX4000
@@ -2199,4 +2257,3 @@ void CSystemManager::generateDefaultSystems(void){
 	addSystem(*l_system);
 
 }
-
