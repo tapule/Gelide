@@ -17,6 +17,7 @@ pixmaps_DATA = \
 	boycottadvance-sdl.png \
 	bsnes.png \
 	coleco-colecovision.png \
+	commodore-amiga.png \
 	desmume.png \
 	emerson-arcadia2001.png \
 	entex-adventurevision.png \
@@ -24,6 +25,7 @@ pixmaps_DATA = \
 	fbzx.png \
 	fceux.png \
 	fuse.png \
+	fs-uae.png \
 	gambatte.png \
 	gce-vectrex.png \
 	generator.png \
@@ -69,6 +71,7 @@ pixmaps_DATA = \
 	snk-neogeopocketcolor.png \
 	spectemu.png \
 	stella.png \
+	uae.png \
 	virtualjaguar.png \
 	visualboyadvance.png \
 	xe.png \
