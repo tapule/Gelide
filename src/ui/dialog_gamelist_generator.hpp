@@ -71,6 +71,10 @@ private:
 	bool on_delete_event(GdkEventAny* p_event);
 
 	bool generateGameList(void);
+	void generateGameListRecursive(Glib::ustring l_path, Glib::Dir& l_dir, CGame* l_game, 
+						std::map<Glib::ustring, CGame*>& l_user_games,
+						bool l_preserve, bool l_add_unknown, 
+						std::map<Glib::ustring, CGame*>& l_games);
 
 };
 
