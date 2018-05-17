@@ -24,6 +24,7 @@
 
 #include "../gelide.hpp"
 #include "dat_reader.hpp"
+#include <glibmm/fileutils.h>
 
 /**
  * Clase factory para lectores de ficheros dat.

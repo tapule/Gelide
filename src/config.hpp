@@ -24,6 +24,8 @@
 
 #include "gelide.hpp"
 #include <glibmm/ustring.h>
+#include <glibmm/fileutils.h>
+#include <glibmm/miscutils.h>
 #include <map>
 #include "utils/utils.hpp"
 
