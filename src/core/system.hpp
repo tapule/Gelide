@@ -25,6 +25,7 @@
 #include "../gelide.hpp"
 #include <gtkmm/liststore.h>
 #include <glibmm/ustring.h>
+#include <glibmm/stringutils.h>
 #include <gdkmm/pixbuf.h>
 #include "game.hpp"
 #include "emulator.hpp"

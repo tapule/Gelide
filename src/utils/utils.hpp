@@ -25,6 +25,7 @@
 #include <sstream>
 #include <vector>
 #include <glibmm/ustring.h>
+#include <glibmm/miscutils.h>
 #include "../gelide.hpp"
 #include <gdkmm/pixbuf.h>
 
